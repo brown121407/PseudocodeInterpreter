@@ -80,40 +80,53 @@ public interface IPseudoVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <return>The visitor result.</return>
 	Result VisitType([NotNull] PseudoParser.TypeContext context);
 	/// <summary>
-	/// Visit a parse tree produced by the <c>Mult</c>
-	/// labeled alternative in <see cref="PseudoParser.expr"/>.
+	/// Visit a parse tree produced by <see cref="PseudoParser.expr"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	Result VisitMult([NotNull] PseudoParser.MultContext context);
-	/// <summary>
-	/// Visit a parse tree produced by the <c>Div</c>
-	/// labeled alternative in <see cref="PseudoParser.expr"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	/// <return>The visitor result.</return>
-	Result VisitDiv([NotNull] PseudoParser.DivContext context);
+	Result VisitExpr([NotNull] PseudoParser.ExprContext context);
 	/// <summary>
 	/// Visit a parse tree produced by the <c>Add</c>
-	/// labeled alternative in <see cref="PseudoParser.expr"/>.
+	/// labeled alternative in <see cref="PseudoParser.plusOrMinus"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
 	Result VisitAdd([NotNull] PseudoParser.AddContext context);
 	/// <summary>
+	/// Visit a parse tree produced by the <c>ToMultOrDiv</c>
+	/// labeled alternative in <see cref="PseudoParser.plusOrMinus"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitToMultOrDiv([NotNull] PseudoParser.ToMultOrDivContext context);
+	/// <summary>
 	/// Visit a parse tree produced by the <c>Sub</c>
-	/// labeled alternative in <see cref="PseudoParser.expr"/>.
+	/// labeled alternative in <see cref="PseudoParser.plusOrMinus"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
 	Result VisitSub([NotNull] PseudoParser.SubContext context);
 	/// <summary>
+	/// Visit a parse tree produced by the <c>Div</c>
+	/// labeled alternative in <see cref="PseudoParser.multOrDiv"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitDiv([NotNull] PseudoParser.DivContext context);
+	/// <summary>
 	/// Visit a parse tree produced by the <c>ToUnarySign</c>
-	/// labeled alternative in <see cref="PseudoParser.expr"/>.
+	/// labeled alternative in <see cref="PseudoParser.multOrDiv"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
 	Result VisitToUnarySign([NotNull] PseudoParser.ToUnarySignContext context);
+	/// <summary>
+	/// Visit a parse tree produced by the <c>Mult</c>
+	/// labeled alternative in <see cref="PseudoParser.multOrDiv"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitMult([NotNull] PseudoParser.MultContext context);
 	/// <summary>
 	/// Visit a parse tree produced by the <c>UnaryPlus</c>
 	/// labeled alternative in <see cref="PseudoParser.unarySign"/>.

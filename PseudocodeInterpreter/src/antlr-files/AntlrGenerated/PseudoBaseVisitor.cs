@@ -110,8 +110,7 @@ public partial class PseudoBaseVisitor<Result> : AbstractParseTreeVisitor<Result
 	/// <return>The visitor result.</return>
 	public virtual Result VisitType([NotNull] PseudoParser.TypeContext context) { return VisitChildren(context); }
 	/// <summary>
-	/// Visit a parse tree produced by the <c>Mult</c>
-	/// labeled alternative in <see cref="PseudoParser.expr"/>.
+	/// Visit a parse tree produced by <see cref="PseudoParser.expr"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -119,21 +118,10 @@ public partial class PseudoBaseVisitor<Result> : AbstractParseTreeVisitor<Result
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	public virtual Result VisitMult([NotNull] PseudoParser.MultContext context) { return VisitChildren(context); }
-	/// <summary>
-	/// Visit a parse tree produced by the <c>Div</c>
-	/// labeled alternative in <see cref="PseudoParser.expr"/>.
-	/// <para>
-	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
-	/// on <paramref name="context"/>.
-	/// </para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	/// <return>The visitor result.</return>
-	public virtual Result VisitDiv([NotNull] PseudoParser.DivContext context) { return VisitChildren(context); }
+	public virtual Result VisitExpr([NotNull] PseudoParser.ExprContext context) { return VisitChildren(context); }
 	/// <summary>
 	/// Visit a parse tree produced by the <c>Add</c>
-	/// labeled alternative in <see cref="PseudoParser.expr"/>.
+	/// labeled alternative in <see cref="PseudoParser.plusOrMinus"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -143,8 +131,19 @@ public partial class PseudoBaseVisitor<Result> : AbstractParseTreeVisitor<Result
 	/// <return>The visitor result.</return>
 	public virtual Result VisitAdd([NotNull] PseudoParser.AddContext context) { return VisitChildren(context); }
 	/// <summary>
+	/// Visit a parse tree produced by the <c>ToMultOrDiv</c>
+	/// labeled alternative in <see cref="PseudoParser.plusOrMinus"/>.
+	/// <para>
+	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
+	/// on <paramref name="context"/>.
+	/// </para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	public virtual Result VisitToMultOrDiv([NotNull] PseudoParser.ToMultOrDivContext context) { return VisitChildren(context); }
+	/// <summary>
 	/// Visit a parse tree produced by the <c>Sub</c>
-	/// labeled alternative in <see cref="PseudoParser.expr"/>.
+	/// labeled alternative in <see cref="PseudoParser.plusOrMinus"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -154,8 +153,19 @@ public partial class PseudoBaseVisitor<Result> : AbstractParseTreeVisitor<Result
 	/// <return>The visitor result.</return>
 	public virtual Result VisitSub([NotNull] PseudoParser.SubContext context) { return VisitChildren(context); }
 	/// <summary>
+	/// Visit a parse tree produced by the <c>Div</c>
+	/// labeled alternative in <see cref="PseudoParser.multOrDiv"/>.
+	/// <para>
+	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
+	/// on <paramref name="context"/>.
+	/// </para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	public virtual Result VisitDiv([NotNull] PseudoParser.DivContext context) { return VisitChildren(context); }
+	/// <summary>
 	/// Visit a parse tree produced by the <c>ToUnarySign</c>
-	/// labeled alternative in <see cref="PseudoParser.expr"/>.
+	/// labeled alternative in <see cref="PseudoParser.multOrDiv"/>.
 	/// <para>
 	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
 	/// on <paramref name="context"/>.
@@ -164,6 +174,17 @@ public partial class PseudoBaseVisitor<Result> : AbstractParseTreeVisitor<Result
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
 	public virtual Result VisitToUnarySign([NotNull] PseudoParser.ToUnarySignContext context) { return VisitChildren(context); }
+	/// <summary>
+	/// Visit a parse tree produced by the <c>Mult</c>
+	/// labeled alternative in <see cref="PseudoParser.multOrDiv"/>.
+	/// <para>
+	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
+	/// on <paramref name="context"/>.
+	/// </para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	public virtual Result VisitMult([NotNull] PseudoParser.MultContext context) { return VisitChildren(context); }
 	/// <summary>
 	/// Visit a parse tree produced by the <c>UnaryPlus</c>
 	/// labeled alternative in <see cref="PseudoParser.unarySign"/>.

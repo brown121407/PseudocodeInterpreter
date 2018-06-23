@@ -5,7 +5,7 @@ file: stat (NL stat)* ;
 stat
 	: varDecl                                                   #ToVarDecl
 	| READ_BUILTIN ID (',' ID)* NL                              #ReadBuiltinStat
-	| WRITE_BUILTIN expr (',' expr)*    #WriteBuiltinStat
+	| WRITE_BUILTIN expr (',' expr)*                            #WriteBuiltinStat
 	;
 	
 varDecl
@@ -22,12 +22,21 @@ type
 	;
 
 expr
-	: unarySign '*' unarySign   #Mult
-	| unarySign '/' unarySign   #Div
-	| unarySign '+' unarySign   #Add
-	| unarySign '-' unarySign   #Sub
-	| unarySign                 #ToUnarySign
+	: plusOrMinus
 	;
+	
+plusOrMinus 
+    : plusOrMinus '+' multOrDiv   # Add
+    | plusOrMinus '-' multOrDiv   # Sub
+    | multOrDiv                   # ToMultOrDiv
+    ;
+
+multOrDiv
+    : multOrDiv '*' unarySign   # Mult
+    | multOrDiv '/' unarySign   # Div
+    | unarySign                 # ToUnarySign
+    ;
+
 	
 unarySign
 	: '+' unarySign    #UnaryPlus
@@ -36,10 +45,10 @@ unarySign
 	;	
 
 atom
-	: INT           #Integer
-	| FLOAT         #FloatingPoint
-	| ID            #GetVariable
-	| LP expr RP    #ToParenExpr
+	: INT                   #Integer
+	| FLOAT                 #FloatingPoint
+	| ID                    #GetVariable
+	| LP plusOrMinus RP     #ToParenExpr
 	;
 
 INT_TYPE    

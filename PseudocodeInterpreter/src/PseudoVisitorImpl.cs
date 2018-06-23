@@ -53,29 +53,29 @@ namespace PseudocodeInterpreter
 
 		public override object VisitMult(PseudoParser.MultContext context)
 		{
-			var left = Visit(context.unarySign(0)) as Number;
-			var right = Visit(context.unarySign(1)) as Number;
+			var left = Visit(context.multOrDiv()) as Number;
+			var right = Visit(context.unarySign()) as Number;
 			return left * right;
 		}
 
 		public override object VisitDiv(PseudoParser.DivContext context)
 		{
-			var left = Visit(context.unarySign(0)) as Number;
-			var right = Visit(context.unarySign(1)) as Number;
+			var left = Visit(context.multOrDiv()) as Number;
+			var right = Visit(context.unarySign()) as Number;
 			return left / right;
 		}
 
 		public override object VisitAdd(PseudoParser.AddContext context)
 		{
-			var left = Visit(context.unarySign(0)) as Number;
-			var right = Visit(context.unarySign(1)) as Number;
+			var left = Visit(context.plusOrMinus()) as Number;
+			var right = Visit(context.multOrDiv()) as Number;
 			return left + right;
 		}
 
 		public override object VisitSub(PseudoParser.SubContext context)
 		{
-			var left = Visit(context.unarySign(0)) as Number;
-			var right = Visit(context.unarySign(1)) as Number;
+			var left = Visit(context.plusOrMinus()) as Number;
+			var right = Visit(context.multOrDiv()) as Number;
 			return left - right;
 		}
 
@@ -102,7 +102,7 @@ namespace PseudocodeInterpreter
 
 		public override object VisitToParenExpr(PseudoParser.ToParenExprContext context)
 		{
-			return Visit(context.expr());
+			return Visit(context.plusOrMinus());
 		}
 	}
 }
