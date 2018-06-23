@@ -9,7 +9,7 @@ namespace PseudocodeInterpreter
 	{
 		private static void Main(string[] args)
 		{
-			string str = "scrie 3.22, 2, 5, 6";
+			string str = "scrie 255, (323.23 + 22.27) / 2 * 4";
 			ICharStream input = CharStreams.fromstring(str);
 			
 			PseudoLexer lexer = new PseudoLexer(input);

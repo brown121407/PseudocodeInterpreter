@@ -1,6 +1,6 @@
 grammar Pseudo;
 
-file: (stat NL)* stat ;
+file: stat (NL stat)* ;
 
 stat
 	: varDecl                                                   #ToVarDecl
@@ -12,16 +12,35 @@ varDecl
 	: type ID (ASSIGN expr)? #VariableDeclaration
 	;
 	
+varAssign
+	: ID ASSIGN expr        #VariableAssignment
+	;
+	
 type
 	: INT_TYPE 
 	| FLOAT_TYPE 
 	;
 
 expr
-	: INT       #Integer
-	| FLOAT     #FloatingPoint
+	: unarySign '*' unarySign   #Mult
+	| unarySign '/' unarySign   #Div
+	| unarySign '+' unarySign   #Add
+	| unarySign '-' unarySign   #Sub
+	| unarySign                 #ToUnarySign
 	;
 	
+unarySign
+	: '+' unarySign    #UnaryPlus
+	| '-' unarySign    #UnaryMinus
+	| atom             #ToAtom
+	;	
+
+atom
+	: INT           #Integer
+	| FLOAT         #FloatingPoint
+	| ID            #GetVariable
+	| LP expr RP    #ToParenExpr
+	;
 
 INT_TYPE    
 	: 'intreg'  

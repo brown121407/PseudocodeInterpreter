@@ -30,8 +30,8 @@ namespace PseudocodeInterpreter
 
 		public override object VisitWriteBuiltinStat(PseudoParser.WriteBuiltinStatContext context)
 		{
-			string toWrite =  string.Empty;
-			toWrite = context.expr().Aggregate(toWrite, (current, exprContext) => current + (" " + Visit(exprContext).ToString()));
+			string toWrite = Visit(context.expr(0)).ToString();
+			context.expr().Skip(1).ForEach(x => toWrite += " " + Visit(x).ToString());
 
 			Console.WriteLine(toWrite);
 
@@ -51,14 +51,58 @@ namespace PseudocodeInterpreter
 			return null;
 		}
 
+		public override object VisitMult(PseudoParser.MultContext context)
+		{
+			var left = Visit(context.unarySign(0)) as Number;
+			var right = Visit(context.unarySign(1)) as Number;
+			return left * right;
+		}
+
+		public override object VisitDiv(PseudoParser.DivContext context)
+		{
+			var left = Visit(context.unarySign(0)) as Number;
+			var right = Visit(context.unarySign(1)) as Number;
+			return left / right;
+		}
+
+		public override object VisitAdd(PseudoParser.AddContext context)
+		{
+			var left = Visit(context.unarySign(0)) as Number;
+			var right = Visit(context.unarySign(1)) as Number;
+			return left + right;
+		}
+
+		public override object VisitSub(PseudoParser.SubContext context)
+		{
+			var left = Visit(context.unarySign(0)) as Number;
+			var right = Visit(context.unarySign(1)) as Number;
+			return left - right;
+		}
+
+		public override object VisitUnaryPlus(PseudoParser.UnaryPlusContext context)
+		{
+			return Visit(context.unarySign());
+		}
+
+		public override object VisitUnaryMinus(PseudoParser.UnaryMinusContext context)
+		{
+			var toNegate = Visit(context.unarySign()) as Number;
+			return toNegate?.Negate();
+		}
+
 		public override object VisitInteger(PseudoParser.IntegerContext context)
 		{
-			return int.Parse(context.GetText());
+			return new Number(int.Parse(context.GetText()));
 		}
 
 		public override object VisitFloatingPoint(PseudoParser.FloatingPointContext context)
 		{
-			return float.Parse(context.GetText());
+			return new Number(float.Parse(context.GetText()));
+		}
+
+		public override object VisitToParenExpr(PseudoParser.ToParenExprContext context)
+		{
+			return Visit(context.expr());
 		}
 	}
 }
