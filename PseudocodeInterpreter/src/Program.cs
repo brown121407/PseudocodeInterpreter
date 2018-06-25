@@ -9,7 +9,7 @@ namespace PseudocodeInterpreter
 	{
 		private static void Main(string[] args)
 		{
-			ICharStream input = CharStreams.fromStream(File.OpenRead("examples/example1.pseudo"));
+			ICharStream input = CharStreams.fromStream(File.OpenRead(args[0]));
 			
 			PseudoLexer lexer = new PseudoLexer(input);
 			CommonTokenStream tokens = new CommonTokenStream(lexer);

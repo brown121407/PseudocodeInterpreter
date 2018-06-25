@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "PseudocodeInterpreter": {
+      "commandName": "Project",
+      "commandLineArgs": "examples/example1.pseudo"
+    }
+  }
+}
