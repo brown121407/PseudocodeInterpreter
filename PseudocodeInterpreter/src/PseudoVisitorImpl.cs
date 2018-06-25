@@ -27,7 +27,52 @@ namespace PseudocodeInterpreter
 
 		public override object VisitReadBuiltinStat(PseudoParser.ReadBuiltinStatContext context)
 		{
-			return base.VisitReadBuiltinStat(context);
+			var values = Console.ReadLine()?.Split(" ");
+
+			if (values == null)
+			{
+				// TODO excatipo;
+				throw new Exception();
+			}
+
+			if (values.Length != context.ID().Length)
+			{
+				// TODO execption
+				throw new Exception();
+			}
+
+			var ids = context.ID().Select(x => x.GetText()).ToArray();
+			for (int i = 0; i < ids.Length; i++)
+			{
+				if (_variables.ContainsKey(ids[i]))
+				{
+					var variable = _variables[ids[i]];
+
+					if (variable.IsLiteralOfType<NumberLiteral>())
+					{
+						if (float.TryParse(values[i], out var numValue))
+						{
+							_variables[ids[i]] = new NumberLiteral(numValue);
+						}
+						else
+						{
+							// TODO exception
+							throw new Exception();
+						}
+					}
+					else if (variable.IsLiteralOfType<StringLiteral>())
+					{
+						_variables[ids[i]] = new StringLiteral(values[i]);
+					}
+				}
+				else
+				{
+					// TODO exception
+					throw new Exception();
+				}
+			}
+
+			return null;
 		}
 
 		public override object VisitWriteBuiltinStat(PseudoParser.WriteBuiltinStatContext context)
@@ -81,6 +126,21 @@ namespace PseudocodeInterpreter
 					{
 						throw new Exception($"{varType} cannot hold text");
 					}
+				}
+			}
+			else
+			{
+				if (varType == IntType)
+				{
+					_variables.Add(varName, new NumberLiteral(0));
+				}
+				else if (varType == RealType)
+				{
+					_variables.Add(varName, new NumberLiteral(0.0f));
+				}
+				else if (varType == StringType)
+				{
+					_variables.Add(varName, new StringLiteral(string.Empty));
 				}
 			}
 

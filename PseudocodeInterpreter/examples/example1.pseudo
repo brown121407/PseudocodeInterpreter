@@ -1,1 +1,4 @@
-text c <- 3
+intreg a
+intreg b
+citeste a, b
+scrie a + b

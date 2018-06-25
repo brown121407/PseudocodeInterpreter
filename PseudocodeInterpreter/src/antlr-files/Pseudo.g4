@@ -4,7 +4,7 @@ file: stat (NL stat)* ;
 
 stat
 	: varDecl                                                   #ToVarDecl
-	| READ_BUILTIN ID (',' ID)* NL                              #ReadBuiltinStat
+	| READ_BUILTIN ID (',' ID)*									#ReadBuiltinStat
 	| WRITE_BUILTIN expr (',' expr)*                            #WriteBuiltinStat
 	;
 	

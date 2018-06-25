@@ -26,8 +26,6 @@ namespace PseudocodeInterpreter
 			{
 				Console.WriteLine(e.ToString());
 			}
-
-			Console.ReadLine();
 		}
 	}
 }
