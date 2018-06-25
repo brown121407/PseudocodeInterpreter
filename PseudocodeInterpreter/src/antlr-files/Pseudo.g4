@@ -19,10 +19,12 @@ varAssign
 type
 	: INT_TYPE 
 	| FLOAT_TYPE 
+	| STRING_TYPE
 	;
 
 expr
-	: plusOrMinus
+	: plusOrMinus		#ToPlusOrMinus
+	| STRING			#String
 	;
 	
 plusOrMinus 
@@ -48,7 +50,7 @@ atom
 	: INT                   #Integer
 	| FLOAT                 #FloatingPoint
 	| ID                    #GetVariable
-	| LP plusOrMinus RP     #ToParenExpr
+	| LP plusOrMinus RP     #ToParenPlusOrMinus
 	;
 
 INT_TYPE    
@@ -60,7 +62,7 @@ FLOAT_TYPE
 	;
 	
 STRING_TYPE 
-	: 'sir'     
+	: 'text'     
 	;
 	
 CHAR_TYPE   

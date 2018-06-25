@@ -9,8 +9,7 @@ namespace PseudocodeInterpreter
 	{
 		private static void Main(string[] args)
 		{
-			string str = "scrie (323.23 + 22.27) / 2 * 4";
-			ICharStream input = CharStreams.fromstring(str);
+			ICharStream input = CharStreams.fromStream(File.OpenRead("examples/example1.pseudo"));
 			
 			PseudoLexer lexer = new PseudoLexer(input);
 			CommonTokenStream tokens = new CommonTokenStream(lexer);
@@ -18,7 +17,17 @@ namespace PseudocodeInterpreter
 			var tree = parser.file();
 
 			PseudoVisitorImpl calcVisitor = new PseudoVisitorImpl();
-			calcVisitor.Visit(tree);
+
+			try
+			{
+				calcVisitor.Visit(tree);
+			}
+			catch (Exception e)
+			{
+				Console.WriteLine(e.ToString());
+			}
+
+			Console.ReadLine();
 		}
 	}
 }
