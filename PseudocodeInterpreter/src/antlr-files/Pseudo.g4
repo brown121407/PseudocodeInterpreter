@@ -4,12 +4,17 @@ file: stat (NL stat)* ;
 
 stat
 	: varDecl                                                   #ToVarDecl
+	| varAssign													#ToVarAssign
 	| READ_BUILTIN ID (',' ID)*									#ReadBuiltinStat
 	| WRITE_BUILTIN expr (',' expr)*                            #WriteBuiltinStat
 	;
 	
 varDecl
-	: type ID (ASSIGN expr)? #VariableDeclaration
+	: type optionalAssign (',' optionalAssign)* #VariableDeclaration
+	;
+
+optionalAssign
+	: ID (ASSIGN expr)?		
 	;
 	
 varAssign

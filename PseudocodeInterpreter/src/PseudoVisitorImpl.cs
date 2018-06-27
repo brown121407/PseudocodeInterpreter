@@ -87,9 +87,19 @@ namespace PseudocodeInterpreter
 
 		public override object VisitVariableDeclaration(PseudoParser.VariableDeclarationContext context)
 		{
-			var varName = context.ID().GetText();
 			var varType = context.type().GetText();
-			
+			foreach (var optionalAssignContext in context.optionalAssign())
+			{
+				VisitOptionalAssign(optionalAssignContext, varType);
+			}
+
+			return null;
+		}
+
+		public object VisitOptionalAssign(PseudoParser.OptionalAssignContext context, string varType)
+		{
+			var varName = context.ID().GetText();
+
 			var expr = context.expr();
 			if (expr != null)
 			{
@@ -158,6 +168,54 @@ namespace PseudocodeInterpreter
 			{
 				throw new Exception($"{varName} is undefined.");
 			}
+		}
+
+		public override object VisitVariableAssignment(PseudoParser.VariableAssignmentContext context)
+		{
+			var varName = context.ID().GetText();
+			if (_variables.ContainsKey(varName))
+			{
+				// TODO exception
+				throw new Exception();
+			}
+
+			var exprResult = (Literal) Visit(context.expr());
+
+			if (exprResult is NumberLiteral exprNum)
+			{
+				if (_variables[varName] is NumberLiteral varNum)
+				{
+					if (varNum.IsInteger && !exprNum.IsInteger)
+					{
+						// TODO exception
+						throw new Exception();
+					}
+					else
+					{
+						_variables[varName] = varNum;
+					}
+				}
+				else
+				{
+					// TODO exception
+					throw new Exception();
+				}
+			}
+			else if (exprResult is StringLiteral text)
+			{
+				if (_variables[varName] is StringLiteral)
+				{
+					_variables[varName] = text;
+				}
+				else
+				{
+					// TODO exception
+					throw new Exception();
+				}
+			}
+
+
+			return null;
 		}
 
 		public override object VisitString(PseudoParser.StringContext context)

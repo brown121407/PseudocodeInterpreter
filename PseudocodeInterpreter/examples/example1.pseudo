@@ -1,4 +1,3 @@
-intreg a
-intreg b
+intreg a, b
 citeste a, b
 scrie a + b

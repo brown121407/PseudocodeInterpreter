@@ -46,6 +46,13 @@ public interface IPseudoVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <return>The visitor result.</return>
 	Result VisitToVarDecl([NotNull] PseudoParser.ToVarDeclContext context);
 	/// <summary>
+	/// Visit a parse tree produced by the <c>ToVarAssign</c>
+	/// labeled alternative in <see cref="PseudoParser.stat"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitToVarAssign([NotNull] PseudoParser.ToVarAssignContext context);
+	/// <summary>
 	/// Visit a parse tree produced by the <c>ReadBuiltinStat</c>
 	/// labeled alternative in <see cref="PseudoParser.stat"/>.
 	/// </summary>
@@ -66,6 +73,12 @@ public interface IPseudoVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
 	Result VisitVariableDeclaration([NotNull] PseudoParser.VariableDeclarationContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="PseudoParser.optionalAssign"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitOptionalAssign([NotNull] PseudoParser.OptionalAssignContext context);
 	/// <summary>
 	/// Visit a parse tree produced by the <c>VariableAssignment</c>
 	/// labeled alternative in <see cref="PseudoParser.varAssign"/>.
