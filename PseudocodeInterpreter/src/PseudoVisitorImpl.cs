@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Antlr4.Runtime;
 using AntlrGenerated;
+using PseudocodeInterpreter.Exceptions;
 using PseudocodeInterpreter.Objects;
 
 namespace PseudocodeInterpreter
@@ -10,9 +11,6 @@ namespace PseudocodeInterpreter
 	public class PseudoVisitorImpl : PseudoBaseVisitor<object>
 	{
 		private Dictionary<string, Literal> _variables = new Dictionary<string, Literal>();
-		private const string IntType = "intreg";
-		private const string RealType = "real";
-		private const string StringType = "text";
 
 		public override object VisitFile(PseudoParser.FileContext context)
 		{
@@ -31,14 +29,12 @@ namespace PseudocodeInterpreter
 
 			if (values == null)
 			{
-				// TODO excatipo;
-				throw new Exception();
+				throw new Exception(ErrorMessages.NullInput);
 			}
 
 			if (values.Length != context.ID().Length)
 			{
-				// TODO execption
-				throw new Exception();
+				throw new Exception(ErrorMessages.ArgumentsNumber);
 			}
 
 			var ids = context.ID().Select(x => x.GetText()).ToArray();
@@ -56,8 +52,7 @@ namespace PseudocodeInterpreter
 						}
 						else
 						{
-							// TODO exception
-							throw new Exception();
+							throw new Exception(ErrorMessages.IncorrectFormat(values[i], TypeNames.NumberType));
 						}
 					}
 					else if (variable is StringLiteral)
@@ -67,8 +62,7 @@ namespace PseudocodeInterpreter
 				}
 				else
 				{
-					// TODO exception
-					throw new Exception();
+					throw new Exception(ErrorMessages.UndefinedSymbol(ids[i]));
 				}
 			}
 
@@ -106,7 +100,7 @@ namespace PseudocodeInterpreter
 				var exprResult = Visit(expr) as Literal;
 				if (exprResult is NumberLiteral number)
 				{
-					if (varType == IntType)
+					if (varType == TypeNames.IntegerType)
 					{
 						if (number.IsInteger)
 						{
@@ -114,41 +108,41 @@ namespace PseudocodeInterpreter
 						}
 						else
 						{
-							throw new Exception("Can't fit floats into integers");
+							throw new Exception(ErrorMessages.IncompatibleTypes(TypeNames.IntegerType, TypeNames.RealType));
 						}
 					}
-					else if (varType == RealType)
+					else if (varType == TypeNames.RealType)
 					{
 						_variables.Add(varName, number);
 					}
 					else
 					{
-						throw new Exception($"{varType} cannot hold numbers");
+						throw new Exception(ErrorMessages.IncompatibleTypes(varType, TypeNames.IntegerType, TypeNames.RealType));
 					}
 				}
 				else if (exprResult is StringLiteral text)
 				{
-					if (varType == StringType)
+					if (varType == TypeNames.StringType)
 					{
 						_variables.Add(varName, text);
 					}
 					else
 					{
-						throw new Exception($"{varType} cannot hold text");
+						throw new Exception(ErrorMessages.IncompatibleTypes(varType, TypeNames.StringType));
 					}
 				}
 			}
 			else
 			{
-				if (varType == IntType)
+				if (varType == TypeNames.IntegerType)
 				{
 					_variables.Add(varName, new NumberLiteral(0));
 				}
-				else if (varType == RealType)
+				else if (varType == TypeNames.RealType)
 				{
 					_variables.Add(varName, new NumberLiteral(0.0f));
 				}
-				else if (varType == StringType)
+				else if (varType == TypeNames.StringType)
 				{
 					_variables.Add(varName, new StringLiteral(string.Empty));
 				}
@@ -173,10 +167,9 @@ namespace PseudocodeInterpreter
 		public override object VisitVariableAssignment(PseudoParser.VariableAssignmentContext context)
 		{
 			var varName = context.ID().GetText();
-			if (_variables.ContainsKey(varName))
+			if (!_variables.ContainsKey(varName))
 			{
-				// TODO exception
-				throw new Exception();
+				throw new Exception(ErrorMessages.UndefinedSymbol(varName));
 			}
 
 			var exprResult = (Literal) Visit(context.expr());
@@ -187,8 +180,7 @@ namespace PseudocodeInterpreter
 				{
 					if (varNum.IsInteger && !exprNum.IsInteger)
 					{
-						// TODO exception
-						throw new Exception();
+						throw new Exception(ErrorMessages.IncompatibleTypes(TypeNames.IntegerType, TypeNames.RealType));
 					}
 					else
 					{
@@ -197,8 +189,7 @@ namespace PseudocodeInterpreter
 				}
 				else
 				{
-					// TODO exception
-					throw new Exception();
+					throw new Exception(ErrorMessages.IncompatibleTypes(TypeNames.StringType, TypeNames.NumberType));
 				}
 			}
 			else if (exprResult is StringLiteral text)
@@ -209,8 +200,7 @@ namespace PseudocodeInterpreter
 				}
 				else
 				{
-					// TODO exception
-					throw new Exception();
+					throw new Exception(ErrorMessages.IncompatibleTypes(TypeNames.NumberType, TypeNames.StringType));
 				}
 			}
 
