@@ -13,10 +13,5 @@ namespace PseudocodeInterpreter
 				action(item);
 			}
 		}
-
-		public static bool IsLiteralOfType<T>(this Literal literal) where T : Literal
-		{
-			return literal is T;
-		}
 	}
 }

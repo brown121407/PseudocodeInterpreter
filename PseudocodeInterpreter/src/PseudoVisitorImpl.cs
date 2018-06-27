@@ -48,7 +48,7 @@ namespace PseudocodeInterpreter
 				{
 					var variable = _variables[ids[i]];
 
-					if (variable.IsLiteralOfType<NumberLiteral>())
+					if (variable is NumberLiteral)
 					{
 						if (float.TryParse(values[i], out var numValue))
 						{
@@ -60,7 +60,7 @@ namespace PseudocodeInterpreter
 							throw new Exception();
 						}
 					}
-					else if (variable.IsLiteralOfType<StringLiteral>())
+					else if (variable is StringLiteral)
 					{
 						_variables[ids[i]] = new StringLiteral(values[i]);
 					}
