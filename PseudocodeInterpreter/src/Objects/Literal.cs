@@ -6,5 +6,7 @@
 	    {
 		    return this;
 	    }
+
+		public string Type { get; protected set; }
     }
 }

@@ -9,14 +9,16 @@ namespace PseudocodeInterpreter.Objects
 	    public NumberLiteral(float value)
 	    {
 		    Value = value;
+		    Type = TypeNames.RealType;
 	    }
 
 	    public NumberLiteral(int value)
 	    {
 		    Value = value;
+		    Type = TypeNames.IntegerType;
 	    }
 
-	    public bool IsInteger => Math.Abs(Value % 1) < Double.Epsilon * 100;
+	    public bool IsInteger => Type == TypeNames.IntegerType;
 
 	    public static implicit operator int(NumberLiteral number)
 	    {

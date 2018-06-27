@@ -7,6 +7,7 @@
 	    public StringLiteral(string value)
 	    {
 		    _value = value.Replace("\\\"", "\"");
+		    Type = TypeNames.StringType;
 	    }
 
 	    public static implicit operator string(StringLiteral text)

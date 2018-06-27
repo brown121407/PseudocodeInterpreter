@@ -98,22 +98,22 @@ namespace PseudocodeInterpreter
 			if (expr != null)
 			{
 				var exprResult = Visit(expr) as Literal;
-				if (exprResult is NumberLiteral number)
+				if (exprResult is NumberLiteral exprNum)
 				{
 					if (varType == TypeNames.IntegerType)
 					{
-						if (number.IsInteger)
+						if (exprNum.IsInteger)
 						{
-							_variables.Add(varName, number);
+							_variables.Add(varName, exprNum);
 						}
 						else
 						{
-							throw new Exception(ErrorMessages.IncompatibleTypes(TypeNames.IntegerType, TypeNames.RealType));
+							throw new Exception(ErrorMessages.IncompatibleTypes(varType, exprNum.Type));
 						}
 					}
 					else if (varType == TypeNames.RealType)
 					{
-						_variables.Add(varName, number);
+						_variables.Add(varName, exprNum);
 					}
 					else
 					{
@@ -180,7 +180,7 @@ namespace PseudocodeInterpreter
 				{
 					if (varNum.IsInteger && !exprNum.IsInteger)
 					{
-						throw new Exception(ErrorMessages.IncompatibleTypes(TypeNames.IntegerType, TypeNames.RealType));
+						throw new Exception(ErrorMessages.IncompatibleTypes(varNum.Type, exprNum.Type));
 					}
 					else
 					{
@@ -189,7 +189,7 @@ namespace PseudocodeInterpreter
 				}
 				else
 				{
-					throw new Exception(ErrorMessages.IncompatibleTypes(TypeNames.StringType, TypeNames.NumberType));
+					throw new Exception(ErrorMessages.IncompatibleTypes(_variables[varName].Type, TypeNames.NumberType));
 				}
 			}
 			else if (exprResult is StringLiteral text)
@@ -200,7 +200,7 @@ namespace PseudocodeInterpreter
 				}
 				else
 				{
-					throw new Exception(ErrorMessages.IncompatibleTypes(TypeNames.NumberType, TypeNames.StringType));
+					throw new Exception(ErrorMessages.IncompatibleTypes(_variables[varName].Type, TypeNames.StringType));
 				}
 			}
 
