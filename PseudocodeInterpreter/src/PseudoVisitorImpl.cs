@@ -10,7 +10,7 @@ namespace PseudocodeInterpreter
 {
 	public class PseudoVisitorImpl : PseudoBaseVisitor<object>
 	{
-		private Dictionary<string, Literal> _variables = new Dictionary<string, Literal>();
+		private ScopeStack _scopes = new ScopeStack();
 
 		public override object VisitFile(PseudoParser.FileContext context)
 		{
@@ -21,10 +21,14 @@ namespace PseudocodeInterpreter
 
 		public override object VisitStatList(PseudoParser.StatListContext context)
 		{
+			_scopes.Push();
+
 			foreach (var statContext in context.stat())
 			{
 				Visit(statContext);
 			}
+
+			_scopes.Pop();
 
 			return null;
 		}
@@ -46,15 +50,16 @@ namespace PseudocodeInterpreter
 			var ids = context.ID().Select(x => x.GetText()).ToArray();
 			for (int i = 0; i < ids.Length; i++)
 			{
-				if (_variables.ContainsKey(ids[i]))
+				if (_scopes.DoesVariableExist(ids[i]))
 				{
-					var variable = _variables[ids[i]];
+					var variable = _scopes.GetVar(ids[i]);
 
 					if (variable is NumberLiteral)
 					{
+						// TODO separate float and int parsing
 						if (float.TryParse(values[i], out var numValue))
 						{
-							_variables[ids[i]] = new NumberLiteral(numValue);
+							_scopes.SetVar(ids[i], new NumberLiteral(numValue));
 						}
 						else
 						{
@@ -63,7 +68,7 @@ namespace PseudocodeInterpreter
 					}
 					else if (variable is StringLiteral)
 					{
-						_variables[ids[i]] = new StringLiteral(values[i]);
+						_scopes.SetVar(ids[i], new StringLiteral(values[i]));
 					}
 				}
 				else
@@ -110,7 +115,7 @@ namespace PseudocodeInterpreter
 					{
 						if (exprNum.IsInteger)
 						{
-							_variables.Add(varName, exprNum);
+							_scopes.CreateVariable(varName, exprNum);
 						}
 						else
 						{
@@ -119,7 +124,7 @@ namespace PseudocodeInterpreter
 					}
 					else if (varType == TypeNames.RealType)
 					{
-						_variables.Add(varName, exprNum);
+						_scopes.CreateVariable(varName, exprNum);
 					}
 					else
 					{
@@ -130,7 +135,7 @@ namespace PseudocodeInterpreter
 				{
 					if (varType == TypeNames.StringType)
 					{
-						_variables.Add(varName, text);
+						_scopes.CreateVariable(varName, text);
 					}
 					else
 					{
@@ -142,15 +147,15 @@ namespace PseudocodeInterpreter
 			{
 				if (varType == TypeNames.IntegerType)
 				{
-					_variables.Add(varName, new NumberLiteral(0));
+					_scopes.CreateVariable(varName, new NumberLiteral(0));
 				}
 				else if (varType == TypeNames.RealType)
 				{
-					_variables.Add(varName, new NumberLiteral(0.0f));
+					_scopes.CreateVariable(varName, new NumberLiteral(0.0f));
 				}
 				else if (varType == TypeNames.StringType)
 				{
-					_variables.Add(varName, new StringLiteral(string.Empty));
+					_scopes.CreateVariable(varName, new StringLiteral(string.Empty));
 				}
 			}
 
@@ -160,9 +165,11 @@ namespace PseudocodeInterpreter
 		public override object VisitGetVariable(PseudoParser.GetVariableContext context)
 		{
 			var varName = context.ID().GetText();
-			if (_variables.ContainsKey(varName))
+
+			var varValue = _scopes.GetVar(varName);
+			if (varValue != null)
 			{
-				return _variables[varName];
+				return varValue;
 			}
 			else
 			{
@@ -173,16 +180,16 @@ namespace PseudocodeInterpreter
 		public override object VisitVariableAssignment(PseudoParser.VariableAssignmentContext context)
 		{
 			var varName = context.ID().GetText();
-			if (!_variables.ContainsKey(varName))
+			if (!_scopes.DoesVariableExist(varName))
 			{
 				throw new Exception(ErrorMessages.UndefinedSymbol(varName));
 			}
-
+			
 			var exprResult = (Literal) Visit(context.expr());
 
 			if (exprResult is NumberLiteral exprNum)
 			{
-				if (_variables[varName] is NumberLiteral varNum)
+				if (_scopes.GetVar(varName) is NumberLiteral varNum)
 				{
 					if (varNum.IsInteger && !exprNum.IsInteger)
 					{
@@ -190,23 +197,23 @@ namespace PseudocodeInterpreter
 					}
 					else
 					{
-						_variables[varName] = varNum;
+						_scopes.SetVar(varName, varNum);
 					}
 				}
 				else
 				{
-					throw new Exception(ErrorMessages.IncompatibleTypes(_variables[varName].Type, TypeNames.NumberType));
+					throw new Exception(ErrorMessages.IncompatibleTypes(_scopes.GetVar(varName).Type, TypeNames.NumberType));
 				}
 			}
 			else if (exprResult is StringLiteral text)
 			{
-				if (_variables[varName] is StringLiteral)
+				if (_scopes.GetVar(varName) is StringLiteral)
 				{
-					_variables[varName] = text;
+					_scopes.SetVar(varName, text);
 				}
 				else
 				{
-					throw new Exception(ErrorMessages.IncompatibleTypes(_variables[varName].Type, TypeNames.StringType));
+					throw new Exception(ErrorMessages.IncompatibleTypes(_scopes.GetVar(varName).Type, TypeNames.StringType));
 				}
 			}
 
