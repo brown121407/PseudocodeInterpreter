@@ -14,13 +14,19 @@ namespace PseudocodeInterpreter
 
 		public override object VisitFile(PseudoParser.FileContext context)
 		{
-			object result = null;
-			foreach (var statement in context.stat())
+			Visit(context.statList());
+			
+			return null;
+		}
+
+		public override object VisitStatList(PseudoParser.StatListContext context)
+		{
+			foreach (var statContext in context.stat())
 			{
-				result = Visit(statement);
+				Visit(statContext);
 			}
 
-			return result;
+			return null;
 		}
 
 		public override object VisitReadBuiltinStat(PseudoParser.ReadBuiltinStatContext context)

@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-// Generated from C:/Users/Sergiu/RiderProjects/PseudocodeInterpreter/PseudocodeInterpreter/src/antlr-files\Pseudo.g4 by ANTLR 4.7.1
+// Generated from Pseudo.g4 by ANTLR 4.7.1
 
 // Unreachable code detected
 #pragma warning disable 0162
@@ -38,6 +38,12 @@ public interface IPseudoVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
 	Result VisitFile([NotNull] PseudoParser.FileContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="PseudoParser.statList"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitStatList([NotNull] PseudoParser.StatListContext context);
 	/// <summary>
 	/// Visit a parse tree produced by the <c>ToVarDecl</c>
 	/// labeled alternative in <see cref="PseudoParser.stat"/>.

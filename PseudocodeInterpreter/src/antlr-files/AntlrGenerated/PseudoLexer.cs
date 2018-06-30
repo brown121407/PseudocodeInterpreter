@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-// Generated from C:/Users/Sergiu/RiderProjects/PseudocodeInterpreter/PseudocodeInterpreter/src/antlr-files\Pseudo.g4 by ANTLR 4.7.1
+// Generated from Pseudo.g4 by ANTLR 4.7.1
 
 // Unreachable code detected
 #pragma warning disable 0162

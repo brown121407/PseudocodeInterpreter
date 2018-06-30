@@ -1,6 +1,10 @@
 grammar Pseudo;
 
-file: stat (NL stat)* ;
+file
+	: statList;
+
+statList
+	: stat (NL stat)*;
 
 stat
 	: varDecl                                                   #ToVarDecl
