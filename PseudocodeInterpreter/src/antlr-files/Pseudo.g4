@@ -7,10 +7,23 @@ statList
 	: stat (NL stat)*;
 
 stat
-	: varDecl                                                   #ToVarDecl
-	| varAssign													#ToVarAssign
-	| READ_BUILTIN ID (',' ID)*									#ReadBuiltinStat
-	| WRITE_BUILTIN expr (',' expr)*                            #WriteBuiltinStat
+	: varDecl                                                   
+	| varAssign													
+	| ifStat                                                   
+	| readBuiltin									
+	| writeBuiltin
+	;
+	
+ifStat
+	: IF expr THEN NL statList NL END
+	;
+	
+readBuiltin
+	: READ_BUILTIN ID (',' ID)*
+	;
+	
+writeBuiltin
+	: WRITE_BUILTIN expr (',' expr)*
 	;
 	
 varDecl
@@ -188,5 +201,5 @@ COMMENT
 	;
 	
 WS          
-	: [ \t\r\n]+            -> skip 
+	: (' ' | '\t' | '\r\n' | '\n')            -> skip 
 	;

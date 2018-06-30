@@ -6,5 +6,6 @@
 	    public const string IntegerType = "intreg";
 	    public const string RealType = "real";
 	    public const string NumberType = "numar";
+	    public const string Boolean = "bool";
     }
 }

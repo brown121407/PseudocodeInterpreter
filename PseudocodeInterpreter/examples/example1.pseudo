@@ -1,3 +1,7 @@
-intreg a, b
-citeste a, b
-scrie a + b
+daca 0 atunci
+	scrie 0
+sfarsit
+
+daca 1 atunci
+	scrie 1
+sfarsit

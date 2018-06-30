@@ -69,5 +69,10 @@ namespace PseudocodeInterpreter.Objects
 	    {
 		    return Value.ToString();
 	    }
+
+	    public override bool ToBoolean()
+	    {
+		    return Math.Abs(Value) >= float.Epsilon;
+	    }
     }
 }

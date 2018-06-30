@@ -33,7 +33,18 @@ namespace PseudocodeInterpreter
 			return null;
 		}
 
-		public override object VisitReadBuiltinStat(PseudoParser.ReadBuiltinStatContext context)
+		public override object VisitIfStat(PseudoParser.IfStatContext context)
+		{
+			var condRes = ((Literal) Visit(context.expr())).ToBoolean();
+			if (condRes)
+			{
+				Visit(context.statList());
+			}
+			
+			return null;
+		}
+
+		public override object VisitReadBuiltin(PseudoParser.ReadBuiltinContext context)
 		{
 			var values = Console.ReadLine()?.Split(" ");
 
@@ -80,7 +91,7 @@ namespace PseudocodeInterpreter
 			return null;
 		}
 
-		public override object VisitWriteBuiltinStat(PseudoParser.WriteBuiltinStatContext context)
+		public override object VisitWriteBuiltin(PseudoParser.WriteBuiltinContext context)
 		{
 			string toWrite = string.Empty;
 			context.expr().ForEach(x => toWrite += Visit(x).ToString());

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Text.RegularExpressions;
 using Antlr4.Runtime;
 using AntlrGenerated;
 
@@ -9,7 +10,10 @@ namespace PseudocodeInterpreter
 	{
 		private static void Main(string[] args)
 		{
-			ICharStream input = CharStreams.fromStream(File.OpenRead(args[0]));
+			string source = File.ReadAllText(args[0]);
+			source = Regex.Replace(source, @"^\s*$\n|\r", string.Empty, RegexOptions.Multiline).TrimEnd();
+
+			ICharStream input = CharStreams.fromstring(source);
 			
 			PseudoLexer lexer = new PseudoLexer(input);
 			CommonTokenStream tokens = new CommonTokenStream(lexer);
