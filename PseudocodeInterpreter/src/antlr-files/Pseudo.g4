@@ -15,7 +15,7 @@ stat
 	;
 	
 ifStat
-	: IF expr THEN NL statList NL END
+	: IF boolOp THEN NL statList NL END
 	;
 	
 readBuiltin
@@ -42,6 +42,16 @@ type
 	: INT_TYPE 
 	| FLOAT_TYPE 
 	| STRING_TYPE
+	;
+
+boolOp
+	: boolOp (NOT)? AND boolOp		#AndOp
+	| boolOp (NOT)? OR  boolOp		#OrOp
+	| plusOrMinus EQUAL plusOrMinus	#AreEqual
+	| plusOrMinus '<'  plusOrMinus	#LessThan
+	| plusOrMinus '<=' plusOrMinus	#LessOrEqual
+	| plusOrMinus '>'  plusOrMinus	#GreaterThan
+	| plusOrMinus '>=' plusOrMinus	#GreaterOrEqual
 	;
 
 expr
@@ -133,6 +143,18 @@ UNTIL
 	
 END     
 	: 'sfarsit' 
+	;
+
+AND
+	: 'si'
+	;
+
+OR
+	: 'sau'
+	;
+
+NOT
+	: 'non'
 	;
 	
 FUNCTION

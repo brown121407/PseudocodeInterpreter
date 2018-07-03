@@ -1,7 +1,7 @@
-daca 0 atunci
+daca 0 = 0 atunci
 	scrie 0
 sfarsit
 
-daca 1 atunci
+daca 1 = 2 atunci
 	scrie 1
 sfarsit

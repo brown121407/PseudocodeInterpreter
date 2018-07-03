@@ -35,7 +35,7 @@ namespace PseudocodeInterpreter
 
 		public override object VisitIfStat(PseudoParser.IfStatContext context)
 		{
-			var condRes = ((Literal) Visit(context.expr())).ToBoolean();
+			var condRes = ((Literal) Visit(context.boolOp())).ToBoolean();
 			if (condRes)
 			{
 				Visit(context.statList());
@@ -230,6 +230,55 @@ namespace PseudocodeInterpreter
 
 
 			return null;
+		}
+
+		public override object VisitAndOp(PseudoParser.AndOpContext context)
+		{
+			var leftValue = ((BooleanLiteral) Visit(context.boolOp(0))).ToBoolean();
+			var rightValue = ((BooleanLiteral)Visit(context.boolOp(1))).ToBoolean();
+			return new BooleanLiteral(leftValue && rightValue);
+		}
+
+		public override object VisitOrOp(PseudoParser.OrOpContext context)
+		{
+			var leftValue = ((BooleanLiteral)Visit(context.boolOp(0))).ToBoolean();
+			var rightValue = ((BooleanLiteral)Visit(context.boolOp(1))).ToBoolean();
+			return new BooleanLiteral(leftValue && rightValue);
+		}
+
+		public override object VisitAreEqual(PseudoParser.AreEqualContext context)
+		{
+			var leftValue = (NumberLiteral) Visit(context.plusOrMinus(0));
+			var rightValue = (NumberLiteral) Visit(context.plusOrMinus(1));
+			return new BooleanLiteral(Math.Abs(leftValue.Value - rightValue.Value) < Single.Epsilon);
+		}
+
+		public override object VisitGreaterThan(PseudoParser.GreaterThanContext context)
+		{
+			var leftValue = (NumberLiteral)Visit(context.plusOrMinus(0));
+			var rightValue = (NumberLiteral)Visit(context.plusOrMinus(1));
+			return new BooleanLiteral(leftValue.Value > rightValue.Value);
+		}
+
+		public override object VisitGreaterOrEqual(PseudoParser.GreaterOrEqualContext context)
+		{
+			var leftValue = (NumberLiteral)Visit(context.plusOrMinus(0));
+			var rightValue = (NumberLiteral)Visit(context.plusOrMinus(1));
+			return new BooleanLiteral(leftValue.Value >= rightValue.Value);
+		}
+
+		public override object VisitLessThan(PseudoParser.LessThanContext context)
+		{
+			var leftValue = (NumberLiteral)Visit(context.plusOrMinus(0));
+			var rightValue = (NumberLiteral)Visit(context.plusOrMinus(1));
+			return new BooleanLiteral(leftValue.Value < rightValue.Value);
+		}
+
+		public override object VisitLessOrEqual(PseudoParser.LessOrEqualContext context)
+		{
+			var leftValue = (NumberLiteral)Visit(context.plusOrMinus(0));
+			var rightValue = (NumberLiteral)Visit(context.plusOrMinus(1));
+			return new BooleanLiteral(leftValue.Value <= rightValue.Value);
 		}
 
 		public override object VisitString(PseudoParser.StringContext context)
