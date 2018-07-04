@@ -233,6 +233,7 @@ namespace PseudocodeInterpreter
 					else
 					{
 						_scopes.SetVar(varName, varNum);
+						_scopes.SetVar(varName, exprNum);
 					}
 				}
 				else
