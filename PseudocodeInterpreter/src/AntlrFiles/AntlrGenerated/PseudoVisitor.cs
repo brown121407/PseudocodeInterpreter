@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-// Generated from C:/Users/Sergiu/RiderProjects/PseudocodeInterpreter/PseudocodeInterpreter/src/antlr-files\Pseudo.g4 by ANTLR 4.7
+// Generated from C:/Users/Sergiu/RiderProjects/PseudocodeInterpreter/PseudocodeInterpreter/src/AntlrFiles\Pseudo.g4 by ANTLR 4.7
 
 // Unreachable code detected
 #pragma warning disable 0162
@@ -211,6 +211,13 @@ public interface IPseudoVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
 	Result VisitMult([NotNull] PseudoParser.MultContext context);
+	/// <summary>
+	/// Visit a parse tree produced by the <c>Modulo</c>
+	/// labeled alternative in <see cref="PseudoParser.multOrDiv"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitModulo([NotNull] PseudoParser.ModuloContext context);
 	/// <summary>
 	/// Visit a parse tree produced by the <c>UnaryPlus</c>
 	/// labeled alternative in <see cref="PseudoParser.unarySign"/>.

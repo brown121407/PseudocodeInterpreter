@@ -60,6 +60,11 @@ namespace PseudocodeInterpreter.Objects
 			return new NumberLiteral(number1.Value / number2.Value);
 	    }
 
+	    public static NumberLiteral operator %(NumberLiteral number1, NumberLiteral number2)
+	    {
+		    return new NumberLiteral(number1.Value % number2.Value);
+	    }
+
 	    public static NumberLiteral operator -(NumberLiteral number)
 	    {
 			return new NumberLiteral(-number.Value);

@@ -76,6 +76,7 @@ plusOrMinus
 multOrDiv
     : multOrDiv '*' unarySign   # Mult
     | multOrDiv '/' unarySign   # Div
+    | multOrDiv '%' unarySign   # Modulo
     | unarySign                 # ToUnarySign
     ;
 

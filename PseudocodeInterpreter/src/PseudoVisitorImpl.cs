@@ -319,22 +319,29 @@ namespace PseudocodeInterpreter
 
 		public override object VisitDiv(PseudoParser.DivContext context)
 		{
-			var left = Visit(context.multOrDiv()) as NumberLiteral;
-			var right = Visit(context.unarySign()) as NumberLiteral;
+			var left = (NumberLiteral) Visit(context.multOrDiv());
+			var right = (NumberLiteral) Visit(context.unarySign());
 			return left / right;
+		}
+
+		public override object VisitModulo(PseudoParser.ModuloContext context)
+		{
+			var left = (NumberLiteral) Visit(context.multOrDiv());
+			var right = (NumberLiteral) Visit(context.unarySign());
+			return left % right;
 		}
 
 		public override object VisitAdd(PseudoParser.AddContext context)
 		{
-			var left = Visit(context.plusOrMinus()) as NumberLiteral;
-			var right = Visit(context.multOrDiv()) as NumberLiteral;
+			var left = (NumberLiteral) Visit(context.plusOrMinus());
+			var right = (NumberLiteral) Visit(context.multOrDiv());
 			return left + right;
 		}
 
 		public override object VisitSub(PseudoParser.SubContext context)
 		{
-			var left = Visit(context.plusOrMinus()) as NumberLiteral;
-			var right = Visit(context.multOrDiv()) as NumberLiteral;
+			var left = (NumberLiteral) Visit(context.plusOrMinus());
+			var right = (NumberLiteral) Visit(context.multOrDiv());
 			return left - right;
 		}
 

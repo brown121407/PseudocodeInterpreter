@@ -2,7 +2,7 @@
   "profiles": {
     "PseudocodeInterpreter": {
       "commandName": "Project",
-      "commandLineArgs": "examples/example1.pseudo"
+      "commandLineArgs": "C:\\Users\\Sergiu\\Desktop\\test.txt"
     }
   }
 }
