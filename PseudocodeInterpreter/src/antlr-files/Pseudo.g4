@@ -15,7 +15,15 @@ stat
 	;
 	
 ifStat
-	: IF boolOp THEN NL statList NL END
+	: IF boolOp THEN NL statList NL (elseIfStat)* elseStat? END
+	;
+
+elseIfStat
+	: ELSE IF boolOp THEN NL statList NL
+	;
+
+elseStat
+	: ELSE NL statList NL
 	;
 	
 readBuiltin
@@ -23,7 +31,7 @@ readBuiltin
 	;
 	
 writeBuiltin
-	: WRITE_BUILTIN expr (',' expr)*
+	: (WRITE_BUILTIN | WRITELN_BUILTIN) expr (',' expr)*
 	;
 	
 varDecl
@@ -111,6 +119,10 @@ READ_BUILTIN
 	
 WRITE_BUILTIN   
 	: 'scrie'   
+	;
+	
+WRITELN_BUILTIN
+	: 'scrieln'
 	;
 
 IF      

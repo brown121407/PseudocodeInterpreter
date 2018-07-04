@@ -40,6 +40,23 @@ namespace PseudocodeInterpreter
 			{
 				Visit(context.statList());
 			}
+			else
+			{
+				foreach (var elseIf in context.elseIfStat())
+				{
+					condRes = ((Literal) Visit(elseIf.boolOp())).ToBoolean();
+					if (condRes)
+					{
+						Visit(elseIf.statList());
+						return null;
+					}
+				}
+
+				if (context.elseStat() != null)
+				{
+					Visit(context.elseStat().statList());
+				}
+			}
 			
 			return null;
 		}
@@ -96,7 +113,14 @@ namespace PseudocodeInterpreter
 			string toWrite = string.Empty;
 			context.expr().ForEach(x => toWrite += Visit(x).ToString());
 
-			Console.WriteLine(toWrite);
+			if (context.WRITELN_BUILTIN() != null)
+			{
+				Console.WriteLine(toWrite);
+			}
+			else
+			{
+				Console.Write(toWrite);
+			}
 
 			return null;
 		}
