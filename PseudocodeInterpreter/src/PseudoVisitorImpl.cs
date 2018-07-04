@@ -61,6 +61,16 @@ namespace PseudocodeInterpreter
 			return null;
 		}
 
+		public override object VisitWhileStat(PseudoParser.WhileStatContext context)
+		{
+			while ((BooleanLiteral) Visit(context.boolOp()))
+			{
+				Visit(context.statList());
+			}
+
+			return null;
+		}
+
 		public override object VisitReadBuiltin(PseudoParser.ReadBuiltinContext context)
 		{
 			var values = Console.ReadLine()?.Split(" ");
@@ -82,12 +92,22 @@ namespace PseudocodeInterpreter
 				{
 					var variable = _scopes.GetVar(ids[i]);
 
-					if (variable is NumberLiteral)
+					if (variable is NumberLiteral numVar)
 					{
-						// TODO separate float and int parsing
-						if (float.TryParse(values[i], out var numValue))
+						if (numVar.IsInteger)
 						{
-							_scopes.SetVar(ids[i], new NumberLiteral(numValue));
+							if (int.TryParse(values[i], out var intValue))
+							{
+								_scopes.SetVar(ids[i], new NumberLiteral(intValue));
+							}
+							else
+							{
+								throw new Exception(ErrorMessages.IncorrectFormat(values[i], TypeNames.IntegerType));
+							}
+						}
+						else if (float.TryParse(values[i], out var floatValue))
+						{
+							_scopes.SetVar(ids[i], new NumberLiteral(floatValue));
 						}
 						else
 						{
@@ -232,7 +252,6 @@ namespace PseudocodeInterpreter
 					}
 					else
 					{
-						_scopes.SetVar(varName, varNum);
 						_scopes.SetVar(varName, exprNum);
 					}
 				}
@@ -342,7 +361,7 @@ namespace PseudocodeInterpreter
 		public override object VisitSub(PseudoParser.SubContext context)
 		{
 			var left = (NumberLiteral) Visit(context.plusOrMinus());
-			var right = (NumberLiteral) Visit(context.multOrDiv());
+			var right = (NumberLiteral) Visit(context.multOrDiv());	
 			return left - right;
 		}
 
@@ -354,6 +373,12 @@ namespace PseudocodeInterpreter
 		public override object VisitUnaryMinus(PseudoParser.UnaryMinusContext context)
 		{
 			return -(NumberLiteral) Visit(context.unarySign());
+		}
+
+		public override object VisitWholePart(PseudoParser.WholePartContext context)
+		{
+			var number = (NumberLiteral) Visit(context.plusOrMinus());
+			return new NumberLiteral((int) Math.Floor(number.Value));
 		}
 
 		public override object VisitInteger(PseudoParser.IntegerContext context)

@@ -9,7 +9,8 @@ statList
 stat
 	: varDecl                                                   
 	| varAssign													
-	| ifStat                                                   
+	| ifStat
+	| whileStat                                           
 	| readBuiltin									
 	| writeBuiltin
 	;
@@ -24,6 +25,10 @@ elseIfStat
 
 elseStat
 	: ELSE NL statList NL
+	;
+	
+whileStat
+	: WHILE boolOp EXEC NL statList NL END
 	;
 	
 readBuiltin
@@ -64,6 +69,7 @@ boolOp
 
 expr
 	: plusOrMinus		#ToPlusOrMinus
+	| '[' plusOrMinus ']' #WholePart
 	| STRING			#String
 	;
 	

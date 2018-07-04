@@ -69,6 +69,12 @@ public interface IPseudoVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <return>The visitor result.</return>
 	Result VisitElseStat([NotNull] PseudoParser.ElseStatContext context);
 	/// <summary>
+	/// Visit a parse tree produced by <see cref="PseudoParser.whileStat"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitWhileStat([NotNull] PseudoParser.WhileStatContext context);
+	/// <summary>
 	/// Visit a parse tree produced by <see cref="PseudoParser.readBuiltin"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
@@ -162,6 +168,13 @@ public interface IPseudoVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
 	Result VisitToPlusOrMinus([NotNull] PseudoParser.ToPlusOrMinusContext context);
+	/// <summary>
+	/// Visit a parse tree produced by the <c>WholePart</c>
+	/// labeled alternative in <see cref="PseudoParser.expr"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitWholePart([NotNull] PseudoParser.WholePartContext context);
 	/// <summary>
 	/// Visit a parse tree produced by the <c>String</c>
 	/// labeled alternative in <see cref="PseudoParser.expr"/>.
