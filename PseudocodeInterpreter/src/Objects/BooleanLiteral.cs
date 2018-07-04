@@ -10,6 +10,11 @@
 		    Value = value;
 		}
 
+	    public static implicit operator bool(BooleanLiteral literal)
+	    {
+		    return literal.Value;
+	    }
+	    
 	    public override bool ToBoolean()
 	    {
 		    return Value;

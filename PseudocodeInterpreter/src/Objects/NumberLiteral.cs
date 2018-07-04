@@ -42,32 +42,61 @@ namespace PseudocodeInterpreter.Objects
 
 		public static NumberLiteral operator +(NumberLiteral number1, NumberLiteral number2)
 	    {
+			if (number1.IsInteger && number2.IsInteger)
+		    {
+			    return new NumberLiteral((int)number1.Value + (int)number2.Value);
+		    }
 		    return new NumberLiteral(number1.Value + number2.Value);
-	    }
+		}
 
 		public static NumberLiteral operator -(NumberLiteral number1, NumberLiteral number2)
 	    {
+			if (number1.IsInteger && number2.IsInteger)
+		    {
+			    return new NumberLiteral((int)number1.Value - (int)number2.Value);
+		    }
 		    return new NumberLiteral(number1.Value - number2.Value);
-	    }
+		}
 
 		public static NumberLiteral operator *(NumberLiteral number1, NumberLiteral number2)
 	    {
+		    if (number1.IsInteger && number2.IsInteger)
+		    {
+			    return new NumberLiteral((int) number1.Value * (int) number2.Value);
+		    }
 			return new NumberLiteral(number1.Value * number2.Value);
 	    }
 
 	    public static NumberLiteral operator /(NumberLiteral number1, NumberLiteral number2)
 	    {
+		    if (number1.IsInteger && number2.IsInteger)
+		    {
+			    int left = (int) number1.Value, right = (int) number2.Value;
+			    if (left % right == 0)
+			    {
+					return new NumberLiteral(left / right);
+			    }
+		    }
 			return new NumberLiteral(number1.Value / number2.Value);
 	    }
 
 	    public static NumberLiteral operator %(NumberLiteral number1, NumberLiteral number2)
 	    {
-		    return new NumberLiteral(number1.Value % number2.Value);
+		    if (!number1.IsInteger || !number2.IsInteger)
+		    {
+				// TODO Store error message in a field
+			    throw new Exception("Can't perform modulo on floats.");
+		    }
+
+		    return new NumberLiteral((int)number1.Value % (int)number2.Value);
 	    }
 
 	    public static NumberLiteral operator -(NumberLiteral number)
 	    {
-			return new NumberLiteral(-number.Value);
+			if (number.IsInteger)
+				return new NumberLiteral((int) number.Value * -1);
+			
+			return new NumberLiteral(number.Value * -1);
 	    }
 
 	    public override string ToString()
