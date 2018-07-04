@@ -332,8 +332,8 @@ namespace PseudocodeInterpreter
 
 		public override object VisitMult(PseudoParser.MultContext context)
 		{
-			var left = Visit(context.multOrDiv()) as NumberLiteral;
-			var right = Visit(context.unarySign()) as NumberLiteral;
+			var left = (NumberLiteral) Visit(context.multOrDiv());
+			var right = (NumberLiteral) Visit(context.unarySign());
 			return left * right;
 		}
 
