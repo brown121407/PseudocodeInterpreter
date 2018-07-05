@@ -11,8 +11,9 @@ stat
 	| varAssign													
 	| ifStat
 	| whileStat                                           
-	| readBuiltin									
+	| forStat
 	| writeBuiltin
+	| readBuiltin									
 	;
 	
 ifStat
@@ -30,7 +31,11 @@ elseStat
 whileStat
 	: WHILE boolOp EXEC NL statList NL END
 	;
-	
+
+forStat
+	: FOR varAssign ',' expr EXEC NL statList NL END
+	;
+
 readBuiltin
 	: READ_BUILTIN ID (',' ID)*
 	;
@@ -48,7 +53,7 @@ optionalAssign
 	;
 	
 varAssign
-	: ID ASSIGN expr        #VariableAssignment
+	: ID ASSIGN expr 
 	;
 	
 type
@@ -158,6 +163,10 @@ REPEAT
 	
 UNTIL   
 	: 'pana cand' 
+	;
+
+FOR
+	: 'pentru'
 	;
 	
 END     

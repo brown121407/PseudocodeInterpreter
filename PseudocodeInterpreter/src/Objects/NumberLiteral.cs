@@ -18,6 +18,12 @@ namespace PseudocodeInterpreter.Objects
 		    Type = TypeNames.IntegerType;
 	    }
 
+	    public NumberLiteral(float value, string type = TypeNames.RealType)
+	    {
+		    Value = ((type == TypeNames.RealType) ? value : (int) value);
+		    Type = type;
+	    }
+
 	    public bool IsInteger => Type == TypeNames.IntegerType;
 
 	    public static implicit operator int(NumberLiteral number)

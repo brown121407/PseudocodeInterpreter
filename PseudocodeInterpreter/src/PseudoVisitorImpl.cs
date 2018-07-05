@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using Antlr4.Runtime;
 using AntlrGenerated;
 using PseudocodeInterpreter.Exceptions;
@@ -64,6 +65,24 @@ namespace PseudocodeInterpreter
 		public override object VisitWhileStat(PseudoParser.WhileStatContext context)
 		{
 			while ((BooleanLiteral) Visit(context.boolOp()))
+			{
+				Visit(context.statList());
+			}
+
+			return null;
+		}
+
+		public override object VisitForStat(PseudoParser.ForStatContext context)
+		{
+			var varName = context.varAssign().ID().GetText();
+			var varType = _scopes.GetVar(varName).Type;
+			Visit(context.varAssign());
+
+			for (
+				float i = (NumberLiteral) _scopes.GetVar(varName);
+				i < (NumberLiteral) Visit(context.expr());
+				++i, _scopes.SetVar(varName, new NumberLiteral(i, varType))
+				)
 			{
 				Visit(context.statList());
 			}
@@ -232,7 +251,7 @@ namespace PseudocodeInterpreter
 			}
 		}
 
-		public override object VisitVariableAssignment(PseudoParser.VariableAssignmentContext context)
+		public override object VisitVarAssign(PseudoParser.VarAssignContext context)
 		{
 			var varName = context.ID().GetText();
 			if (!_scopes.DoesVariableExist(varName))
