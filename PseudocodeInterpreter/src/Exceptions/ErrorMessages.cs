@@ -4,6 +4,7 @@
     {
 	    public const string NullInput = "Input cannot be null.";
 	    public const string ArgumentsNumber = "Too many or too few arguments.";
+	    public const string ModuloOnFloats = "Cannot perform modulo on floats.";
 
 	    public static string IncompatibleTypes(string typeName, string incompatType)
 		    => $"Type {typeName} is not compatible with type {incompatType}.";

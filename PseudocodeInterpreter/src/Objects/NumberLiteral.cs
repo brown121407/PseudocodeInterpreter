@@ -1,4 +1,5 @@
 ﻿using System;
+using PseudocodeInterpreter.Exceptions;
 
 namespace PseudocodeInterpreter.Objects
 {
@@ -90,8 +91,7 @@ namespace PseudocodeInterpreter.Objects
 	    {
 		    if (!number1.IsInteger || !number2.IsInteger)
 		    {
-				// TODO Store error message in a field
-			    throw new Exception("Can't perform modulo on floats.");
+			    throw new Exception(ErrorMessages.ModuloOnFloats);
 		    }
 
 		    return new NumberLiteral((int)number1.Value % (int)number2.Value);
