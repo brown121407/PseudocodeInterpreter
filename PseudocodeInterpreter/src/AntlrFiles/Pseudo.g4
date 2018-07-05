@@ -63,8 +63,8 @@ type
 	;
 
 boolOp
-	: boolOp (NOT)? AND boolOp		#AndOp
-	| boolOp (NOT)? OR  boolOp		#OrOp
+	: boolOp AND boolOp		#AndOp
+	| boolOp OR  boolOp		#OrOp
 	| plusOrMinus EQUAL plusOrMinus	#AreEqual
 	| plusOrMinus '<'  plusOrMinus	#LessThan
 	| plusOrMinus '<=' plusOrMinus	#LessOrEqual
