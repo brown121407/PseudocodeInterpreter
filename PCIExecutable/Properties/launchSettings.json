@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "PCIExecutable": {
+      "commandName": "Project",
+      "commandLineArgs": "C:\\Users\\Sergiu\\Desktop\\test.txt"
+    }
+  }
+}

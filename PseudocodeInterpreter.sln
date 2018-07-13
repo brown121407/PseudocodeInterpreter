@@ -1,6 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PseudocodeInterpreter", "PseudocodeInterpreter\PseudocodeInterpreter.csproj", "{604BC978-7301-423B-847D-00845C66377A}"
+# Visual Studio 15
+VisualStudioVersion = 15.0.27703.2035
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PseudocodeInterpreter", "PseudocodeInterpreter\PseudocodeInterpreter.csproj", "{604BC978-7301-423B-847D-00845C66377A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PCIExecutable", "PCIExecutable\PCIExecutable.csproj", "{BCD29BF0-2071-408E-8D74-8461F141E7CE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,5 +18,15 @@ Global
 		{604BC978-7301-423B-847D-00845C66377A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{604BC978-7301-423B-847D-00845C66377A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{604BC978-7301-423B-847D-00845C66377A}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{BCD29BF0-2071-408E-8D74-8461F141E7CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BCD29BF0-2071-408E-8D74-8461F141E7CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BCD29BF0-2071-408E-8D74-8461F141E7CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BCD29BF0-2071-408E-8D74-8461F141E7CE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A11BA3D5-9EE0-4A74-9B08-9F76FFF67C93}
 	EndGlobalSection
 EndGlobal

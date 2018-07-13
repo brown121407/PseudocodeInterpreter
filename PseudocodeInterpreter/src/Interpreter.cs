@@ -6,9 +6,9 @@ using AntlrGenerated;
 
 namespace PseudocodeInterpreter
 {
-	internal static class Program
+	public static class Interpreter
 	{
-		private static void Main(string[] args)
+		public static void Execute(string[] args)
 		{
 			string source = File.ReadAllText(args[0]);
 			source = Regex.Replace(source, @"^\s*$\n|\r", string.Empty, RegexOptions.Multiline).TrimEnd();
