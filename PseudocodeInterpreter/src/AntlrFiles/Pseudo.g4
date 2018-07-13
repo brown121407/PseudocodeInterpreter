@@ -63,9 +63,11 @@ type
 	;
 
 boolOp
-	: boolOp AND boolOp		#AndOp
+	: LP boolOp RP			#ParanBoolOp
+	| NOT LP boolOp RP		#NegateBoolOp
+	| boolOp AND boolOp		#AndOp
 	| boolOp OR  boolOp		#OrOp
-	| plusOrMinus EQUAL plusOrMinus	#AreEqual
+	| plusOrMinus (NOT)? EQUAL plusOrMinus	#AreEqual
 	| plusOrMinus '<'  plusOrMinus	#LessThan
 	| plusOrMinus '<=' plusOrMinus	#LessOrEqual
 	| plusOrMinus '>'  plusOrMinus	#GreaterThan
@@ -182,7 +184,7 @@ OR
 	;
 
 NOT
-	: 'non'
+	: '!'
 	;
 	
 FUNCTION

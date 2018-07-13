@@ -14,6 +14,11 @@
 	    {
 		    return literal.Value;
 	    }
+
+		public static BooleanLiteral operator !(BooleanLiteral literal)
+	    {
+			return new BooleanLiteral(!literal.Value);
+	    }
 	    
 	    public override bool ToBoolean()
 	    {

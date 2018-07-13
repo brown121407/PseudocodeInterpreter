@@ -231,6 +231,17 @@ public partial class PseudoBaseVisitor<Result> : AbstractParseTreeVisitor<Result
 	/// <return>The visitor result.</return>
 	public virtual Result VisitGreaterOrEqual([NotNull] PseudoParser.GreaterOrEqualContext context) { return VisitChildren(context); }
 	/// <summary>
+	/// Visit a parse tree produced by the <c>ParanBoolOp</c>
+	/// labeled alternative in <see cref="PseudoParser.boolOp"/>.
+	/// <para>
+	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
+	/// on <paramref name="context"/>.
+	/// </para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	public virtual Result VisitParanBoolOp([NotNull] PseudoParser.ParanBoolOpContext context) { return VisitChildren(context); }
+	/// <summary>
 	/// Visit a parse tree produced by the <c>AreEqual</c>
 	/// labeled alternative in <see cref="PseudoParser.boolOp"/>.
 	/// <para>
@@ -241,6 +252,17 @@ public partial class PseudoBaseVisitor<Result> : AbstractParseTreeVisitor<Result
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
 	public virtual Result VisitAreEqual([NotNull] PseudoParser.AreEqualContext context) { return VisitChildren(context); }
+	/// <summary>
+	/// Visit a parse tree produced by the <c>NegateBoolOp</c>
+	/// labeled alternative in <see cref="PseudoParser.boolOp"/>.
+	/// <para>
+	/// The default implementation returns the result of calling <see cref="AbstractParseTreeVisitor{Result}.VisitChildren(IRuleNode)"/>
+	/// on <paramref name="context"/>.
+	/// </para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	public virtual Result VisitNegateBoolOp([NotNull] PseudoParser.NegateBoolOpContext context) { return VisitChildren(context); }
 	/// <summary>
 	/// Visit a parse tree produced by the <c>AndOp</c>
 	/// labeled alternative in <see cref="PseudoParser.boolOp"/>.

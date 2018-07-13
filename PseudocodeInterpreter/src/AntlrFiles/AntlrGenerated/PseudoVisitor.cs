@@ -153,12 +153,26 @@ public interface IPseudoVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <return>The visitor result.</return>
 	Result VisitGreaterOrEqual([NotNull] PseudoParser.GreaterOrEqualContext context);
 	/// <summary>
+	/// Visit a parse tree produced by the <c>ParanBoolOp</c>
+	/// labeled alternative in <see cref="PseudoParser.boolOp"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitParanBoolOp([NotNull] PseudoParser.ParanBoolOpContext context);
+	/// <summary>
 	/// Visit a parse tree produced by the <c>AreEqual</c>
 	/// labeled alternative in <see cref="PseudoParser.boolOp"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
 	Result VisitAreEqual([NotNull] PseudoParser.AreEqualContext context);
+	/// <summary>
+	/// Visit a parse tree produced by the <c>NegateBoolOp</c>
+	/// labeled alternative in <see cref="PseudoParser.boolOp"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitNegateBoolOp([NotNull] PseudoParser.NegateBoolOpContext context);
 	/// <summary>
 	/// Visit a parse tree produced by the <c>AndOp</c>
 	/// labeled alternative in <see cref="PseudoParser.boolOp"/>.

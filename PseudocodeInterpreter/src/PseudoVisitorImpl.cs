@@ -306,14 +306,26 @@ namespace PseudocodeInterpreter
 		{
 			var leftValue = ((BooleanLiteral)Visit(context.boolOp(0))).ToBoolean();
 			var rightValue = ((BooleanLiteral)Visit(context.boolOp(1))).ToBoolean();
-			return new BooleanLiteral(leftValue && rightValue);
+			return new BooleanLiteral(leftValue || rightValue);
+		}
+
+		public override object VisitNegateBoolOp(PseudoParser.NegateBoolOpContext context)
+		{
+			return !((BooleanLiteral) Visit(context.boolOp()));
+		}
+
+		public override object VisitParanBoolOp(PseudoParser.ParanBoolOpContext context)
+		{
+			return Visit(context.boolOp());
 		}
 
 		public override object VisitAreEqual(PseudoParser.AreEqualContext context)
 		{
 			var leftValue = (NumberLiteral) Visit(context.plusOrMinus(0));
 			var rightValue = (NumberLiteral) Visit(context.plusOrMinus(1));
-			return new BooleanLiteral(Math.Abs(leftValue.Value - rightValue.Value) < Single.Epsilon);
+			return context.NOT() != null 
+				? new BooleanLiteral(!(Math.Abs(leftValue.Value - rightValue.Value) < float.Epsilon))
+				: new BooleanLiteral(Math.Abs(leftValue.Value - rightValue.Value) < float.Epsilon);
 		}
 
 		public override object VisitGreaterThan(PseudoParser.GreaterThanContext context)
