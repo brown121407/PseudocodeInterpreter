@@ -244,7 +244,7 @@ namespace PseudocodeInterpreter
 			}
 			else
 			{
-				throw new Exception($"{varName} is undefined.");
+				throw new Exception(ErrorMessages.UndefinedSymbol(varName));
 			}
 		}
 

@@ -8,6 +8,8 @@ namespace PseudocodeInterpreter
 {
 	public static class Interpreter
 	{
+		public static Action<string> Log { get; set; } = Console.WriteLine;
+
 		public static void Execute(string[] args)
 		{
 			string source = File.ReadAllText(args[0]);
@@ -28,7 +30,7 @@ namespace PseudocodeInterpreter
 			}
 			catch (Exception e)
 			{
-				Console.WriteLine(e.ToString());
+				Log(e.ToString());
 			}
 		}
 	}
