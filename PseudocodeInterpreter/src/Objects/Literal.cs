@@ -14,7 +14,7 @@ namespace PseudocodeInterpreter.Objects
 
 	    public virtual bool ToBoolean()
 	    {
-		    throw new Exception(ErrorMessages.IncompatibleTypes(this.Type, TypeNames.Boolean));
+		    throw new Exception(ErrorMessages.IncompatibleTypes(Type, TypeNames.Boolean));
 	    }
     }
 }

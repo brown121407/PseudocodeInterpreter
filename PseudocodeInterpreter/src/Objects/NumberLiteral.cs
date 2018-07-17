@@ -105,14 +105,8 @@ namespace PseudocodeInterpreter.Objects
 			return new NumberLiteral(number.Value * -1);
 	    }
 
-	    public override string ToString()
-	    {
-		    return Value.ToString();
-	    }
+        public override string ToString() => Value.ToString();
 
-	    public override bool ToBoolean()
-	    {
-		    return Math.Abs(Value) >= float.Epsilon;
-	    }
+        public override bool ToBoolean() => Math.Abs(Value) >= float.Epsilon;
     }
 }

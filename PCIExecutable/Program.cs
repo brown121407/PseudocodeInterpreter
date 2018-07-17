@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace PCIExecutable
+﻿namespace PCIExecutable
 {
     class Program
     {

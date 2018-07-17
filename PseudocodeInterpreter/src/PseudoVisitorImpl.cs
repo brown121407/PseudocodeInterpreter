@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
-using Antlr4.Runtime;
 using AntlrGenerated;
 using PseudocodeInterpreter.Exceptions;
 using PseudocodeInterpreter.Objects;
