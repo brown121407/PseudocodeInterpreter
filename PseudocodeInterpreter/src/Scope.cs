@@ -45,11 +45,11 @@ namespace PseudocodeInterpreter
 
 		public Literal GetVar(string name)
 		{
-			foreach (var scope in _scopes)
-			{
-				if (scope.Variables.ContainsKey(name))
+		    for (int i = _scopes.Count - 1; i >= 0; i--)
+            {
+				if (_scopes[i].Variables.ContainsKey(name))
 				{
-					return scope.Variables[name];
+					return _scopes[i].Variables[name];
 				}
 			}
 
@@ -58,29 +58,29 @@ namespace PseudocodeInterpreter
 
 		public void SetVar(string name, Literal value)
 		{
-			foreach (var scope in _scopes)
-			{
-				if (scope.Variables.ContainsKey(name))
-				{
-					scope.Variables[name] = value;
-					return;
-				}
-			}
+		    for (int i = _scopes.Count - 1; i >= 0; i--)
+		    {
+		        if (_scopes[i].Variables.ContainsKey(name))
+		        {
+		            _scopes[i].Variables[name] = value;
+                    return;
+		        }
+		    }
 			
 			throw new Exception(ErrorMessages.UndefinedSymbol(name));
 		}
 
 		public bool DoesVariableExist(string name)
 		{
-			foreach (var scope in _scopes)
-			{
-				if (scope.Variables.ContainsKey(name))
-				{
-					return true;
-				}
-			}
+		    for (int i = _scopes.Count - 1; i >= 0; i--)
+		    {
+		        if (_scopes[i].Variables.ContainsKey(name))
+		        {
+		            return true;
+		        }
+		    }
 
-			return false;
+            return false;
 		}
 
 	}
