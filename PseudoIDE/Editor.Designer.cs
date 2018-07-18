@@ -31,17 +31,24 @@
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Editor));
 			this.toolStrip = new System.Windows.Forms.ToolStrip();
 			this.fileMenu = new System.Windows.Forms.ToolStripDropDownButton();
-			this.newToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.saveAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.runButton = new System.Windows.Forms.ToolStripButton();
+			this.newFileButton = new System.Windows.Forms.ToolStripMenuItem();
+			this.openFileButton = new System.Windows.Forms.ToolStripMenuItem();
+			this.saveFileButton = new System.Windows.Forms.ToolStripMenuItem();
+			this.saveFileAsButton = new System.Windows.Forms.ToolStripMenuItem();
+			this.exitButton = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolStripSeparator = new System.Windows.Forms.ToolStripSeparator();
+			this.runButton = new System.Windows.Forms.ToolStripButton();
 			this.statusStrip = new System.Windows.Forms.StatusStrip();
+			this.fileNameLabel = new System.Windows.Forms.ToolStripStatusLabel();
 			this.lineLabel = new System.Windows.Forms.ToolStripStatusLabel();
 			this.columnLabel = new System.Windows.Forms.ToolStripStatusLabel();
-			this.fileNameLabel = new System.Windows.Forms.ToolStripStatusLabel();
+			this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
+			this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
+			this.logBox = new System.Windows.Forms.TextBox();
+			this.panelEditor = new System.Windows.Forms.Panel();
+			this.toolStripDropDownLogConsole = new System.Windows.Forms.ToolStripDropDownButton();
+			this.toggleLoxBoxButton = new System.Windows.Forms.ToolStripMenuItem();
+			this.clearLogButton = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolStrip.SuspendLayout();
 			this.statusStrip.SuspendLayout();
 			this.SuspendLayout();
@@ -52,7 +59,8 @@
 			this.toolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileMenu,
             this.toolStripSeparator,
-            this.runButton});
+            this.runButton,
+            this.toolStripDropDownLogConsole});
 			this.toolStrip.Location = new System.Drawing.Point(0, 0);
 			this.toolStrip.Name = "toolStrip";
 			this.toolStrip.Size = new System.Drawing.Size(800, 25);
@@ -62,46 +70,56 @@
 			// 
 			this.fileMenu.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
 			this.fileMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.newToolStripMenuItem,
-            this.openToolStripMenuItem,
-            this.saveToolStripMenuItem,
-            this.saveAsToolStripMenuItem,
-            this.exitToolStripMenuItem});
+            this.newFileButton,
+            this.openFileButton,
+            this.saveFileButton,
+            this.saveFileAsButton,
+            this.exitButton});
 			this.fileMenu.Image = ((System.Drawing.Image)(resources.GetObject("fileMenu.Image")));
 			this.fileMenu.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.fileMenu.Name = "fileMenu";
 			this.fileMenu.Size = new System.Drawing.Size(38, 22);
 			this.fileMenu.Text = "&File";
 			// 
-			// newToolStripMenuItem
+			// newFileButton
 			// 
-			this.newToolStripMenuItem.Name = "newToolStripMenuItem";
-			this.newToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-			this.newToolStripMenuItem.Text = "&New";
+			this.newFileButton.Name = "newFileButton";
+			this.newFileButton.Size = new System.Drawing.Size(180, 22);
+			this.newFileButton.Text = "&New";
+			this.newFileButton.Click += new System.EventHandler(this.newFileButton_Click);
 			// 
-			// openToolStripMenuItem
+			// openFileButton
 			// 
-			this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-			this.openToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-			this.openToolStripMenuItem.Text = "&Open";
+			this.openFileButton.Name = "openFileButton";
+			this.openFileButton.Size = new System.Drawing.Size(180, 22);
+			this.openFileButton.Text = "&Open";
+			this.openFileButton.Click += new System.EventHandler(this.openFileButton_Click);
 			// 
-			// saveToolStripMenuItem
+			// saveFileButton
 			// 
-			this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-			this.saveToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-			this.saveToolStripMenuItem.Text = "&Save";
+			this.saveFileButton.Name = "saveFileButton";
+			this.saveFileButton.Size = new System.Drawing.Size(180, 22);
+			this.saveFileButton.Text = "&Save";
+			this.saveFileButton.Click += new System.EventHandler(this.saveFileButton_Click);
 			// 
-			// saveAsToolStripMenuItem
+			// saveFileAsButton
 			// 
-			this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
-			this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-			this.saveAsToolStripMenuItem.Text = "Save &As";
+			this.saveFileAsButton.Name = "saveFileAsButton";
+			this.saveFileAsButton.Size = new System.Drawing.Size(180, 22);
+			this.saveFileAsButton.Text = "Save &As";
+			this.saveFileAsButton.Click += new System.EventHandler(this.saveFileAsButton_Click);
 			// 
-			// exitToolStripMenuItem
+			// exitButton
 			// 
-			this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-			this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-			this.exitToolStripMenuItem.Text = "&Exit";
+			this.exitButton.Name = "exitButton";
+			this.exitButton.Size = new System.Drawing.Size(180, 22);
+			this.exitButton.Text = "&Exit";
+			this.exitButton.Click += new System.EventHandler(this.exitButton_Click);
+			// 
+			// toolStripSeparator
+			// 
+			this.toolStripSeparator.Name = "toolStripSeparator";
+			this.toolStripSeparator.Size = new System.Drawing.Size(6, 25);
 			// 
 			// runButton
 			// 
@@ -110,11 +128,7 @@
 			this.runButton.Name = "runButton";
 			this.runButton.Size = new System.Drawing.Size(48, 22);
 			this.runButton.Text = "&Run";
-			// 
-			// toolStripSeparator
-			// 
-			this.toolStripSeparator.Name = "toolStripSeparator";
-			this.toolStripSeparator.Size = new System.Drawing.Size(6, 25);
+			this.runButton.Click += new System.EventHandler(this.runButton_Click);
 			// 
 			// statusStrip
 			// 
@@ -127,6 +141,14 @@
 			this.statusStrip.Size = new System.Drawing.Size(800, 22);
 			this.statusStrip.TabIndex = 1;
 			this.statusStrip.Text = "statusStrip1";
+			// 
+			// fileNameLabel
+			// 
+			this.fileNameLabel.Name = "fileNameLabel";
+			this.fileNameLabel.Size = new System.Drawing.Size(635, 17);
+			this.fileNameLabel.Spring = true;
+			this.fileNameLabel.Text = "FileName";
+			this.fileNameLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
 			// lineLabel
 			// 
@@ -144,24 +166,68 @@
 			this.columnLabel.Text = "Col";
 			this.columnLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
-			// fileNameLabel
+			// openFileDialog
 			// 
-			this.fileNameLabel.Name = "fileNameLabel";
-			this.fileNameLabel.Size = new System.Drawing.Size(635, 17);
-			this.fileNameLabel.Spring = true;
-			this.fileNameLabel.Text = "FileName";
-			this.fileNameLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			this.openFileDialog.FileName = "openFileDialog1";
+			// 
+			// logBox
+			// 
+			this.logBox.Dock = System.Windows.Forms.DockStyle.Bottom;
+			this.logBox.Location = new System.Drawing.Point(0, 328);
+			this.logBox.Multiline = true;
+			this.logBox.Name = "logBox";
+			this.logBox.ReadOnly = true;
+			this.logBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+			this.logBox.Size = new System.Drawing.Size(800, 100);
+			this.logBox.TabIndex = 2;
+			// 
+			// panelEditor
+			// 
+			this.panelEditor.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.panelEditor.Location = new System.Drawing.Point(0, 25);
+			this.panelEditor.Name = "panelEditor";
+			this.panelEditor.Size = new System.Drawing.Size(800, 303);
+			this.panelEditor.TabIndex = 3;
+			// 
+			// toolStripDropDownLogConsole
+			// 
+			this.toolStripDropDownLogConsole.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+			this.toolStripDropDownLogConsole.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toggleLoxBoxButton,
+            this.clearLogButton});
+			this.toolStripDropDownLogConsole.Image = ((System.Drawing.Image)(resources.GetObject("toolStripDropDownLogConsole.Image")));
+			this.toolStripDropDownLogConsole.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.toolStripDropDownLogConsole.Name = "toolStripDropDownLogConsole";
+			this.toolStripDropDownLogConsole.Size = new System.Drawing.Size(40, 22);
+			this.toolStripDropDownLogConsole.Text = "Log";
+			// 
+			// toggleLoxBoxButton
+			// 
+			this.toggleLoxBoxButton.Name = "toggleLoxBoxButton";
+			this.toggleLoxBoxButton.Size = new System.Drawing.Size(180, 22);
+			this.toggleLoxBoxButton.Text = "Toggle";
+			this.toggleLoxBoxButton.Click += new System.EventHandler(this.toggleLoxBoxButton_Click);
+			// 
+			// clearLogButton
+			// 
+			this.clearLogButton.Name = "clearLogButton";
+			this.clearLogButton.Size = new System.Drawing.Size(180, 22);
+			this.clearLogButton.Text = "Clear";
+			this.clearLogButton.Click += new System.EventHandler(this.clearLogButton_Click);
 			// 
 			// Editor
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(800, 450);
+			this.Controls.Add(this.panelEditor);
+			this.Controls.Add(this.logBox);
 			this.Controls.Add(this.statusStrip);
 			this.Controls.Add(this.toolStrip);
 			this.MinimumSize = new System.Drawing.Size(400, 400);
 			this.Name = "Editor";
 			this.Text = "PseudoIDE";
+			this.Load += new System.EventHandler(this.Editor_Load);
 			this.toolStrip.ResumeLayout(false);
 			this.toolStrip.PerformLayout();
 			this.statusStrip.ResumeLayout(false);
@@ -175,17 +241,24 @@
 
 		private System.Windows.Forms.ToolStrip toolStrip;
 		private System.Windows.Forms.ToolStripDropDownButton fileMenu;
-		private System.Windows.Forms.ToolStripMenuItem newToolStripMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem saveAsToolStripMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem newFileButton;
+		private System.Windows.Forms.ToolStripMenuItem openFileButton;
+		private System.Windows.Forms.ToolStripMenuItem saveFileButton;
+		private System.Windows.Forms.ToolStripMenuItem saveFileAsButton;
+		private System.Windows.Forms.ToolStripMenuItem exitButton;
 		private System.Windows.Forms.ToolStripSeparator toolStripSeparator;
 		private System.Windows.Forms.ToolStripButton runButton;
 		private System.Windows.Forms.StatusStrip statusStrip;
 		private System.Windows.Forms.ToolStripStatusLabel lineLabel;
 		private System.Windows.Forms.ToolStripStatusLabel columnLabel;
 		private System.Windows.Forms.ToolStripStatusLabel fileNameLabel;
+		private System.Windows.Forms.SaveFileDialog saveFileDialog;
+		private System.Windows.Forms.OpenFileDialog openFileDialog;
+		private System.Windows.Forms.TextBox logBox;
+		private System.Windows.Forms.Panel panelEditor;
+		private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownLogConsole;
+		private System.Windows.Forms.ToolStripMenuItem toggleLoxBoxButton;
+		private System.Windows.Forms.ToolStripMenuItem clearLogButton;
 	}
 }
 
