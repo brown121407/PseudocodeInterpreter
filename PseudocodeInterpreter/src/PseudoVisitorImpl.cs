@@ -89,7 +89,7 @@ namespace PseudocodeInterpreter
 
 		public override object VisitReadBuiltin(PseudoParser.ReadBuiltinContext context)
 		{
-			var values = Console.ReadLine()?.Split(" ");
+			var values = Interpreter.Input()?.Split(' ');
 
 			if (values == null)
 			{
@@ -151,11 +151,11 @@ namespace PseudocodeInterpreter
 
 			if (context.WRITELN_BUILTIN() != null)
 			{
-				Console.WriteLine(toWrite);
+				Interpreter.Output(toWrite + "\n");
 			}
 			else
 			{
-				Console.Write(toWrite);
+				Interpreter.Output(toWrite);
 			}
 
 			return null;

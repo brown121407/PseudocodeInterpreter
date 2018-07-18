@@ -8,9 +8,10 @@ namespace PseudocodeInterpreter
 {
 	public static class Interpreter
 	{
-		public static Action<string> Log { get; set; } = Console.WriteLine;
+		public static Action<string> Output { get; set; } = Console.Write;
+		public static Func<string> Input { get; set; } = Console.ReadLine;
 
-		public static void Execute(string[] args)
+		public static void ExecuteFile(string[] args)
 		{
 			string source = File.ReadAllText(args[0]);
 			source = Regex.Replace(source, @"^\s*$\n|\r", string.Empty, RegexOptions.Multiline).TrimEnd();
@@ -30,7 +31,30 @@ namespace PseudocodeInterpreter
 			}
 			catch (Exception e)
 			{
-				Log(e.ToString());
+				Output(e.Message);
+			}
+		}
+
+		public static void ExecuteString(string text)
+		{ 
+			string toExecute = Regex.Replace(text, @"^\s*$\n|\r", string.Empty, RegexOptions.Multiline).TrimEnd();
+
+			ICharStream input = CharStreams.fromstring(toExecute);
+
+			PseudoLexer lexer = new PseudoLexer(input);
+			CommonTokenStream tokens = new CommonTokenStream(lexer);
+			PseudoParser parser = new PseudoParser(tokens);
+			var tree = parser.file();
+
+			PseudoVisitorImpl calcVisitor = new PseudoVisitorImpl();
+
+			try
+			{
+				calcVisitor.Visit(tree);
+			}
+			catch (Exception e)
+			{
+				Output(e.Message);
 			}
 		}
 	}

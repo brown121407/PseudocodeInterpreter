@@ -1,6 +1,0 @@
-intreg x, y
-citeste x, y
-scrieln x + y
-
-x <- 20
-scrie x

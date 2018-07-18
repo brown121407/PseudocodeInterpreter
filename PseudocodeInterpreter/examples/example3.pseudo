@@ -1,9 +1,0 @@
-intreg x, y
-citeste x, y
-
-daca y = 0 atunci 
-	scrie "Nu pot calcula impartirea la 0 :("	
-altfel
-	scrie x / y
-sfarsit
-
