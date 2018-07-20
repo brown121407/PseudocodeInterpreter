@@ -38,19 +38,21 @@
 			this.exitButton = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolStripSeparator = new System.Windows.Forms.ToolStripSeparator();
 			this.runButton = new System.Windows.Forms.ToolStripButton();
+			this.toolStripDropDownLogConsole = new System.Windows.Forms.ToolStripDropDownButton();
+			this.toggleLoxBoxButton = new System.Windows.Forms.ToolStripMenuItem();
+			this.clearLogButton = new System.Windows.Forms.ToolStripMenuItem();
 			this.statusStrip = new System.Windows.Forms.StatusStrip();
 			this.fileNameLabel = new System.Windows.Forms.ToolStripStatusLabel();
 			this.lineLabel = new System.Windows.Forms.ToolStripStatusLabel();
 			this.columnLabel = new System.Windows.Forms.ToolStripStatusLabel();
 			this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
 			this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
-			this.logBox = new System.Windows.Forms.TextBox();
 			this.panelEditor = new System.Windows.Forms.Panel();
-			this.toolStripDropDownLogConsole = new System.Windows.Forms.ToolStripDropDownButton();
-			this.toggleLoxBoxButton = new System.Windows.Forms.ToolStripMenuItem();
-			this.clearLogButton = new System.Windows.Forms.ToolStripMenuItem();
+			this.scintilla = new ScintillaNET.Scintilla();
+			this.logBox = new ConsoleControl.ConsoleControl();
 			this.toolStrip.SuspendLayout();
 			this.statusStrip.SuspendLayout();
+			this.panelEditor.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// toolStrip
@@ -84,35 +86,35 @@
 			// newFileButton
 			// 
 			this.newFileButton.Name = "newFileButton";
-			this.newFileButton.Size = new System.Drawing.Size(180, 22);
+			this.newFileButton.Size = new System.Drawing.Size(114, 22);
 			this.newFileButton.Text = "&New";
 			this.newFileButton.Click += new System.EventHandler(this.newFileButton_Click);
 			// 
 			// openFileButton
 			// 
 			this.openFileButton.Name = "openFileButton";
-			this.openFileButton.Size = new System.Drawing.Size(180, 22);
+			this.openFileButton.Size = new System.Drawing.Size(114, 22);
 			this.openFileButton.Text = "&Open";
 			this.openFileButton.Click += new System.EventHandler(this.openFileButton_Click);
 			// 
 			// saveFileButton
 			// 
 			this.saveFileButton.Name = "saveFileButton";
-			this.saveFileButton.Size = new System.Drawing.Size(180, 22);
+			this.saveFileButton.Size = new System.Drawing.Size(114, 22);
 			this.saveFileButton.Text = "&Save";
 			this.saveFileButton.Click += new System.EventHandler(this.saveFileButton_Click);
 			// 
 			// saveFileAsButton
 			// 
 			this.saveFileAsButton.Name = "saveFileAsButton";
-			this.saveFileAsButton.Size = new System.Drawing.Size(180, 22);
+			this.saveFileAsButton.Size = new System.Drawing.Size(114, 22);
 			this.saveFileAsButton.Text = "Save &As";
 			this.saveFileAsButton.Click += new System.EventHandler(this.saveFileAsButton_Click);
 			// 
 			// exitButton
 			// 
 			this.exitButton.Name = "exitButton";
-			this.exitButton.Size = new System.Drawing.Size(180, 22);
+			this.exitButton.Size = new System.Drawing.Size(114, 22);
 			this.exitButton.Text = "&Exit";
 			this.exitButton.Click += new System.EventHandler(this.exitButton_Click);
 			// 
@@ -129,6 +131,32 @@
 			this.runButton.Size = new System.Drawing.Size(48, 22);
 			this.runButton.Text = "&Run";
 			this.runButton.Click += new System.EventHandler(this.runButton_Click);
+			// 
+			// toolStripDropDownLogConsole
+			// 
+			this.toolStripDropDownLogConsole.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+			this.toolStripDropDownLogConsole.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toggleLoxBoxButton,
+            this.clearLogButton});
+			this.toolStripDropDownLogConsole.Image = ((System.Drawing.Image)(resources.GetObject("toolStripDropDownLogConsole.Image")));
+			this.toolStripDropDownLogConsole.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.toolStripDropDownLogConsole.Name = "toolStripDropDownLogConsole";
+			this.toolStripDropDownLogConsole.Size = new System.Drawing.Size(40, 22);
+			this.toolStripDropDownLogConsole.Text = "Log";
+			// 
+			// toggleLoxBoxButton
+			// 
+			this.toggleLoxBoxButton.Name = "toggleLoxBoxButton";
+			this.toggleLoxBoxButton.Size = new System.Drawing.Size(110, 22);
+			this.toggleLoxBoxButton.Text = "Toggle";
+			this.toggleLoxBoxButton.Click += new System.EventHandler(this.toggleLoxBoxButton_Click);
+			// 
+			// clearLogButton
+			// 
+			this.clearLogButton.Name = "clearLogButton";
+			this.clearLogButton.Size = new System.Drawing.Size(110, 22);
+			this.clearLogButton.Text = "Clear";
+			this.clearLogButton.Click += new System.EventHandler(this.clearLogButton_Click);
 			// 
 			// statusStrip
 			// 
@@ -170,50 +198,36 @@
 			// 
 			this.openFileDialog.FileName = "openFileDialog1";
 			// 
-			// logBox
-			// 
-			this.logBox.Dock = System.Windows.Forms.DockStyle.Bottom;
-			this.logBox.Location = new System.Drawing.Point(0, 328);
-			this.logBox.Multiline = true;
-			this.logBox.Name = "logBox";
-			this.logBox.ReadOnly = true;
-			this.logBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-			this.logBox.Size = new System.Drawing.Size(800, 100);
-			this.logBox.TabIndex = 2;
-			// 
 			// panelEditor
 			// 
+			this.panelEditor.Controls.Add(this.scintilla);
 			this.panelEditor.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.panelEditor.Location = new System.Drawing.Point(0, 25);
 			this.panelEditor.Name = "panelEditor";
-			this.panelEditor.Size = new System.Drawing.Size(800, 303);
+			this.panelEditor.Size = new System.Drawing.Size(800, 223);
 			this.panelEditor.TabIndex = 3;
 			// 
-			// toolStripDropDownLogConsole
+			// scintilla
 			// 
-			this.toolStripDropDownLogConsole.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-			this.toolStripDropDownLogConsole.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toggleLoxBoxButton,
-            this.clearLogButton});
-			this.toolStripDropDownLogConsole.Image = ((System.Drawing.Image)(resources.GetObject("toolStripDropDownLogConsole.Image")));
-			this.toolStripDropDownLogConsole.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.toolStripDropDownLogConsole.Name = "toolStripDropDownLogConsole";
-			this.toolStripDropDownLogConsole.Size = new System.Drawing.Size(40, 22);
-			this.toolStripDropDownLogConsole.Text = "Log";
+			this.scintilla.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.scintilla.IndentationGuides = ScintillaNET.IndentView.LookBoth;
+			this.scintilla.Location = new System.Drawing.Point(0, 0);
+			this.scintilla.Name = "scintilla";
+			this.scintilla.Size = new System.Drawing.Size(800, 223);
+			this.scintilla.TabIndex = 0;
+			this.scintilla.UseTabs = true;
+			this.scintilla.KeyDown += new System.Windows.Forms.KeyEventHandler(this.scintilla_KeyDown);
 			// 
-			// toggleLoxBoxButton
+			// logBox
 			// 
-			this.toggleLoxBoxButton.Name = "toggleLoxBoxButton";
-			this.toggleLoxBoxButton.Size = new System.Drawing.Size(180, 22);
-			this.toggleLoxBoxButton.Text = "Toggle";
-			this.toggleLoxBoxButton.Click += new System.EventHandler(this.toggleLoxBoxButton_Click);
-			// 
-			// clearLogButton
-			// 
-			this.clearLogButton.Name = "clearLogButton";
-			this.clearLogButton.Size = new System.Drawing.Size(180, 22);
-			this.clearLogButton.Text = "Clear";
-			this.clearLogButton.Click += new System.EventHandler(this.clearLogButton_Click);
+			this.logBox.Dock = System.Windows.Forms.DockStyle.Bottom;
+			this.logBox.IsInputEnabled = true;
+			this.logBox.Location = new System.Drawing.Point(0, 248);
+			this.logBox.Name = "logBox";
+			this.logBox.SendKeyboardCommandsToProcess = false;
+			this.logBox.ShowDiagnostics = false;
+			this.logBox.Size = new System.Drawing.Size(800, 180);
+			this.logBox.TabIndex = 4;
 			// 
 			// Editor
 			// 
@@ -232,6 +246,7 @@
 			this.toolStrip.PerformLayout();
 			this.statusStrip.ResumeLayout(false);
 			this.statusStrip.PerformLayout();
+			this.panelEditor.ResumeLayout(false);
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -254,11 +269,12 @@
 		private System.Windows.Forms.ToolStripStatusLabel fileNameLabel;
 		private System.Windows.Forms.SaveFileDialog saveFileDialog;
 		private System.Windows.Forms.OpenFileDialog openFileDialog;
-		private System.Windows.Forms.TextBox logBox;
 		private System.Windows.Forms.Panel panelEditor;
 		private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownLogConsole;
 		private System.Windows.Forms.ToolStripMenuItem toggleLoxBoxButton;
 		private System.Windows.Forms.ToolStripMenuItem clearLogButton;
+		private ConsoleControl.ConsoleControl logBox;
+		private ScintillaNET.Scintilla scintilla;
 	}
 }
 

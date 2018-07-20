@@ -1,84 +1,125 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using PseudocodeInterpreter;
-using ScintillaNET;
 
 namespace PseudoIDE
 {
 	public partial class Editor : Form
 	{
-		private Scintilla _scintilla;
+		private const string ProgramName = "PseudoIDE";
 		private const string NewFileName = "Untitled";
 		private string _currentFileName = NewFileName;
+		private bool _isFileSaved = false;
+		private const string ProcessName = "PseudocodeInterpreter.exe";
 
 		public Editor()
 		{
 			InitializeComponent();
 		}
 
+		private void Log(string msg)
+		{
+			logBox.WriteOutput(msg + Environment.NewLine, Color.White);
+			ScrollOutputToBottom();
+		}
+
+		private void ScrollOutputToBottom()
+		{
+			logBox.InternalRichTextBox.SelectionStart = logBox.InternalRichTextBox.Text.Length;
+			logBox.InternalRichTextBox.ScrollToCaret();
+		}
+
+		private Task SaveFile()
+		{
+			File.WriteAllText(_currentFileName, scintilla.Text);
+
+			_isFileSaved = true;
+			DisplayFileName();
+
+			return Task.CompletedTask;
+		}
+
+		private Task SaveFileAs()
+		{
+			saveFileDialog.ShowDialog();
+
+			if (!string.IsNullOrWhiteSpace(saveFileDialog.FileName))
+			{
+				File.WriteAllText(saveFileDialog.FileName, scintilla.Text);
+				_currentFileName = saveFileDialog.FileName;
+			}
+
+			_isFileSaved = true;
+			DisplayFileName();
+
+			return Task.CompletedTask;
+		}
+
+		private void DisplayFileName()
+		{
+
+			Text = $"{ProgramName} - {_currentFileName}";
+			fileNameLabel.Text = _currentFileName;
+		}
+
+		private void DisplayFileName(string name)
+		{
+			_currentFileName = name;
+			Text = $"{ProgramName} - {_currentFileName}";
+			fileNameLabel.Text = name;
+		}
+
+		private void DisplayFileChanged()
+		{
+			Text = $"{ProgramName} - {_currentFileName}*";
+			fileNameLabel.Text = _currentFileName + "*";
+		}
+
+		private async Task WaitForProccessToEnd()
+		{
+			Stopwatch stopwatch = new Stopwatch();
+			stopwatch.Start();
+			
+			logBox.StartProcess(ProcessName, _currentFileName);
+
+			while (logBox.IsProcessRunning)
+			{
+				await Task.Delay(10);
+			}
+
+			stopwatch.Stop();
+			Log(stopwatch.Elapsed.ToString());
+		}
+
 		private void Editor_Load(object sender, EventArgs e)
 		{
-			_scintilla = new Scintilla
-			{
-				WrapMode = WrapMode.None,
-				Dock = DockStyle.Fill,
-				IndentationGuides = IndentView.LookBoth,
-				Lexer = Lexer.Container,
-			};
+			scintilla.TextChanged += scintilla_TextChanged;
 
-			_scintilla.TextChanged += scintilla_TextChanged;
+			panelEditor.Controls.Add(scintilla);
 
-			panelEditor.Controls.Add(_scintilla);
+			scintilla.SetSavePoint();
+			scintilla.Select();
 
-			_scintilla.Select();
-
-			Interpreter.Output = Log;
-			Interpreter.Input = () => "3";
+			DisplayFileName();
 
 			Log("Started IDE successfully.");
 		}
 
-		private void Log(string msg)
-		{
-			logBox.Text += msg + Environment.NewLine;
-			ScrollToEndLogBox();
-		}
-
-		private void ShowProgramOutput(string output)
-		{
-			logBox.Text += output;
-			ScrollToEndLogBox();
-		}
-
-		private void ScrollToEndLogBox()
-		{
-			logBox.SelectionStart = logBox.Text.Length;
-			logBox.ScrollToCaret();
-		}
-
 		private void scintilla_TextChanged(object sender, EventArgs e)
 		{
-			if (_scintilla.Modified)
-			{
-				DisplayFileChanged();
-			}
-			else
-			{
-				DisplayFileName();
-			}
+			_isFileSaved = false;
+			DisplayFileChanged();
 		}
 
 		private void newFileButton_Click(object sender, EventArgs e)
 		{
-			
+			scintilla.Text = string.Empty;
+			_currentFileName = NewFileName;
+			_isFileSaved = false;
+			DisplayFileName();
 		}
 
 		private void openFileButton_Click(object sender, EventArgs e)
@@ -89,28 +130,36 @@ namespace PseudoIDE
 				try
 				{
 					string fileContent = File.ReadAllText(openFileDialog.FileName);
-					// TODO put it in the editor
+					scintilla.Text = fileContent;
+					DisplayFileName(openFileDialog.FileName);
 				}
 				catch (Exception exception)
 				{
-					// TODO log exception
+					Log(exception.Message);
 				}
 			}
 		}
 
-		private void saveFileButton_Click(object sender, EventArgs e)
+		private async void saveFileButton_Click(object sender, EventArgs e)
 		{
-			
+			if (_currentFileName == NewFileName)
+			{
+				await SaveFileAs();
+			}
+			else
+			{
+				await SaveFile();
+			}
 		}
 
-		private void saveFileAsButton_Click(object sender, EventArgs e)
+		private async void saveFileAsButton_Click(object sender, EventArgs e)
 		{
-
+			await SaveFileAs();
 		}
 
 		private void exitButton_Click(object sender, EventArgs e)
 		{
-
+			Close();
 		}
 
 		private void toggleLoxBoxButton_Click(object sender, EventArgs e)
@@ -127,32 +176,28 @@ namespace PseudoIDE
 
 		private void clearLogButton_Click(object sender, EventArgs e)
 		{
-			logBox.Clear();
+			logBox.ClearOutput();
 		}
 
-		private void DisplayFileName()
+		private async void runButton_Click(object sender, EventArgs e)
 		{
-			Text = _currentFileName;
-			fileNameLabel.Text = _currentFileName;
+			if (!_isFileSaved)
+			{
+				await SaveFileAs();
+			}
+
+			Log($"{Environment.NewLine}> Running {_currentFileName} ({DateTime.Now.ToLongTimeString()}){Environment.NewLine}");
+
+			await WaitForProccessToEnd();
 		}
 
-		private void DisplayFileName(string name)
+		private async void scintilla_KeyDown(object sender, KeyEventArgs e)
 		{
-			_currentFileName = name;
-			this.Text = name;
-			fileNameLabel.Text = name;
-		}
-
-		private void DisplayFileChanged()
-		{
-			this.Text = _currentFileName + "*";
-			fileNameLabel.Text = _currentFileName + "*";
-		}
-
-		private void runButton_Click(object sender, EventArgs e)
-		{
-			Log($"{Environment.NewLine}================================={Environment.NewLine}");
-			Interpreter.ExecuteString(_scintilla.Text);
+			if (e.Control && e.KeyCode == Keys.S)
+			{
+				await SaveFile();
+				e.SuppressKeyPress = true;
+			}
 		}
 	}
 }
