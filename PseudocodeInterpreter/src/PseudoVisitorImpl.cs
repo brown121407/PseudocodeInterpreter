@@ -151,7 +151,7 @@ namespace PseudocodeInterpreter
 
 			if (context.WRITELN_BUILTIN() != null)
 			{
-				Interpreter.Output(toWrite + "\n");
+				Interpreter.Output(toWrite + Environment.NewLine);
 			}
 			else
 			{
