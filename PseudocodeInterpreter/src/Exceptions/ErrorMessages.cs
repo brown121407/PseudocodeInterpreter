@@ -5,6 +5,7 @@
 	    public const string NullInput = "Datele de intrare nu pot fi nule.";
 	    public const string ArgumentsNumber = "Prea multi sau prea putini parametri.";
 	    public const string ModuloOnFloats = "Nu se poate executa modulo pe numere reale.";
+	    public const string FileDoesNotExist = "Fisierul specificat nu exista.";
 
 	    public static string IncompatibleTypes(string typeName, string incompatType)
 		    => $"Tipul {typeName} nu e compatibil cu tipul {incompatType}.";

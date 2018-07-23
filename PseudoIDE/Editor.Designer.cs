@@ -65,7 +65,7 @@
             this.toolStripDropDownLogConsole});
 			this.toolStrip.Location = new System.Drawing.Point(0, 0);
 			this.toolStrip.Name = "toolStrip";
-			this.toolStrip.Size = new System.Drawing.Size(800, 25);
+			this.toolStrip.Size = new System.Drawing.Size(855, 25);
 			this.toolStrip.TabIndex = 0;
 			// 
 			// fileMenu
@@ -164,16 +164,16 @@
             this.fileNameLabel,
             this.lineLabel,
             this.columnLabel});
-			this.statusStrip.Location = new System.Drawing.Point(0, 428);
+			this.statusStrip.Location = new System.Drawing.Point(0, 550);
 			this.statusStrip.Name = "statusStrip";
-			this.statusStrip.Size = new System.Drawing.Size(800, 22);
+			this.statusStrip.Size = new System.Drawing.Size(855, 22);
 			this.statusStrip.TabIndex = 1;
 			this.statusStrip.Text = "statusStrip1";
 			// 
 			// fileNameLabel
 			// 
 			this.fileNameLabel.Name = "fileNameLabel";
-			this.fileNameLabel.Size = new System.Drawing.Size(635, 17);
+			this.fileNameLabel.Size = new System.Drawing.Size(690, 17);
 			this.fileNameLabel.Spring = true;
 			this.fileNameLabel.Text = "FileName";
 			this.fileNameLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -204,7 +204,7 @@
 			this.panelEditor.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.panelEditor.Location = new System.Drawing.Point(0, 25);
 			this.panelEditor.Name = "panelEditor";
-			this.panelEditor.Size = new System.Drawing.Size(800, 223);
+			this.panelEditor.Size = new System.Drawing.Size(855, 345);
 			this.panelEditor.TabIndex = 3;
 			// 
 			// scintilla
@@ -213,27 +213,30 @@
 			this.scintilla.IndentationGuides = ScintillaNET.IndentView.LookBoth;
 			this.scintilla.Location = new System.Drawing.Point(0, 0);
 			this.scintilla.Name = "scintilla";
-			this.scintilla.Size = new System.Drawing.Size(800, 223);
+			this.scintilla.Size = new System.Drawing.Size(855, 345);
 			this.scintilla.TabIndex = 0;
 			this.scintilla.UseTabs = true;
+			this.scintilla.StyleNeeded += new System.EventHandler<ScintillaNET.StyleNeededEventArgs>(this.scintilla_StyleNeeded);
 			this.scintilla.KeyDown += new System.Windows.Forms.KeyEventHandler(this.scintilla_KeyDown);
+			this.scintilla.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.scintilla_KeyPress);
 			// 
 			// logBox
 			// 
 			this.logBox.Dock = System.Windows.Forms.DockStyle.Bottom;
 			this.logBox.IsInputEnabled = true;
-			this.logBox.Location = new System.Drawing.Point(0, 248);
+			this.logBox.Location = new System.Drawing.Point(0, 370);
 			this.logBox.Name = "logBox";
 			this.logBox.SendKeyboardCommandsToProcess = false;
 			this.logBox.ShowDiagnostics = false;
-			this.logBox.Size = new System.Drawing.Size(800, 180);
+			this.logBox.Size = new System.Drawing.Size(855, 180);
 			this.logBox.TabIndex = 4;
+			this.logBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.logBox_KeyDown);
 			// 
 			// Editor
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(800, 450);
+			this.ClientSize = new System.Drawing.Size(855, 572);
 			this.Controls.Add(this.panelEditor);
 			this.Controls.Add(this.logBox);
 			this.Controls.Add(this.statusStrip);

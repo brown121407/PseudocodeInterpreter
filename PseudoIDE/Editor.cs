@@ -4,6 +4,7 @@ using System.Drawing;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ScintillaNET;
 
 namespace PseudoIDE
 {
@@ -44,23 +45,25 @@ namespace PseudoIDE
 
 		private Task SaveFileAs()
 		{
-			saveFileDialog.ShowDialog();
+			var result = saveFileDialog.ShowDialog();
 
-			if (!string.IsNullOrWhiteSpace(saveFileDialog.FileName))
+			if (result == DialogResult.OK)
 			{
-				File.WriteAllText(saveFileDialog.FileName, scintilla.Text);
-				_currentFileName = saveFileDialog.FileName;
-			}
+				if (!string.IsNullOrWhiteSpace(saveFileDialog.FileName))
+				{
+					File.WriteAllText(saveFileDialog.FileName, scintilla.Text);
+					_currentFileName = saveFileDialog.FileName;
+				}
 
-			_isFileSaved = true;
-			DisplayFileName();
+				_isFileSaved = true;
+				DisplayFileName();
+			}
 
 			return Task.CompletedTask;
 		}
 
 		private void DisplayFileName()
 		{
-
 			Text = $"{ProgramName} - {_currentFileName}";
 			fileNameLabel.Text = _currentFileName;
 		}
@@ -78,35 +81,20 @@ namespace PseudoIDE
 			fileNameLabel.Text = _currentFileName + "*";
 		}
 
-		private async Task WaitForProccessToEnd()
-		{
-			Stopwatch stopwatch = new Stopwatch();
-			stopwatch.Start();
-			
-			logBox.StartProcess(ProcessName, _currentFileName);
-
-			while (logBox.IsProcessRunning)
-			{
-				await Task.Delay(10);
-			}
-
-			stopwatch.Stop();
-
-			Log("\nExecutia a durat: " + stopwatch.Elapsed);
-		}
-
 		private void ScintillaSetup()
 		{
 			scintilla.TextChanged += scintilla_TextChanged;
-
+			
 			scintilla.SetSavePoint();
 			scintilla.Select();
 
 			scintilla.Styles[(int) SyntaxHighlighter.Styles.Default].ForeColor = DefaultForeColor;
 			scintilla.Styles[(int) SyntaxHighlighter.Styles.Keyword].ForeColor = Color.Blue;
-			scintilla.Styles[(int)SyntaxHighlighter.Styles.Identifier].ForeColor = Color.Teal;
-			scintilla.Styles[(int)SyntaxHighlighter.Styles.Number].ForeColor = Color.Purple;
-			scintilla.Styles[(int)SyntaxHighlighter.Styles.String].ForeColor = Color.Orange;
+			scintilla.Styles[(int) SyntaxHighlighter.Styles.Identifier].ForeColor = Color.Teal;
+			scintilla.Styles[(int) SyntaxHighlighter.Styles.Number].ForeColor = Color.Purple;
+			scintilla.Styles[(int) SyntaxHighlighter.Styles.String].ForeColor = Color.Orange;
+
+			scintilla.AssignCmdKey(Keys.Control | Keys.S, Command.Null);
 		}
 
 		private void Editor_Load(object sender, EventArgs e)
@@ -192,20 +180,36 @@ namespace PseudoIDE
 		{
 			if (!_isFileSaved)
 			{
-				await SaveFileAs();
+				if (_currentFileName.Equals(NewFileName))
+				{
+					await SaveFileAs();
+				}
+				else
+				{
+					await SaveFile();
+				}
 			}
 
-			Log($"{Environment.NewLine}> Running {_currentFileName} ({DateTime.Now.ToLongTimeString()}){Environment.NewLine}");
-
-			await WaitForProccessToEnd();
+			if (_isFileSaved)
+			{
+				var proc = Process.Start(ProcessName, $"{_currentFileName} diagnostics");
+			}
 		}
 
 		private async void scintilla_KeyDown(object sender, KeyEventArgs e)
 		{
 			if (e.Control && e.KeyCode == Keys.S)
 			{
-				await SaveFile();
 				e.SuppressKeyPress = true;
+
+				if (_currentFileName == NewFileName)
+				{
+					await SaveFileAs();
+				}
+				else
+				{
+					await SaveFile();
+				}
 			}
 		}
 
@@ -217,5 +221,25 @@ namespace PseudoIDE
 			SyntaxHighlighter.Style(scintilla, startPos, endPos);
 		}
 
+		private void logBox_KeyDown(object sender, KeyEventArgs e)
+		{
+			if (e.Control && e.KeyCode == Keys.C)
+			{
+				if (logBox.IsProcessRunning)
+				{
+					logBox.StopProcess();
+				}
+			}
+		}
+
+		private void scintilla_KeyPress(object sender, KeyPressEventArgs e)
+		{
+			if (e.KeyChar < 32)
+			{
+				// Prevent control characters from getting inserted into the text buffer
+				e.Handled = true;
+				return;
+			}
+		}
 	}
 }
