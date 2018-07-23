@@ -30,12 +30,6 @@
 		{
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Editor));
 			this.toolStrip = new System.Windows.Forms.ToolStrip();
-			this.fileMenu = new System.Windows.Forms.ToolStripDropDownButton();
-			this.newFileButton = new System.Windows.Forms.ToolStripMenuItem();
-			this.openFileButton = new System.Windows.Forms.ToolStripMenuItem();
-			this.saveFileButton = new System.Windows.Forms.ToolStripMenuItem();
-			this.saveFileAsButton = new System.Windows.Forms.ToolStripMenuItem();
-			this.exitButton = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolStripSeparator = new System.Windows.Forms.ToolStripSeparator();
 			this.runButton = new System.Windows.Forms.ToolStripButton();
 			this.toolStripDropDownLogConsole = new System.Windows.Forms.ToolStripDropDownButton();
@@ -50,6 +44,10 @@
 			this.panelEditor = new System.Windows.Forms.Panel();
 			this.scintilla = new ScintillaNET.Scintilla();
 			this.logBox = new ConsoleControl.ConsoleControl();
+			this.newFileButton = new System.Windows.Forms.ToolStripButton();
+			this.saveButton = new System.Windows.Forms.ToolStripButton();
+			this.saveAsButton = new System.Windows.Forms.ToolStripButton();
+			this.openButton = new System.Windows.Forms.ToolStripButton();
 			this.toolStrip.SuspendLayout();
 			this.statusStrip.SuspendLayout();
 			this.panelEditor.SuspendLayout();
@@ -59,7 +57,10 @@
 			// 
 			this.toolStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
 			this.toolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fileMenu,
+            this.newFileButton,
+            this.openButton,
+            this.saveButton,
+            this.saveAsButton,
             this.toolStripSeparator,
             this.runButton,
             this.toolStripDropDownLogConsole});
@@ -67,56 +68,6 @@
 			this.toolStrip.Name = "toolStrip";
 			this.toolStrip.Size = new System.Drawing.Size(855, 25);
 			this.toolStrip.TabIndex = 0;
-			// 
-			// fileMenu
-			// 
-			this.fileMenu.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-			this.fileMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.newFileButton,
-            this.openFileButton,
-            this.saveFileButton,
-            this.saveFileAsButton,
-            this.exitButton});
-			this.fileMenu.Image = ((System.Drawing.Image)(resources.GetObject("fileMenu.Image")));
-			this.fileMenu.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.fileMenu.Name = "fileMenu";
-			this.fileMenu.Size = new System.Drawing.Size(38, 22);
-			this.fileMenu.Text = "&File";
-			// 
-			// newFileButton
-			// 
-			this.newFileButton.Name = "newFileButton";
-			this.newFileButton.Size = new System.Drawing.Size(114, 22);
-			this.newFileButton.Text = "&New";
-			this.newFileButton.Click += new System.EventHandler(this.newFileButton_Click);
-			// 
-			// openFileButton
-			// 
-			this.openFileButton.Name = "openFileButton";
-			this.openFileButton.Size = new System.Drawing.Size(114, 22);
-			this.openFileButton.Text = "&Open";
-			this.openFileButton.Click += new System.EventHandler(this.openFileButton_Click);
-			// 
-			// saveFileButton
-			// 
-			this.saveFileButton.Name = "saveFileButton";
-			this.saveFileButton.Size = new System.Drawing.Size(114, 22);
-			this.saveFileButton.Text = "&Save";
-			this.saveFileButton.Click += new System.EventHandler(this.saveFileButton_Click);
-			// 
-			// saveFileAsButton
-			// 
-			this.saveFileAsButton.Name = "saveFileAsButton";
-			this.saveFileAsButton.Size = new System.Drawing.Size(114, 22);
-			this.saveFileAsButton.Text = "Save &As";
-			this.saveFileAsButton.Click += new System.EventHandler(this.saveFileAsButton_Click);
-			// 
-			// exitButton
-			// 
-			this.exitButton.Name = "exitButton";
-			this.exitButton.Size = new System.Drawing.Size(114, 22);
-			this.exitButton.Text = "&Exit";
-			this.exitButton.Click += new System.EventHandler(this.exitButton_Click);
 			// 
 			// toolStripSeparator
 			// 
@@ -128,8 +79,8 @@
 			this.runButton.Image = ((System.Drawing.Image)(resources.GetObject("runButton.Image")));
 			this.runButton.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.runButton.Name = "runButton";
-			this.runButton.Size = new System.Drawing.Size(48, 22);
-			this.runButton.Text = "&Run";
+			this.runButton.Size = new System.Drawing.Size(67, 22);
+			this.runButton.Text = "&Executa";
 			this.runButton.Click += new System.EventHandler(this.runButton_Click);
 			// 
 			// toolStripDropDownLogConsole
@@ -230,7 +181,42 @@
 			this.logBox.ShowDiagnostics = false;
 			this.logBox.Size = new System.Drawing.Size(855, 180);
 			this.logBox.TabIndex = 4;
-			this.logBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.logBox_KeyDown);
+			// 
+			// newFileButton
+			// 
+			this.newFileButton.Image = ((System.Drawing.Image)(resources.GetObject("newFileButton.Image")));
+			this.newFileButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.newFileButton.Name = "newFileButton";
+			this.newFileButton.Size = new System.Drawing.Size(78, 22);
+			this.newFileButton.Text = "Fisier nou";
+			this.newFileButton.Click += new System.EventHandler(this.newFileButton_Click);
+			// 
+			// saveButton
+			// 
+			this.saveButton.Image = ((System.Drawing.Image)(resources.GetObject("saveButton.Image")));
+			this.saveButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.saveButton.Name = "saveButton";
+			this.saveButton.Size = new System.Drawing.Size(71, 22);
+			this.saveButton.Text = "Salveaza";
+			this.saveButton.Click += new System.EventHandler(this.saveFileButton_Click);
+			// 
+			// saveAsButton
+			// 
+			this.saveAsButton.Image = ((System.Drawing.Image)(resources.GetObject("saveAsButton.Image")));
+			this.saveAsButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.saveAsButton.Name = "saveAsButton";
+			this.saveAsButton.Size = new System.Drawing.Size(86, 22);
+			this.saveAsButton.Text = "Salveaza ca";
+			this.saveAsButton.Click += new System.EventHandler(this.saveFileAsButton_Click);
+			// 
+			// openButton
+			// 
+			this.openButton.Image = ((System.Drawing.Image)(resources.GetObject("openButton.Image")));
+			this.openButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.openButton.Name = "openButton";
+			this.openButton.Size = new System.Drawing.Size(75, 22);
+			this.openButton.Text = "Deschide";
+			this.openButton.Click += new System.EventHandler(this.openFileButton_Click);
 			// 
 			// Editor
 			// 
@@ -258,12 +244,6 @@
 		#endregion
 
 		private System.Windows.Forms.ToolStrip toolStrip;
-		private System.Windows.Forms.ToolStripDropDownButton fileMenu;
-		private System.Windows.Forms.ToolStripMenuItem newFileButton;
-		private System.Windows.Forms.ToolStripMenuItem openFileButton;
-		private System.Windows.Forms.ToolStripMenuItem saveFileButton;
-		private System.Windows.Forms.ToolStripMenuItem saveFileAsButton;
-		private System.Windows.Forms.ToolStripMenuItem exitButton;
 		private System.Windows.Forms.ToolStripSeparator toolStripSeparator;
 		private System.Windows.Forms.ToolStripButton runButton;
 		private System.Windows.Forms.StatusStrip statusStrip;
@@ -278,6 +258,10 @@
 		private System.Windows.Forms.ToolStripMenuItem clearLogButton;
 		private ConsoleControl.ConsoleControl logBox;
 		private ScintillaNET.Scintilla scintilla;
+		private System.Windows.Forms.ToolStripButton newFileButton;
+		private System.Windows.Forms.ToolStripButton openButton;
+		private System.Windows.Forms.ToolStripButton saveButton;
+		private System.Windows.Forms.ToolStripButton saveAsButton;
 	}
 }
 

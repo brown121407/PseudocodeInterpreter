@@ -202,7 +202,7 @@ namespace PseudoIDE
 			{
 				e.SuppressKeyPress = true;
 
-				if (_currentFileName == NewFileName)
+				if (_currentFileName.Equals(NewFileName))
 				{
 					await SaveFileAs();
 				}
@@ -219,17 +219,6 @@ namespace PseudoIDE
 			var endPos = e.Position;
 
 			SyntaxHighlighter.Style(scintilla, startPos, endPos);
-		}
-
-		private void logBox_KeyDown(object sender, KeyEventArgs e)
-		{
-			if (e.Control && e.KeyCode == Keys.C)
-			{
-				if (logBox.IsProcessRunning)
-				{
-					logBox.StopProcess();
-				}
-			}
 		}
 
 		private void scintilla_KeyPress(object sender, KeyPressEventArgs e)
