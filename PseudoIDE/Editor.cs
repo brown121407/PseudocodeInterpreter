@@ -91,21 +91,29 @@ namespace PseudoIDE
 			}
 
 			stopwatch.Stop();
-			Log(stopwatch.Elapsed.ToString());
+
+			Log("\nExecutia a durat: " + stopwatch.Elapsed);
 		}
 
-		private void Editor_Load(object sender, EventArgs e)
+		private void ScintillaSetup()
 		{
 			scintilla.TextChanged += scintilla_TextChanged;
-
-			panelEditor.Controls.Add(scintilla);
 
 			scintilla.SetSavePoint();
 			scintilla.Select();
 
-			DisplayFileName();
+			scintilla.Styles[(int) SyntaxHighlighter.Styles.Default].ForeColor = DefaultForeColor;
+			scintilla.Styles[(int) SyntaxHighlighter.Styles.Keyword].ForeColor = Color.Blue;
+			scintilla.Styles[(int)SyntaxHighlighter.Styles.Identifier].ForeColor = Color.Teal;
+			scintilla.Styles[(int)SyntaxHighlighter.Styles.Number].ForeColor = Color.Purple;
+			scintilla.Styles[(int)SyntaxHighlighter.Styles.String].ForeColor = Color.Orange;
+		}
 
-			Log("Started IDE successfully.");
+		private void Editor_Load(object sender, EventArgs e)
+		{
+			ScintillaSetup();
+
+			DisplayFileName();
 		}
 
 		private void scintilla_TextChanged(object sender, EventArgs e)
@@ -132,6 +140,7 @@ namespace PseudoIDE
 					string fileContent = File.ReadAllText(openFileDialog.FileName);
 					scintilla.Text = fileContent;
 					DisplayFileName(openFileDialog.FileName);
+					_isFileSaved = true;
 				}
 				catch (Exception exception)
 				{
@@ -199,5 +208,14 @@ namespace PseudoIDE
 				e.SuppressKeyPress = true;
 			}
 		}
+
+		private void scintilla_StyleNeeded(object sender, ScintillaNET.StyleNeededEventArgs e)
+		{
+			var startPos = scintilla.GetEndStyled();
+			var endPos = e.Position;
+
+			SyntaxHighlighter.Style(scintilla, startPos, endPos);
+		}
+
 	}
 }
