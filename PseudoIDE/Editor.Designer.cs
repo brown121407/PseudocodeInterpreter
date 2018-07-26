@@ -30,6 +30,10 @@
 		{
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Editor));
 			this.toolStrip = new System.Windows.Forms.ToolStrip();
+			this.newFileButton = new System.Windows.Forms.ToolStripButton();
+			this.openButton = new System.Windows.Forms.ToolStripButton();
+			this.saveButton = new System.Windows.Forms.ToolStripButton();
+			this.saveAsButton = new System.Windows.Forms.ToolStripButton();
 			this.toolStripSeparator = new System.Windows.Forms.ToolStripSeparator();
 			this.runButton = new System.Windows.Forms.ToolStripButton();
 			this.toolStripDropDownLogConsole = new System.Windows.Forms.ToolStripDropDownButton();
@@ -44,10 +48,6 @@
 			this.panelEditor = new System.Windows.Forms.Panel();
 			this.scintilla = new ScintillaNET.Scintilla();
 			this.logBox = new ConsoleControl.ConsoleControl();
-			this.newFileButton = new System.Windows.Forms.ToolStripButton();
-			this.saveButton = new System.Windows.Forms.ToolStripButton();
-			this.saveAsButton = new System.Windows.Forms.ToolStripButton();
-			this.openButton = new System.Windows.Forms.ToolStripButton();
 			this.toolStrip.SuspendLayout();
 			this.statusStrip.SuspendLayout();
 			this.panelEditor.SuspendLayout();
@@ -68,6 +68,42 @@
 			this.toolStrip.Name = "toolStrip";
 			this.toolStrip.Size = new System.Drawing.Size(855, 25);
 			this.toolStrip.TabIndex = 0;
+			// 
+			// newFileButton
+			// 
+			this.newFileButton.Image = ((System.Drawing.Image)(resources.GetObject("newFileButton.Image")));
+			this.newFileButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.newFileButton.Name = "newFileButton";
+			this.newFileButton.Size = new System.Drawing.Size(78, 22);
+			this.newFileButton.Text = "Fisier nou";
+			this.newFileButton.Click += new System.EventHandler(this.newFileButton_Click);
+			// 
+			// openButton
+			// 
+			this.openButton.Image = ((System.Drawing.Image)(resources.GetObject("openButton.Image")));
+			this.openButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.openButton.Name = "openButton";
+			this.openButton.Size = new System.Drawing.Size(75, 22);
+			this.openButton.Text = "Deschide";
+			this.openButton.Click += new System.EventHandler(this.openFileButton_Click);
+			// 
+			// saveButton
+			// 
+			this.saveButton.Image = ((System.Drawing.Image)(resources.GetObject("saveButton.Image")));
+			this.saveButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.saveButton.Name = "saveButton";
+			this.saveButton.Size = new System.Drawing.Size(71, 22);
+			this.saveButton.Text = "Salveaza";
+			this.saveButton.Click += new System.EventHandler(this.saveFileButton_Click);
+			// 
+			// saveAsButton
+			// 
+			this.saveAsButton.Image = ((System.Drawing.Image)(resources.GetObject("saveAsButton.Image")));
+			this.saveAsButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.saveAsButton.Name = "saveAsButton";
+			this.saveAsButton.Size = new System.Drawing.Size(86, 22);
+			this.saveAsButton.Text = "Salveaza ca";
+			this.saveAsButton.Click += new System.EventHandler(this.saveFileAsButton_Click);
 			// 
 			// toolStripSeparator
 			// 
@@ -98,14 +134,14 @@
 			// toggleLoxBoxButton
 			// 
 			this.toggleLoxBoxButton.Name = "toggleLoxBoxButton";
-			this.toggleLoxBoxButton.Size = new System.Drawing.Size(110, 22);
+			this.toggleLoxBoxButton.Size = new System.Drawing.Size(180, 22);
 			this.toggleLoxBoxButton.Text = "Toggle";
 			this.toggleLoxBoxButton.Click += new System.EventHandler(this.toggleLoxBoxButton_Click);
 			// 
 			// clearLogButton
 			// 
 			this.clearLogButton.Name = "clearLogButton";
-			this.clearLogButton.Size = new System.Drawing.Size(110, 22);
+			this.clearLogButton.Size = new System.Drawing.Size(180, 22);
 			this.clearLogButton.Text = "Clear";
 			this.clearLogButton.Click += new System.EventHandler(this.clearLogButton_Click);
 			// 
@@ -168,6 +204,7 @@
 			this.scintilla.TabIndex = 0;
 			this.scintilla.UseTabs = true;
 			this.scintilla.StyleNeeded += new System.EventHandler<ScintillaNET.StyleNeededEventArgs>(this.scintilla_StyleNeeded);
+			this.scintilla.TextChanged += new System.EventHandler(this.scintilla_TextChanged_1);
 			this.scintilla.KeyDown += new System.Windows.Forms.KeyEventHandler(this.scintilla_KeyDown);
 			this.scintilla.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.scintilla_KeyPress);
 			// 
@@ -181,42 +218,6 @@
 			this.logBox.ShowDiagnostics = false;
 			this.logBox.Size = new System.Drawing.Size(855, 180);
 			this.logBox.TabIndex = 4;
-			// 
-			// newFileButton
-			// 
-			this.newFileButton.Image = ((System.Drawing.Image)(resources.GetObject("newFileButton.Image")));
-			this.newFileButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.newFileButton.Name = "newFileButton";
-			this.newFileButton.Size = new System.Drawing.Size(78, 22);
-			this.newFileButton.Text = "Fisier nou";
-			this.newFileButton.Click += new System.EventHandler(this.newFileButton_Click);
-			// 
-			// saveButton
-			// 
-			this.saveButton.Image = ((System.Drawing.Image)(resources.GetObject("saveButton.Image")));
-			this.saveButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.saveButton.Name = "saveButton";
-			this.saveButton.Size = new System.Drawing.Size(71, 22);
-			this.saveButton.Text = "Salveaza";
-			this.saveButton.Click += new System.EventHandler(this.saveFileButton_Click);
-			// 
-			// saveAsButton
-			// 
-			this.saveAsButton.Image = ((System.Drawing.Image)(resources.GetObject("saveAsButton.Image")));
-			this.saveAsButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.saveAsButton.Name = "saveAsButton";
-			this.saveAsButton.Size = new System.Drawing.Size(86, 22);
-			this.saveAsButton.Text = "Salveaza ca";
-			this.saveAsButton.Click += new System.EventHandler(this.saveFileAsButton_Click);
-			// 
-			// openButton
-			// 
-			this.openButton.Image = ((System.Drawing.Image)(resources.GetObject("openButton.Image")));
-			this.openButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.openButton.Name = "openButton";
-			this.openButton.Size = new System.Drawing.Size(75, 22);
-			this.openButton.Text = "Deschide";
-			this.openButton.Click += new System.EventHandler(this.openFileButton_Click);
 			// 
 			// Editor
 			// 

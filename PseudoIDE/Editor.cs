@@ -16,6 +16,8 @@ namespace PseudoIDE
 		private bool _isFileSaved = false;
 		private const string ProcessName = "PseudocodeInterpreter.exe";
 
+		private int _maxLineNumberCharLength = 3;
+
 		public Editor()
 		{
 			InitializeComponent();
@@ -93,6 +95,8 @@ namespace PseudoIDE
 			scintilla.Styles[(int) SyntaxHighlighter.Styles.Identifier].ForeColor = Color.Teal;
 			scintilla.Styles[(int) SyntaxHighlighter.Styles.Number].ForeColor = Color.Purple;
 			scintilla.Styles[(int) SyntaxHighlighter.Styles.String].ForeColor = Color.Orange;
+
+			scintilla.Margins[0].Width = 16;
 
 			scintilla.AssignCmdKey(Keys.Control | Keys.S, Command.Null);
 		}
@@ -229,6 +233,19 @@ namespace PseudoIDE
 				e.Handled = true;
 				return;
 			}
+		}
+
+		private void scintilla_TextChanged_1(object sender, EventArgs e)
+		{
+			var maxLineNumberCharLength = scintilla.Lines.Count.ToString().Length;
+			if (maxLineNumberCharLength == _maxLineNumberCharLength)
+				return;
+
+			// Calculate the width required to display the last line number
+			// and include some padding for good measure.
+			const int padding = 2;
+			scintilla.Margins[0].Width = scintilla.TextWidth(Style.LineNumber, new string('9', maxLineNumberCharLength + 1)) + padding;
+			_maxLineNumberCharLength = maxLineNumberCharLength;
 		}
 	}
 }
