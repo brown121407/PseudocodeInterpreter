@@ -6,6 +6,7 @@
 
 	    public StringLiteral(string value)
 	    {
+			// Handle escaped quotes
 		    _value = value.Replace("\\\"", "\"");
 		    Type = TypeNames.StringType;
 	    }

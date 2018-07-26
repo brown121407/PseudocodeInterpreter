@@ -57,14 +57,12 @@
     <Compile Include="src\ExtensionMethods.cs" />
     <Compile Include="src\Interpreter.cs" />
     <Compile Include="src\Objects\BooleanLiteral.cs" />
-    <Compile Include="src\Objects\IValue.cs" />
     <Compile Include="src\Objects\Literal.cs" />
     <Compile Include="src\Objects\NumberLiteral.cs" />
     <Compile Include="src\Objects\StringLiteral.cs" />
     <Compile Include="src\Objects\TypeNames.cs" />
     <Compile Include="src\PseudoVisitorImpl.cs" />
     <Compile Include="src\Scope.cs" />
-    <Compile Include="src\SymbolTable.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="src\AntlrFiles\antlr-4.7.1-complete.jar" />

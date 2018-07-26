@@ -17,6 +17,9 @@ namespace PseudocodeInterpreter
 			return null;
 		}
 
+		/// <summary>
+		/// Enter a list/ block of statements, and manages the scope creation for it
+		/// </summary>
 		public override object VisitStatList(PseudoParser.StatListContext context)
 		{
 			_scopes.Push();
@@ -33,6 +36,7 @@ namespace PseudocodeInterpreter
 
 		public override object VisitIfStat(PseudoParser.IfStatContext context)
 		{
+			// Evaluate the boolean condition
 			var condRes = ((Literal) Visit(context.boolOp())).ToBoolean();
 			if (condRes)
 			{
@@ -75,6 +79,7 @@ namespace PseudocodeInterpreter
 			var varType = _scopes.GetVar(varName).Type;
 			Visit(context.varAssign());
 
+			// Loops through the for as long as the incremented variable meets the condition
 			for (
 				float i = (NumberLiteral) _scopes.GetVar(varName);
 				i < (NumberLiteral) Visit(context.expr());
@@ -89,6 +94,7 @@ namespace PseudocodeInterpreter
 
 		public override object VisitReadBuiltin(PseudoParser.ReadBuiltinContext context)
 		{
+			// Separate input using spaces into multiple values
 			var values = Interpreter.Input()?.Split(' ');
 
 			if (values == null)
@@ -96,6 +102,7 @@ namespace PseudocodeInterpreter
 				throw new Exception(ErrorMessages.NullInput);
 			}
 
+			// Check if the number of values read is bigger than the number of values requested
 			if (values.Length != context.ID().Length)
 			{
 				throw new Exception(ErrorMessages.ArgumentsNumber);
@@ -107,6 +114,8 @@ namespace PseudocodeInterpreter
 				if (_scopes.DoesVariableExist(ids[i]))
 				{
 					var variable = _scopes.GetVar(ids[i]);
+
+					// Try to fit the value into the type of the variable that requested the value
 
 					if (variable is NumberLiteral numVar)
 					{
@@ -164,6 +173,9 @@ namespace PseudocodeInterpreter
 		public override object VisitVariableDeclaration(PseudoParser.VariableDeclarationContext context)
 		{
 			var varType = context.type().GetText();
+
+			// Check for each declaration if it includes initialization or not
+
 			foreach (var optionalAssignContext in context.optionalAssign())
 			{
 				VisitOptionalAssign(optionalAssignContext, varType);
@@ -179,6 +191,8 @@ namespace PseudocodeInterpreter
 			var expr = context.expr();
 			if (expr != null)
 			{
+				// Try to fit the initialization value into the variable
+
 				var exprResult = Visit(expr) as Literal;
 				if (exprResult is NumberLiteral exprNum)
 				{
@@ -214,7 +228,7 @@ namespace PseudocodeInterpreter
 					}
 				}
 			}
-			else
+			else // if the variable is not initialized, assign a default value for its type
 			{
 				if (varType == TypeNames.IntegerType)
 				{
@@ -256,6 +270,8 @@ namespace PseudocodeInterpreter
 				throw new Exception(ErrorMessages.UndefinedSymbol(varName));
 			}
 			
+			// Try to fit the assigned value into the variable
+
 			var exprResult = (Literal) Visit(context.expr());
 
 			if (exprResult is NumberLiteral exprNum)
@@ -295,14 +311,14 @@ namespace PseudocodeInterpreter
 		public override object VisitAndOp(PseudoParser.AndOpContext context)
 		{
 			var leftValue = ((BooleanLiteral) Visit(context.boolOp(0))).ToBoolean();
-			var rightValue = ((BooleanLiteral)Visit(context.boolOp(1))).ToBoolean();
+			var rightValue = ((BooleanLiteral) Visit(context.boolOp(1))).ToBoolean();
 			return new BooleanLiteral(leftValue && rightValue);
 		}
 
 		public override object VisitOrOp(PseudoParser.OrOpContext context)
 		{
-			var leftValue = ((BooleanLiteral)Visit(context.boolOp(0))).ToBoolean();
-			var rightValue = ((BooleanLiteral)Visit(context.boolOp(1))).ToBoolean();
+			var leftValue = ((BooleanLiteral) Visit(context.boolOp(0))).ToBoolean();
+			var rightValue = ((BooleanLiteral) Visit(context.boolOp(1))).ToBoolean();
 			return new BooleanLiteral(leftValue || rightValue);
 		}
 
@@ -327,29 +343,29 @@ namespace PseudocodeInterpreter
 
 		public override object VisitGreaterThan(PseudoParser.GreaterThanContext context)
 		{
-			var leftValue = (NumberLiteral)Visit(context.plusOrMinus(0));
-			var rightValue = (NumberLiteral)Visit(context.plusOrMinus(1));
+			var leftValue = (NumberLiteral) Visit(context.plusOrMinus(0));
+			var rightValue = (NumberLiteral) Visit(context.plusOrMinus(1));
 			return new BooleanLiteral(leftValue.Value > rightValue.Value);
 		}
 
 		public override object VisitGreaterOrEqual(PseudoParser.GreaterOrEqualContext context)
 		{
-			var leftValue = (NumberLiteral)Visit(context.plusOrMinus(0));
-			var rightValue = (NumberLiteral)Visit(context.plusOrMinus(1));
+			var leftValue = (NumberLiteral) Visit(context.plusOrMinus(0));
+			var rightValue = (NumberLiteral) Visit(context.plusOrMinus(1));
 			return new BooleanLiteral(leftValue.Value >= rightValue.Value);
 		}
 
 		public override object VisitLessThan(PseudoParser.LessThanContext context)
 		{
-			var leftValue = (NumberLiteral)Visit(context.plusOrMinus(0));
-			var rightValue = (NumberLiteral)Visit(context.plusOrMinus(1));
+			var leftValue = (NumberLiteral) Visit(context.plusOrMinus(0));
+			var rightValue = (NumberLiteral) Visit(context.plusOrMinus(1));
 			return new BooleanLiteral(leftValue.Value < rightValue.Value);
 		}
 
 		public override object VisitLessOrEqual(PseudoParser.LessOrEqualContext context)
 		{
-			var leftValue = (NumberLiteral)Visit(context.plusOrMinus(0));
-			var rightValue = (NumberLiteral)Visit(context.plusOrMinus(1));
+			var leftValue = (NumberLiteral) Visit(context.plusOrMinus(0));
+			var rightValue = (NumberLiteral) Visit(context.plusOrMinus(1));
 			return new BooleanLiteral(leftValue.Value <= rightValue.Value);
 		}
 
