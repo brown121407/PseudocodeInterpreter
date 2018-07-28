@@ -37,18 +37,19 @@
 			// 
 			this.tabControl.Controls.Add(this.tabHelpIndex);
 			this.tabControl.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.tabControl.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.tabControl.Location = new System.Drawing.Point(0, 0);
 			this.tabControl.Name = "tabControl";
 			this.tabControl.SelectedIndex = 0;
-			this.tabControl.Size = new System.Drawing.Size(800, 450);
+			this.tabControl.Size = new System.Drawing.Size(667, 518);
 			this.tabControl.TabIndex = 0;
 			// 
 			// tabHelpIndex
 			// 
-			this.tabHelpIndex.Location = new System.Drawing.Point(4, 22);
+			this.tabHelpIndex.Location = new System.Drawing.Point(4, 25);
 			this.tabHelpIndex.Name = "tabHelpIndex";
 			this.tabHelpIndex.Padding = new System.Windows.Forms.Padding(3);
-			this.tabHelpIndex.Size = new System.Drawing.Size(792, 424);
+			this.tabHelpIndex.Size = new System.Drawing.Size(659, 489);
 			this.tabHelpIndex.TabIndex = 0;
 			this.tabHelpIndex.Text = "Cuprins";
 			this.tabHelpIndex.UseVisualStyleBackColor = true;
@@ -57,10 +58,10 @@
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(800, 450);
+			this.ClientSize = new System.Drawing.Size(667, 518);
 			this.Controls.Add(this.tabControl);
 			this.Name = "HelpForm";
-			this.Text = "HelpForm";
+			this.Text = "Ajutor";
 			this.tabControl.ResumeLayout(false);
 			this.ResumeLayout(false);
 

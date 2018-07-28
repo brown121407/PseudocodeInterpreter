@@ -36,9 +36,12 @@
 			this.saveAsButton = new System.Windows.Forms.ToolStripButton();
 			this.toolStripSeparator = new System.Windows.Forms.ToolStripSeparator();
 			this.runButton = new System.Windows.Forms.ToolStripButton();
+			this.optionsButton = new System.Windows.Forms.ToolStripButton();
 			this.toolStripDropDownLogConsole = new System.Windows.Forms.ToolStripDropDownButton();
 			this.toggleLoxBoxButton = new System.Windows.Forms.ToolStripMenuItem();
 			this.clearLogButton = new System.Windows.Forms.ToolStripMenuItem();
+			this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+			this.helpButton = new System.Windows.Forms.ToolStripButton();
 			this.statusStrip = new System.Windows.Forms.StatusStrip();
 			this.fileNameLabel = new System.Windows.Forms.ToolStripStatusLabel();
 			this.lineLabel = new System.Windows.Forms.ToolStripStatusLabel();
@@ -48,8 +51,6 @@
 			this.panelEditor = new System.Windows.Forms.Panel();
 			this.scintilla = new ScintillaNET.Scintilla();
 			this.logBox = new ConsoleControl.ConsoleControl();
-			this.helpButton = new System.Windows.Forms.ToolStripButton();
-			this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
 			this.toolStrip.SuspendLayout();
 			this.statusStrip.SuspendLayout();
 			this.panelEditor.SuspendLayout();
@@ -65,6 +66,7 @@
             this.saveAsButton,
             this.toolStripSeparator,
             this.runButton,
+            this.optionsButton,
             this.toolStripDropDownLogConsole,
             this.toolStripSeparator1,
             this.helpButton});
@@ -75,38 +77,42 @@
 			// 
 			// newFileButton
 			// 
+			this.newFileButton.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.newFileButton.Image = ((System.Drawing.Image)(resources.GetObject("newFileButton.Image")));
 			this.newFileButton.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.newFileButton.Name = "newFileButton";
-			this.newFileButton.Size = new System.Drawing.Size(78, 22);
-			this.newFileButton.Text = "Fisier nou";
+			this.newFileButton.Size = new System.Drawing.Size(84, 22);
+			this.newFileButton.Text = "Fisier &nou";
 			this.newFileButton.Click += new System.EventHandler(this.newFileButton_Click);
 			// 
 			// openButton
 			// 
+			this.openButton.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.openButton.Image = ((System.Drawing.Image)(resources.GetObject("openButton.Image")));
 			this.openButton.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.openButton.Name = "openButton";
-			this.openButton.Size = new System.Drawing.Size(75, 22);
-			this.openButton.Text = "Deschide";
+			this.openButton.Size = new System.Drawing.Size(81, 22);
+			this.openButton.Text = "&Deschide";
 			this.openButton.Click += new System.EventHandler(this.openFileButton_Click);
 			// 
 			// saveButton
 			// 
+			this.saveButton.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.saveButton.Image = ((System.Drawing.Image)(resources.GetObject("saveButton.Image")));
 			this.saveButton.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.saveButton.Name = "saveButton";
-			this.saveButton.Size = new System.Drawing.Size(71, 22);
-			this.saveButton.Text = "Salveaza";
+			this.saveButton.Size = new System.Drawing.Size(78, 22);
+			this.saveButton.Text = "&Salveaza";
 			this.saveButton.Click += new System.EventHandler(this.saveFileButton_Click);
 			// 
 			// saveAsButton
 			// 
+			this.saveAsButton.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.saveAsButton.Image = ((System.Drawing.Image)(resources.GetObject("saveAsButton.Image")));
 			this.saveAsButton.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.saveAsButton.Name = "saveAsButton";
-			this.saveAsButton.Size = new System.Drawing.Size(86, 22);
-			this.saveAsButton.Text = "Salveaza ca";
+			this.saveAsButton.Size = new System.Drawing.Size(95, 22);
+			this.saveAsButton.Text = "Salveaza &ca";
 			this.saveAsButton.Click += new System.EventHandler(this.saveFileAsButton_Click);
 			// 
 			// toolStripSeparator
@@ -116,12 +122,23 @@
 			// 
 			// runButton
 			// 
+			this.runButton.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.runButton.Image = ((System.Drawing.Image)(resources.GetObject("runButton.Image")));
 			this.runButton.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.runButton.Name = "runButton";
-			this.runButton.Size = new System.Drawing.Size(67, 22);
+			this.runButton.Size = new System.Drawing.Size(72, 22);
 			this.runButton.Text = "&Executa";
 			this.runButton.Click += new System.EventHandler(this.runButton_Click);
+			// 
+			// optionsButton
+			// 
+			this.optionsButton.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.optionsButton.Image = ((System.Drawing.Image)(resources.GetObject("optionsButton.Image")));
+			this.optionsButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.optionsButton.Name = "optionsButton";
+			this.optionsButton.Size = new System.Drawing.Size(70, 22);
+			this.optionsButton.Text = "&Optiuni";
+			this.optionsButton.Click += new System.EventHandler(this.optionsButton_Click);
 			// 
 			// toolStripDropDownLogConsole
 			// 
@@ -129,25 +146,41 @@
 			this.toolStripDropDownLogConsole.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toggleLoxBoxButton,
             this.clearLogButton});
+			this.toolStripDropDownLogConsole.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.toolStripDropDownLogConsole.Image = ((System.Drawing.Image)(resources.GetObject("toolStripDropDownLogConsole.Image")));
 			this.toolStripDropDownLogConsole.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.toolStripDropDownLogConsole.Name = "toolStripDropDownLogConsole";
-			this.toolStripDropDownLogConsole.Size = new System.Drawing.Size(40, 22);
+			this.toolStripDropDownLogConsole.Size = new System.Drawing.Size(43, 22);
 			this.toolStripDropDownLogConsole.Text = "Log";
 			// 
 			// toggleLoxBoxButton
 			// 
 			this.toggleLoxBoxButton.Name = "toggleLoxBoxButton";
-			this.toggleLoxBoxButton.Size = new System.Drawing.Size(110, 22);
+			this.toggleLoxBoxButton.Size = new System.Drawing.Size(116, 22);
 			this.toggleLoxBoxButton.Text = "Toggle";
 			this.toggleLoxBoxButton.Click += new System.EventHandler(this.toggleLoxBoxButton_Click);
 			// 
 			// clearLogButton
 			// 
 			this.clearLogButton.Name = "clearLogButton";
-			this.clearLogButton.Size = new System.Drawing.Size(110, 22);
+			this.clearLogButton.Size = new System.Drawing.Size(116, 22);
 			this.clearLogButton.Text = "Clear";
 			this.clearLogButton.Click += new System.EventHandler(this.clearLogButton_Click);
+			// 
+			// toolStripSeparator1
+			// 
+			this.toolStripSeparator1.Name = "toolStripSeparator1";
+			this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
+			// 
+			// helpButton
+			// 
+			this.helpButton.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.helpButton.Image = ((System.Drawing.Image)(resources.GetObject("helpButton.Image")));
+			this.helpButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.helpButton.Name = "helpButton";
+			this.helpButton.Size = new System.Drawing.Size(63, 22);
+			this.helpButton.Text = "&Ajutor";
+			this.helpButton.Click += new System.EventHandler(this.helpButton_Click);
 			// 
 			// statusStrip
 			// 
@@ -223,19 +256,6 @@
 			this.logBox.Size = new System.Drawing.Size(855, 180);
 			this.logBox.TabIndex = 4;
 			// 
-			// helpButton
-			// 
-			this.helpButton.Image = ((System.Drawing.Image)(resources.GetObject("helpButton.Image")));
-			this.helpButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.helpButton.Name = "helpButton";
-			this.helpButton.Size = new System.Drawing.Size(60, 22);
-			this.helpButton.Text = "Ajutor";
-			// 
-			// toolStripSeparator1
-			// 
-			this.toolStripSeparator1.Name = "toolStripSeparator1";
-			this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
-			// 
 			// Editor
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -282,6 +302,7 @@
 		private System.Windows.Forms.ToolStripButton saveAsButton;
 		private System.Windows.Forms.ToolStripButton helpButton;
 		private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+		private System.Windows.Forms.ToolStripButton optionsButton;
 	}
 }
 

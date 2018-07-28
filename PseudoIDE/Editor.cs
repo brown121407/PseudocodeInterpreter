@@ -18,6 +18,9 @@ namespace PseudoIDE
 
 		private int _maxLineNumberCharLength = 3;
 
+		private HelpForm _helpForm = null;
+		private OptionsForm _optionsForm = null;
+
 		public Editor()
 		{
 			InitializeComponent();
@@ -158,11 +161,6 @@ namespace PseudoIDE
 			await SaveFileAs();
 		}
 
-		private void exitButton_Click(object sender, EventArgs e)
-		{
-			Close();
-		}
-
 		private void toggleLoxBoxButton_Click(object sender, EventArgs e)
 		{
 			if (logBox.Visible)
@@ -246,6 +244,34 @@ namespace PseudoIDE
 			const int padding = 2;
 			scintilla.Margins[0].Width = scintilla.TextWidth(Style.LineNumber, new string('9', maxLineNumberCharLength + 1)) + padding;
 			_maxLineNumberCharLength = maxLineNumberCharLength;
+		}
+
+		private void helpButton_Click(object sender, EventArgs e)
+		{
+			if (_helpForm == null)
+			{
+				_helpForm = new HelpForm();
+				_helpForm.Closed += (o, args) => _helpForm = null; 
+				_helpForm.Show();
+			}
+			else
+			{
+				_helpForm.Select();
+			}
+		}
+
+		private void optionsButton_Click(object sender, EventArgs e)
+		{
+			if (_optionsForm == null)
+			{
+				_optionsForm = new OptionsForm();
+				_optionsForm.Closed += (o, args) => _optionsForm = null;
+				_optionsForm.Show();
+			}
+			else
+			{
+				_optionsForm.Select();
+			}
 		}
 	}
 }
