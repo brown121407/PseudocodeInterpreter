@@ -48,6 +48,8 @@
 			this.panelEditor = new System.Windows.Forms.Panel();
 			this.scintilla = new ScintillaNET.Scintilla();
 			this.logBox = new ConsoleControl.ConsoleControl();
+			this.helpButton = new System.Windows.Forms.ToolStripButton();
+			this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
 			this.toolStrip.SuspendLayout();
 			this.statusStrip.SuspendLayout();
 			this.panelEditor.SuspendLayout();
@@ -63,7 +65,9 @@
             this.saveAsButton,
             this.toolStripSeparator,
             this.runButton,
-            this.toolStripDropDownLogConsole});
+            this.toolStripDropDownLogConsole,
+            this.toolStripSeparator1,
+            this.helpButton});
 			this.toolStrip.Location = new System.Drawing.Point(0, 0);
 			this.toolStrip.Name = "toolStrip";
 			this.toolStrip.Size = new System.Drawing.Size(855, 25);
@@ -134,14 +138,14 @@
 			// toggleLoxBoxButton
 			// 
 			this.toggleLoxBoxButton.Name = "toggleLoxBoxButton";
-			this.toggleLoxBoxButton.Size = new System.Drawing.Size(180, 22);
+			this.toggleLoxBoxButton.Size = new System.Drawing.Size(110, 22);
 			this.toggleLoxBoxButton.Text = "Toggle";
 			this.toggleLoxBoxButton.Click += new System.EventHandler(this.toggleLoxBoxButton_Click);
 			// 
 			// clearLogButton
 			// 
 			this.clearLogButton.Name = "clearLogButton";
-			this.clearLogButton.Size = new System.Drawing.Size(180, 22);
+			this.clearLogButton.Size = new System.Drawing.Size(110, 22);
 			this.clearLogButton.Text = "Clear";
 			this.clearLogButton.Click += new System.EventHandler(this.clearLogButton_Click);
 			// 
@@ -219,6 +223,19 @@
 			this.logBox.Size = new System.Drawing.Size(855, 180);
 			this.logBox.TabIndex = 4;
 			// 
+			// helpButton
+			// 
+			this.helpButton.Image = ((System.Drawing.Image)(resources.GetObject("helpButton.Image")));
+			this.helpButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.helpButton.Name = "helpButton";
+			this.helpButton.Size = new System.Drawing.Size(60, 22);
+			this.helpButton.Text = "Ajutor";
+			// 
+			// toolStripSeparator1
+			// 
+			this.toolStripSeparator1.Name = "toolStripSeparator1";
+			this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
+			// 
 			// Editor
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -263,6 +280,8 @@
 		private System.Windows.Forms.ToolStripButton openButton;
 		private System.Windows.Forms.ToolStripButton saveButton;
 		private System.Windows.Forms.ToolStripButton saveAsButton;
+		private System.Windows.Forms.ToolStripButton helpButton;
+		private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
 	}
 }
 
