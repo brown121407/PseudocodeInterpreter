@@ -24,10 +24,34 @@ namespace PseudoEditor
 	public partial class MainWindow : Window
 	{
 		private string _currentFileName;
+		private const string ProgramName = "PseudoEditor";
 
 		public MainWindow()
 		{
 			InitializeComponent();
+
+			Editor.Focus();
+
+			ShowLineColumn();
+			Editor.TextArea.Caret.PositionChanged += (sender, args) => ShowLineColumn();
+		}
+
+		private void ShowLineColumn()
+		{
+			LabelLines.Content = Editor.TextArea.Caret.Line;
+			LabelColumns.Content = Editor.TextArea.Caret.Column;
+		}
+
+		private void ShowFileName()
+		{
+			LabelFilename.Content = _currentFileName;
+			Title = $"{ProgramName} - {_currentFileName}";
+		}
+
+		private void ShowFileNameChanged()
+		{
+			LabelFilename.Content = $"{_currentFileName}*";
+			Title = $"{ProgramName} - {_currentFileName}*";
 		}
 
 		private void New_Executed(object sender, ExecutedRoutedEventArgs e)
@@ -61,6 +85,7 @@ namespace PseudoEditor
 			{
 				_currentFileName = dialog.FileName;
 				Editor.Load(_currentFileName);
+				ShowFileName();
 			}
 		}
 
@@ -73,6 +98,7 @@ namespace PseudoEditor
 			else
 			{
 				Editor.Save(_currentFileName);
+				ShowFileName();
 			}
 		}
 
@@ -91,12 +117,21 @@ namespace PseudoEditor
 			{
 				_currentFileName = dialog.FileName;
 				Editor.Save(_currentFileName);
+				ShowFileName();
 			}
 		}
 
 		private void Close_Executed(object sender, ExecutedRoutedEventArgs e)
 		{
 			this.Close();
+		}
+
+		private void Editor_OnTextChanged(object sender, EventArgs e)
+		{
+			if (_currentFileName != null)
+			{
+				ShowFileNameChanged();
+			}
 		}
 	}
 }
