@@ -13,6 +13,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Xml;
+using ICSharpCode.AvalonEdit.Highlighting;
+using ICSharpCode.AvalonEdit.Highlighting.Xshd;
 using Microsoft.Win32;
 using Path = System.IO.Path;
 
@@ -25,15 +28,19 @@ namespace PseudoEditor
 	{
 		private string _currentFileName;
 		private const string ProgramName = "PseudoEditor";
+		private const string HighlightingFile = "PseudoHighlight.xshd";
 
 		public MainWindow()
 		{
 			InitializeComponent();
 
-			Editor.Focus();
-
 			ShowLineColumn();
 			Editor.TextArea.Caret.PositionChanged += (sender, args) => ShowLineColumn();
+
+			Editor.SyntaxHighlighting =
+				HighlightingLoader.Load(XmlReader.Create(HighlightingFile), HighlightingManager.Instance);
+
+			Editor.Focus();
 		}
 
 		private void ShowLineColumn()
