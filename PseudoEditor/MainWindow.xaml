@@ -43,41 +43,41 @@
         </Grid.RowDefinitions>
 
 		<Menu Grid.Row="0" IsMainMenu="True" >
-			<MenuItem Header="_Fisier">
-				<MenuItem Header="Nou" InputGestureText="Ctrl+N" Command="New">
+			<MenuItem Header="_Fișier">
+				<MenuItem Header="{Binding Source={x:Static local:StringResources.New}}" InputGestureText="Ctrl+N" Command="New">
 					<MenuItem.Icon>
 						<materialDesign:PackIcon Kind="FilePlus"/>
 					</MenuItem.Icon>
 				</MenuItem>
-				<MenuItem Header="Deschide" InputGestureText="Ctrl+O" Command="Open">
+				<MenuItem Header="{Binding Source={x:Static local:StringResources.Open}}" InputGestureText="Ctrl+O" Command="Open">
 					<MenuItem.Icon>
 						<materialDesign:PackIcon Kind="File"></materialDesign:PackIcon>
 					</MenuItem.Icon>
 				</MenuItem>
-				<MenuItem Header="Salveaza" InputGestureText="Ctrl+S" Command="Save">
+				<MenuItem Header="{Binding Source={x:Static local:StringResources.Save}}" InputGestureText="Ctrl+S" Command="Save">
 					<MenuItem.Icon>
 						<materialDesign:PackIcon Kind="ContentSave" />
 					</MenuItem.Icon>
 				</MenuItem>
-				<MenuItem Header="Salveaza ca.." Command="SaveAs"/>
-				<MenuItem Header="Inchide" InputGestureText="Ctrl+E" Command="Close">
+				<MenuItem Header="{Binding Source={x:Static local:StringResources.SaveAs}}" Command="SaveAs"/>
+				<MenuItem Header="{Binding Source={x:Static local:StringResources.Close}}" InputGestureText="Ctrl+E" Command="Close">
 					<MenuItem.Icon>
 						<materialDesign:PackIcon Kind="ExitToApp" />
 					</MenuItem.Icon>
 				</MenuItem>
 			</MenuItem>
 			<MenuItem Header="_Editare">
-				<MenuItem Header="_Taie" Command="Cut">
+				<MenuItem Header="{Binding Source={x:Static local:StringResources.Cut}}" Command="Cut">
 					<MenuItem.Icon>
 						<materialDesign:PackIcon Kind="ContentCut" />
 					</MenuItem.Icon>
 				</MenuItem>
-				<MenuItem Header="_Copiaza" Command="Copy">
+				<MenuItem Header="{Binding Source={x:Static local:StringResources.Copy}}" Command="Copy">
 					<MenuItem.Icon>
 						<materialDesign:PackIcon Kind="ContentCopy" />
 					</MenuItem.Icon>
 				</MenuItem>
-				<MenuItem Header="_Lipeste" Command="Paste">
+				<MenuItem Header="{Binding Source={x:Static local:StringResources.Paste}}" Command="Paste">
 					<MenuItem.Icon>
 						<materialDesign:PackIcon Kind="ContentPaste" />
 					</MenuItem.Icon>
@@ -100,24 +100,24 @@
 		<ToolBarTray Grid.Row="1">
 			<ToolBar Style="{DynamicResource MaterialDesignToolBar}"
 		             ClipToBounds="False" ToolBarTray.IsLocked="True">
-				<Button ToolTip="Fisier nou" Command="New">
+				<Button ToolTip="{Binding Source={x:Static local:StringResources.NewFile}}" Command="New">
 					<materialDesign:PackIcon Kind="FilePlus"></materialDesign:PackIcon>
 				</Button>
-				<Button ToolTip="Salveaza" Command="Save">
+				<Button ToolTip="{Binding Source={x:Static local:StringResources.Save}}" Command="Save">
 					<materialDesign:PackIcon Kind="ContentSave"/>
 				</Button>
 				<Separator/>
-				<Button ToolTip="Taie" Command="Cut">
+				<Button ToolTip="{Binding Source={x:Static local:StringResources.Cut}}" Command="Cut">
 					<materialDesign:PackIcon Kind="ContentCut"/>
 				</Button>
-				<Button ToolTip="Copiaza" Command="Copy">
+				<Button ToolTip="{Binding Source={x:Static local:StringResources.Copy}}" Command="Copy">
 					<materialDesign:PackIcon Kind="ContentCopy"/>
 				</Button>
-				<Button ToolTip="Lipeste" Command="Paste">
+				<Button ToolTip="{Binding Source={x:Static local:StringResources.Paste}}" Command="Paste">
 					<materialDesign:PackIcon Kind="ContentPaste"/>
 				</Button>
 				<Separator/>
-				<Button ToolTip="Executa">
+				<Button ToolTip="{Binding Source={x:Static local:StringResources.Execute}}">
 					<materialDesign:PackIcon Kind="ArrowRightDropCircleOutline"/>
 				</Button>
 			</ToolBar>
@@ -128,18 +128,17 @@
 		                       FontFamily="Consolas" ShowLineNumbers="True" FontSize="16">
 			<avalonEdit:TextEditor.ContextMenu>
 				<ContextMenu>
-					<MenuItem Header="_Copiaza" Command="Copy">
-						<MenuItem.Icon>
-							<materialDesign:PackIcon Kind="ContentCopy" />
-						</MenuItem.Icon>
-					</MenuItem>
-					<MenuItem Header="_Taie" Command="Cut">
+					<MenuItem Header="{Binding Source={x:Static local:StringResources.Cut}}" Command="Cut">
 						<MenuItem.Icon>
 							<materialDesign:PackIcon Kind="ContentCut" />
 						</MenuItem.Icon>
 					</MenuItem>
-					<Separator/>
-					<MenuItem Header="_Lipeste" Command="Paste">
+					<MenuItem Header="{Binding Source={x:Static local:StringResources.Copy}}" Command="Copy">
+						<MenuItem.Icon>
+							<materialDesign:PackIcon Kind="ContentCopy" />
+						</MenuItem.Icon>
+					</MenuItem>
+					<MenuItem Header="{Binding Source={x:Static local:StringResources.Paste}}" Command="Paste">
 						<MenuItem.Icon>
 							<materialDesign:PackIcon Kind="ContentPaste" />
 						</MenuItem.Icon>
