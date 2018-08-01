@@ -27,5 +27,8 @@ namespace PseudoEditor
 		public static string Close { get; } = "Închide";
 
 		public static string Execute { get; } = "Execută";
+
+		public static string StayInTouch { get; } =
+			"Puteți lua legătura cu minunatul creator, crea cereri de îmbunătățiri sau semnala bug-uri prin oricare din următoarele mijloace:";
 	}
 }

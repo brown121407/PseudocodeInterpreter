@@ -7,15 +7,14 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:avalonEdit="clr-namespace:ICSharpCode.AvalonEdit;assembly=ICSharpCode.AvalonEdit"
         mc:Ignorable="d"
-        Title="PseudoEditor - NewFile*" Height="600" Width="800" MinHeight="400" MinWidth="400"
+        Title="PseudoEditor - NewFile*" Height="600" Width="800" MinHeight="400" MinWidth="450"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
         TextElement.FontSize="13"
         TextOptions.TextFormattingMode="Ideal" 
         TextOptions.TextRenderingMode="Auto"        
         Background="{DynamicResource MaterialDesignPaper}"
-        FontFamily="{DynamicResource MaterialDesignFont}"
-        >
+        FontFamily="{DynamicResource MaterialDesignFont}">
 
 	<Window.CommandBindings>
 		<CommandBinding Command="Close" Executed="Close_Executed"/>
@@ -26,6 +25,8 @@
 		<CommandBinding Command="Cut"/>
 		<CommandBinding Command="Copy"/>
 		<CommandBinding Command="Paste"/>
+		<CommandBinding Command="local:CustomCommands.Execute" Executed="Execute_Executed"/>
+		<CommandBinding Command="local:CustomCommands.About" Executed="About_Executed"/>
 	</Window.CommandBindings>
 	<Window.InputBindings>
 		<KeyBinding Key="E" Modifiers="Control" Command="Close"/>
@@ -84,7 +85,7 @@
 				</MenuItem>
 			</MenuItem>
 			<MenuItem Header="_Ajutor">
-				<MenuItem Header="Despre">
+				<MenuItem Header="Despre" Command="local:CustomCommands.About">
 					<MenuItem.Icon>
 						<materialDesign:PackIcon Kind="Information"></materialDesign:PackIcon>
 					</MenuItem.Icon>
@@ -117,38 +118,52 @@
 					<materialDesign:PackIcon Kind="ContentPaste"/>
 				</Button>
 				<Separator/>
-				<Button ToolTip="{Binding Source={x:Static local:StringResources.Execute}}">
+				<Button ToolTip="{Binding Source={x:Static local:StringResources.Execute}}" Command="local:CustomCommands.Execute">
 					<materialDesign:PackIcon Kind="ArrowRightDropCircleOutline"/>
 				</Button>
+				<Separator/>
+				<StackPanel Orientation="Horizontal">
+					<Label Content="Font:" VerticalAlignment="Center"/>
+					<ComboBox x:Name="ComboBoxFontName" SelectionChanged="ComboBoxFontName_OnSelectionChanged"
+					          Loaded="ComboBoxFontName_OnLoaded"/>
+				</StackPanel>
+				<StackPanel Orientation="Horizontal" Margin="8 0 0 0">
+					<Label Content="Mărime font:" VerticalAlignment="Center"/>
+					<ComboBox x:Name="ComboBoxFontSize" SelectionChanged="ComboBoxFontSize_OnSelectionChanged"
+					          Loaded="ComboBoxFontSize_OnLoaded"/>
+				</StackPanel>
 			</ToolBar>
 		</ToolBarTray>
 		
-		<avalonEdit:TextEditor x:Name="Editor" Grid.Row="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
-		                       HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto"
-		                       FontFamily="Consolas" ShowLineNumbers="True" FontSize="16"
-		                       TextChanged="Editor_OnTextChanged">
-			<avalonEdit:TextEditor.ContextMenu>
-				<ContextMenu>
-					<MenuItem Header="{Binding Source={x:Static local:StringResources.Cut}}" Command="Cut">
-						<MenuItem.Icon>
-							<materialDesign:PackIcon Kind="ContentCut" />
-						</MenuItem.Icon>
-					</MenuItem>
-					<MenuItem Header="{Binding Source={x:Static local:StringResources.Copy}}" Command="Copy">
-						<MenuItem.Icon>
-							<materialDesign:PackIcon Kind="ContentCopy" />
-						</MenuItem.Icon>
-					</MenuItem>
-					<MenuItem Header="{Binding Source={x:Static local:StringResources.Paste}}" Command="Paste">
-						<MenuItem.Icon>
-							<materialDesign:PackIcon Kind="ContentPaste" />
-						</MenuItem.Icon>
-					</MenuItem>
-				</ContextMenu>
-			</avalonEdit:TextEditor.ContextMenu>
-		</avalonEdit:TextEditor>
+		<materialDesign:Card Grid.Row="2" Margin="8" materialDesign:ShadowAssist.ShadowDepth="Depth3">
+			<avalonEdit:TextEditor x:Name="Editor" Grid.Row="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+			                       HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto"
+			                       FontFamily="Consolas" ShowLineNumbers="True" FontSize="16"
+			                       TextChanged="Editor_OnTextChanged">
+				<avalonEdit:TextEditor.ContextMenu>
+					<ContextMenu>
+						<MenuItem Header="{Binding Source={x:Static local:StringResources.Cut}}" Command="Cut">
+							<MenuItem.Icon>
+								<materialDesign:PackIcon Kind="ContentCut" />
+							</MenuItem.Icon>
+						</MenuItem>
+						<MenuItem Header="{Binding Source={x:Static local:StringResources.Copy}}" Command="Copy">
+							<MenuItem.Icon>
+								<materialDesign:PackIcon Kind="ContentCopy" />
+							</MenuItem.Icon>
+						</MenuItem>
+						<MenuItem Header="{Binding Source={x:Static local:StringResources.Paste}}" Command="Paste">
+							<MenuItem.Icon>
+								<materialDesign:PackIcon Kind="ContentPaste" />
+							</MenuItem.Icon>
+						</MenuItem>
+					</ContextMenu>
+				</avalonEdit:TextEditor.ContextMenu>
+			</avalonEdit:TextEditor>
+		</materialDesign:Card>
+		
 
-		<materialDesign:Card Grid.Row="3">
+		<materialDesign:Card Grid.Row="3" Margin="8" materialDesign:ShadowAssist.ShadowDepth="Depth3">
 			<Grid>
 				<Grid.ColumnDefinitions>
 					<ColumnDefinition Width="Auto"/>

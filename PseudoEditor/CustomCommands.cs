@@ -1,0 +1,30 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Input;
+
+namespace PseudoEditor
+{
+	public static class CustomCommands
+	{
+		public static readonly RoutedUICommand Execute = new RoutedUICommand
+		(
+			"Execute",
+			"Execute",
+			typeof(CustomCommands),
+			new InputGestureCollection()
+			{
+				new KeyGesture(Key.F5, ModifierKeys.Control)
+			}
+		);
+
+		public static readonly RoutedUICommand About = new RoutedUICommand
+		(
+			"About",
+			"About",
+			typeof(CustomCommands)
+		);
+	}
+}

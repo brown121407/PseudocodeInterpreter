@@ -1,0 +1,103 @@
+﻿<Window x:Class="PseudoEditor.AboutWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PseudoEditor"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d"
+        Title="Despre" Height="375" Width="350" ResizeMode="NoResize"
+		Icon="Images/Icons/info-icon.png"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal" 
+        TextOptions.TextRenderingMode="Auto"        
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}">
+    <Grid>
+        <Grid.RowDefinitions>
+			<RowDefinition Height="8"/>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="*"/>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="8"/>
+        </Grid.RowDefinitions>
+		
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="8"/>
+			<ColumnDefinition Width="*"/>
+			<ColumnDefinition Width="8"/>
+		</Grid.ColumnDefinitions>
+
+		<TextBlock Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" TextWrapping="WrapWithOverflow"
+		       Text="PseudoEditor &amp; PseudocodeInterpreter" FontWeight="Bold"/>
+		<TextBlock Grid.Row="2" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" TextWrapping="WrapWithOverflow"
+		           Text="creat de Sergiu Marton (brown121407)" FontSize="11"/>
+		
+	    <Border Grid.Row="3" Grid.Column="1" BorderThickness="0 2 0 0" BorderBrush="{DynamicResource MaterialDesignDivider}" Margin="0 8 0 0"/>
+		
+	    <TextBlock Grid.Row="4" Grid.Column="1" Margin="0 8 0 0" TextWrapping="WrapWithOverflow" 
+	               Text="{Binding Source={x:Static local:StringResources.StayInTouch}}"/>
+
+		<Border Grid.Row="6"  Grid.Column="1" BorderThickness="0 1 0 0" BorderBrush="{DynamicResource MaterialDesignDivider}" Margin="0 8 0 0">
+			<Grid Margin="8">
+				<Button HorizontalAlignment="Left" Style="{DynamicResource MaterialDesignFlatButton}" ToolTip="Repository-ul proiectului"
+                        x:Name="GitHubButton" Click="GitHubButton_OnClick">
+					<StackPanel Orientation="Horizontal">
+						<materialDesign:PackIcon Kind="GithubCircle" />
+						<TextBlock Margin="8 0 0 0" VerticalAlignment="Center" Text="GitHub"/>
+					</StackPanel>
+				</Button>
+				<Button HorizontalAlignment="Right" Style="{DynamicResource MaterialDesignFlatButton}" ToolTip="Profilul meu de Twitter"
+                        x:Name="TwitterButton" Click="TwitterButton_OnClick">
+					<StackPanel Orientation="Horizontal">
+						<materialDesign:PackIcon Kind="Twitter" />
+						<TextBlock Margin="8 0 0 0" VerticalAlignment="Center" Text="Twitter"/>
+					</StackPanel>
+				</Button>
+			</Grid>
+		</Border>
+
+		<Border Grid.Column="1" Grid.Row="7" BorderThickness="0 1 0 0" BorderBrush="{DynamicResource MaterialDesignDivider}">
+			<Grid Margin="8">
+				<Button HorizontalAlignment="Left" Style="{DynamicResource MaterialDesignFlatButton}" ToolTip="Profilul meu de Instagram"
+				        x:Name="InstagramButton" Click="InstagramButton_OnClick">
+					<StackPanel Orientation="Horizontal">
+						<materialDesign:PackIcon Kind="Instagram" />
+						<TextBlock Margin="8 0 0 0" VerticalAlignment="Center" Text="Instagram"/>
+					</StackPanel>
+				</Button>
+				<Button HorizontalAlignment="Right" Style="{DynamicResource MaterialDesignFlatButton}" ToolTip="Trimite-mi un mail"
+                        x:Name="EmailButton" Click="EmailButton_OnClick">
+					<StackPanel Orientation="Horizontal">
+						<materialDesign:PackIcon Kind="Email" />
+						<TextBlock Margin="8 0 0 0" VerticalAlignment="Center" Text="Email"/>
+					</StackPanel>
+				</Button>
+			</Grid>
+		</Border>
+		<Border Grid.Row="8" Grid.Column="1" BorderThickness="0 1 0 0" BorderBrush="{DynamicResource MaterialDesignDivider}"/>
+
+		<materialDesign:Card Grid.Row="9" Grid.Column="1" Margin="0 8 0 0">
+			<StackPanel Orientation="Vertical" Margin="8">
+				<TextBlock Margin="0 0 0 8" Text="Credits" TextAlignment="Center" FontStyle="Italic" FontWeight="Bold"/>
+				<TextBlock>
+					<Hyperlink NavigateUri="https://github.com/MaterialDesignInXAML/MaterialDesignInXamlToolkit">Material Design in XAML Toolkit</Hyperlink> - Interfata
+					<LineBreak/>
+					<Hyperlink NavigateUri="http://avalonedit.net/">AvalonEdit</Hyperlink> - Controlul de baza al editorului
+					<LineBreak/>
+					<Hyperlink NavigateUri="http://www.antlr.org/">ANTLR</Hyperlink> - Unealta cu care am creat interpretorul
+					<LineBreak/>
+					<Hyperlink NavigateUri="https://icons8.com/" RequestNavigate="Hyperlink_OnRequestNavigate">Icons8</Hyperlink> - Unele imagini
+				</TextBlock>
+			</StackPanel>
+		</materialDesign:Card>
+	</Grid>
+</Window>

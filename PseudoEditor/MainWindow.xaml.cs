@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -27,8 +28,17 @@ namespace PseudoEditor
 	public partial class MainWindow : Window
 	{
 		private string _currentFileName;
-		private const string ProgramName = "PseudoEditor";
+		private const string WindowTitle = "PseudoEditor";
 		private const string HighlightingFile = "PseudoHighlight.xshd";
+
+		private const int DefaultFontSizeIndex = 17;
+		private const int DefaultFontNameIndex = 0;
+
+		private bool _isFileSaved = false;
+
+		private const string InterpreterName = "PseudocodeInterpreter.exe";
+
+		private AboutWindow _aboutWindow = null;
 
 		public MainWindow()
 		{
@@ -52,13 +62,13 @@ namespace PseudoEditor
 		private void ShowFileName()
 		{
 			LabelFilename.Content = _currentFileName;
-			Title = $"{ProgramName} - {_currentFileName}";
+			Title = $"{WindowTitle} - {_currentFileName}";
 		}
 
 		private void ShowFileNameChanged()
 		{
 			LabelFilename.Content = $"{_currentFileName}*";
-			Title = $"{ProgramName} - {_currentFileName}*";
+			Title = $"{WindowTitle} - {_currentFileName}*";
 		}
 
 		private void New_Executed(object sender, ExecutedRoutedEventArgs e)
@@ -138,6 +148,54 @@ namespace PseudoEditor
 			if (_currentFileName != null)
 			{
 				ShowFileNameChanged();
+			}
+		}
+
+		private void ComboBoxFontName_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+		{
+			Editor.FontFamily = new FontFamily(ComboBoxFontName.SelectedItem.ToString());
+		}
+
+		private void ComboBoxFontSize_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+		{
+			Editor.FontSize = int.Parse(ComboBoxFontSize.SelectedItem.ToString());
+		}
+
+		private void ComboBoxFontSize_OnLoaded(object sender, RoutedEventArgs e)
+		{
+			ComboBoxFontSize.ItemsSource = Enumerable.Range(1, 100);
+			ComboBoxFontSize.SelectedIndex = DefaultFontSizeIndex;
+		}
+
+		private void ComboBoxFontName_OnLoaded(object sender, RoutedEventArgs e)
+		{
+			List<string> fontNames = new List<string>
+			{
+				"Consolas",
+				"Courier",
+				"Courier New"
+			};
+
+			ComboBoxFontName.ItemsSource = fontNames;
+			ComboBoxFontName.SelectedIndex = DefaultFontNameIndex;
+		}
+
+		private void Execute_Executed(object sender, ExecutedRoutedEventArgs e)
+		{
+			var process = Process.Start(InterpreterName, $"{_currentFileName} diagnostics");
+		}
+
+		private void About_Executed(object sender, ExecutedRoutedEventArgs e)
+		{
+			if (_aboutWindow == null)
+			{
+				_aboutWindow = new AboutWindow();
+				_aboutWindow.Closed += (o, args) => { _aboutWindow = null; };
+				_aboutWindow.Show();
+			}
+			else
+			{
+				_aboutWindow.Focus();
 			}
 		}
 	}
