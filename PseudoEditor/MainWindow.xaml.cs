@@ -88,6 +88,8 @@ namespace PseudoEditor
 				_currentFileName = saveFileDialog.FileName;
 				File.Create(_currentFileName).Close();
 				Editor.Load(_currentFileName);
+				ShowFileName();
+				_isFileSaved = true;
 			}
 		}
 
@@ -103,23 +105,35 @@ namespace PseudoEditor
 				_currentFileName = dialog.FileName;
 				Editor.Load(_currentFileName);
 				ShowFileName();
+				_isFileSaved = true;
 			}
 		}
 
 		private void Save_Executed(object sender, ExecutedRoutedEventArgs e)
 		{
+			SaveFile();
+		}
+
+		private void SaveAs_Executed(object sender, ExecutedRoutedEventArgs e)
+		{
+			SaveFileAs();
+		}
+
+		private void SaveFile()
+		{
 			if (_currentFileName == null)
 			{
-				SaveAs_Executed(sender, e);
+				SaveFileAs();
 			}
 			else
 			{
 				Editor.Save(_currentFileName);
 				ShowFileName();
+				_isFileSaved = true;
 			}
 		}
 
-		private void SaveAs_Executed(object sender, ExecutedRoutedEventArgs e)
+		private void SaveFileAs()
 		{
 			var dialog = new SaveFileDialog
 			{
@@ -135,6 +149,7 @@ namespace PseudoEditor
 				_currentFileName = dialog.FileName;
 				Editor.Save(_currentFileName);
 				ShowFileName();
+				_isFileSaved = true;
 			}
 		}
 
@@ -148,6 +163,7 @@ namespace PseudoEditor
 			if (_currentFileName != null)
 			{
 				ShowFileNameChanged();
+				_isFileSaved = true;
 			}
 		}
 
@@ -182,7 +198,12 @@ namespace PseudoEditor
 
 		private void Execute_Executed(object sender, ExecutedRoutedEventArgs e)
 		{
-			var process = Process.Start(InterpreterName, $"{_currentFileName} diagnostics");
+			SaveFile();
+
+			if (_isFileSaved)
+			{
+				var process = Process.Start(InterpreterName, $"{_currentFileName} diagnostics");
+			}
 		}
 
 		private void About_Executed(object sender, ExecutedRoutedEventArgs e)
