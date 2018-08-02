@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using PseudocodeInterpreter.Exceptions;
 
 namespace PseudocodeInterpreter.Objects
@@ -105,7 +106,7 @@ namespace PseudocodeInterpreter.Objects
 			return new NumberLiteral(number.Value * -1);
 	    }
 
-        public override string ToString() => Value.ToString();
+        public override string ToString() => Value.ToString(CultureInfo.CurrentCulture);
 
         public override bool ToBoolean() => Math.Abs(Value) >= float.Epsilon;
     }
