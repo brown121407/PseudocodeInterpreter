@@ -18,22 +18,26 @@
         Closed="MainWindow_Closed">
 
 	<Window.CommandBindings>
-		<CommandBinding Command="Close" Executed="Close_Executed"/>
-		<CommandBinding Command="Save" Executed="Save_Executed"/>
-		<CommandBinding Command="SaveAs" Executed="SaveAs_Executed"/>
-		<CommandBinding Command="New" Executed="New_Executed"/>
-		<CommandBinding Command="Open" Executed="Open_Executed"/>
+		<CommandBinding Command="Close" Executed="Close_OnExecuted"/>
+		<CommandBinding Command="Save" Executed="Save_OnExecuted"/>
+		<CommandBinding Command="SaveAs" Executed="SaveAs_OnExecuted"/>
+		<CommandBinding Command="New" Executed="New_OnExecuted"/>
+		<CommandBinding Command="Open" Executed="Open_OnExecuted"/>
 		<CommandBinding Command="Cut"/>
 		<CommandBinding Command="Copy"/>
 		<CommandBinding Command="Paste"/>
-		<CommandBinding Command="local:CustomCommands.Execute" Executed="Execute_Executed"/>
-		<CommandBinding Command="local:CustomCommands.About" Executed="About_Executed"/>
+		<CommandBinding Command="Help" Executed="Help_OnExecuted"/>
+		<CommandBinding Command="local:CustomCommands.Execute" Executed="Execute_OnExecuted"/>
+		<CommandBinding Command="local:CustomCommands.About" Executed="About_OnExecuted"/>
+		<CommandBinding Command="local:CustomCommands.Preferences" Executed="Preferences_OnExecuted"/>
 	</Window.CommandBindings>
 	<Window.InputBindings>
 		<KeyBinding Key="E" Modifiers="Control" Command="Close"/>
 		<KeyBinding Key="S" Modifiers="Control" Command="Save"/>
 		<KeyBinding Key="N" Modifiers="Control" Command="New"/>
-		<KeyBinding Key="O" Modifiers="Control" Command="Open"/>
+		<KeyBinding Key="D" Modifiers="Control" Command="Open"/>
+		<KeyBinding Key="M" Modifiers="Control" Command="Help"/>
+		<KeyBinding Key="P" Modifiers="Control" Command="local:CustomCommands.Preferences"/>
 	</Window.InputBindings>
 
 	<Grid>
@@ -46,52 +50,66 @@
 
 		<Menu Grid.Row="0" IsMainMenu="True" >
 			<MenuItem Header="_Fișier">
-				<MenuItem Header="{Binding Source={x:Static local:StringResources.New}}" InputGestureText="Ctrl+N" Command="New">
+				<MenuItem Header="{Binding Source={x:Static local:StringResources.New}}" 
+				          InputGestureText="Ctrl+N" Command="New">
 					<MenuItem.Icon>
 						<materialDesign:PackIcon Kind="FilePlus"/>
 					</MenuItem.Icon>
 				</MenuItem>
-				<MenuItem Header="{Binding Source={x:Static local:StringResources.Open}}" InputGestureText="Ctrl+O" Command="Open">
+				<MenuItem Header="{Binding Source={x:Static local:StringResources.Open}}" 
+				          InputGestureText="Ctrl+D" Command="Open">
 					<MenuItem.Icon>
 						<materialDesign:PackIcon Kind="File"></materialDesign:PackIcon>
 					</MenuItem.Icon>
 				</MenuItem>
-				<MenuItem Header="{Binding Source={x:Static local:StringResources.Save}}" InputGestureText="Ctrl+S" Command="Save">
+				<MenuItem Header="{Binding Source={x:Static local:StringResources.Save}}" 
+				          InputGestureText="Ctrl+S" Command="Save">
 					<MenuItem.Icon>
 						<materialDesign:PackIcon Kind="ContentSave" />
 					</MenuItem.Icon>
 				</MenuItem>
-				<MenuItem Header="{Binding Source={x:Static local:StringResources.SaveAs}}" Command="SaveAs"/>
-				<MenuItem Header="{Binding Source={x:Static local:StringResources.Close}}" InputGestureText="Ctrl+E" Command="Close">
+				<MenuItem Header="{Binding Source={x:Static local:StringResources.SaveAs}}"
+				          Command="SaveAs"/>
+				<Separator Style="{DynamicResource MaterialDesignSeparator}"/>
+				<MenuItem Header="Preferinte"
+				          InputGestureText="Ctrl-P" Command="local:CustomCommands.Preferences"/>
+				<Separator Style="{DynamicResource MaterialDesignSeparator}"/>
+				<MenuItem Header="{Binding Source={x:Static local:StringResources.Close}}"
+				          InputGestureText="Ctrl+E" Command="Close">
 					<MenuItem.Icon>
 						<materialDesign:PackIcon Kind="ExitToApp" />
 					</MenuItem.Icon>
 				</MenuItem>
 			</MenuItem>
 			<MenuItem Header="_Editare">
-				<MenuItem Header="{Binding Source={x:Static local:StringResources.Cut}}" Command="Cut">
+				<MenuItem Header="{Binding Source={x:Static local:StringResources.Cut}}" 
+				          Command="Cut">
 					<MenuItem.Icon>
 						<materialDesign:PackIcon Kind="ContentCut" />
 					</MenuItem.Icon>
 				</MenuItem>
-				<MenuItem Header="{Binding Source={x:Static local:StringResources.Copy}}" Command="Copy">
+				<MenuItem Header="{Binding Source={x:Static local:StringResources.Copy}}" 
+				          Command="Copy">
 					<MenuItem.Icon>
 						<materialDesign:PackIcon Kind="ContentCopy" />
 					</MenuItem.Icon>
 				</MenuItem>
-				<MenuItem Header="{Binding Source={x:Static local:StringResources.Paste}}" Command="Paste">
+				<MenuItem Header="{Binding Source={x:Static local:StringResources.Paste}}" 
+				          Command="Paste">
 					<MenuItem.Icon>
 						<materialDesign:PackIcon Kind="ContentPaste" />
 					</MenuItem.Icon>
 				</MenuItem>
 			</MenuItem>
 			<MenuItem Header="_Ajutor">
-				<MenuItem Header="Despre" Command="local:CustomCommands.About">
+				<MenuItem Header="Despre" 
+				          Command="local:CustomCommands.About">
 					<MenuItem.Icon>
 						<materialDesign:PackIcon Kind="Information"></materialDesign:PackIcon>
 					</MenuItem.Icon>
 				</MenuItem>
-				<MenuItem Header="Manual">
+				<MenuItem Header="Manual" 
+				          InputGestureText="Ctrl+M" Command="Help">
 					<MenuItem.Icon>
 						<materialDesign:PackIcon Kind="Help"></materialDesign:PackIcon>
 					</MenuItem.Icon>
@@ -123,16 +141,6 @@
 					<materialDesign:PackIcon Kind="ArrowRightDropCircleOutline"/>
 				</Button>
 				<Separator/>
-				<StackPanel Orientation="Horizontal">
-					<Label Content="Font:" VerticalAlignment="Center"/>
-					<ComboBox x:Name="ComboBoxFontName" SelectionChanged="ComboBoxFontName_SelectionChanged"
-					          Loaded="ComboBoxFontName_Loaded"/>
-				</StackPanel>
-				<StackPanel Orientation="Horizontal" Margin="8 0 0 0">
-					<Label Content="Mărime font:" VerticalAlignment="Center"/>
-					<ComboBox x:Name="ComboBoxFontSize" SelectionChanged="ComboBoxFontSize_SelectionChanged"
-					          Loaded="ComboBoxFontSize_Loaded"/>
-				</StackPanel>
 			</ToolBar>
 		</ToolBarTray>
 		
@@ -140,7 +148,7 @@
 			<avalonEdit:TextEditor x:Name="Editor" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
 			                       HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto"
 			                       FontFamily="Consolas" ShowLineNumbers="True" FontSize="16"
-			                       TextChanged="Editor_TextChanged">
+			                       TextChanged="Editor_OnTextChanged">
 				<avalonEdit:TextEditor.ContextMenu>
 					<ContextMenu>
 						<MenuItem Header="{Binding Source={x:Static local:StringResources.Cut}}" Command="Cut">

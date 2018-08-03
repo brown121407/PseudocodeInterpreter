@@ -1,0 +1,67 @@
+﻿<Window x:Class="PseudoEditor.PreferencesWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PseudoEditor"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
+        mc:Ignorable="d"
+        Title="Preferinte" Height="300" Width="400" ResizeMode="NoResize"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal" 
+        TextOptions.TextRenderingMode="Auto"        
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        Loaded="PreferencesWindow_OnLoaded">
+    <Grid>
+        <Grid.RowDefinitions>
+			<RowDefinition Height="8"/>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="8"/>
+        </Grid.RowDefinitions>
+
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="8"/>
+			<ColumnDefinition Width="Auto"/>
+			<ColumnDefinition Width="*"/>
+			<ColumnDefinition Width="Auto"/>
+			<ColumnDefinition Width="8"/>
+		</Grid.ColumnDefinitions>
+
+
+		<StackPanel Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3"
+		            Orientation="Vertical">
+			<Label Content="Preferinte" 
+			       FontWeight="Bold" FontSize="18"/>
+			<Border BorderThickness="0 1 0 0" BorderBrush="{DynamicResource MaterialDesignDivider}"/>
+		</StackPanel>
+
+		<Label Grid.Row="2" Grid.Column="1" Margin="0 4 0 4"
+			   VerticalAlignment="Center"
+			   Content="Mărime font:" />
+		<ComboBox Grid.Row="2" Grid.Column="3"
+		          x:Name="ComboBoxFontSize"
+		          SelectionChanged="ComboBoxFontSize_OnSelectionChanged"/>
+
+		<Label Grid.Row="3" Grid.Column="1" Margin="0 4 0 4"
+		       VerticalAlignment="Center"
+		       Content="Font:"/>
+		<ComboBox Grid.Row="3" Grid.Column="3"
+		          x:Name="ComboBoxFontName"
+		          SelectionChanged="ComboBoxFontName_OnSelectionChanged"/>
+
+		<Label Grid.Row="4" Grid.Column="1" Margin="0 4 0 4"
+		       VerticalAlignment="Center"
+		       Content="Incarca ultimul fisier la pornire?"/>
+	    <ToggleButton Grid.Row="4" Grid.Column="3"
+					  x:Name="ToggleOpenLastFile"
+	                  Style="{StaticResource MaterialDesignSwitchToggleButton}"
+	                  ToolTip="Default ToggleButton Style"
+	                  Checked="ToggleOpenLastFile_OnChecked" Unchecked="ToggleOpenLastFile_OnUnchecked"/>
+	</Grid>
+</Window>

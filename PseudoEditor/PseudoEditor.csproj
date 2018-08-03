@@ -74,6 +74,9 @@
       <DependentUpon>ManualWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Preferences.cs" />
+    <Compile Include="PreferencesWindow.xaml.cs">
+      <DependentUpon>PreferencesWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="StringResources.cs" />
     <Page Include="AboutWindow.xaml">
       <SubType>Designer</SubType>
@@ -92,6 +95,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="ManualWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PreferencesWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

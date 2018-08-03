@@ -34,20 +34,24 @@ namespace PseudoEditor
 
 		private AboutWindow _aboutWindow = null;
 		private ManualWindow _manualWindow = null;
+		private PreferencesWindow _preferencesWindow = null;
 
-		private Preferences preferences;
+		private readonly Preferences _preferences;
 
 		public MainWindow()
 		{
 			InitializeComponent();
 
-			preferences = new Preferences();
-			preferences.Load();
+			_preferences = new Preferences();
+			_preferences.Load();
 
-			if (preferences.LastFile != null)
+			if (_preferences.OpenLastFile && _preferences.LastFile != null)
 			{
-				OpenFile(preferences.LastFile);
+				OpenFile(_preferences.LastFile);
 			}
+
+			_preferences.OnFontNameChanged += () => { Editor.FontFamily = new FontFamily(_preferences.FontName); };
+			_preferences.OnFontSizeChanged += () => { Editor.FontSize = _preferences.FontSize; };
 
 			ShowLineColumn();
 			Editor.TextArea.Caret.PositionChanged += (sender, args) => ShowLineColumn();
@@ -77,7 +81,7 @@ namespace PseudoEditor
 			Title = $"{WindowTitle} - {_currentFileName}*";
 		}
 
-		private void New_Executed(object sender, ExecutedRoutedEventArgs e)
+		private void New_OnExecuted(object sender, ExecutedRoutedEventArgs e)
 		{
 			_currentFileName = null;
 			var saveFileDialog = new SaveFileDialog
@@ -97,11 +101,11 @@ namespace PseudoEditor
 				ShowFileName();
 				_isFileSaved = true;
 
-				preferences.LastFile = _currentFileName;
+				_preferences.LastFile = _currentFileName;
 			}
 		}
 
-		private void Open_Executed(object sender, ExecutedRoutedEventArgs e)
+		private void Open_OnExecuted(object sender, ExecutedRoutedEventArgs e)
 		{
 			var dialog = new OpenFileDialog {
 				CheckFileExists = true,
@@ -121,15 +125,15 @@ namespace PseudoEditor
 			ShowFileName();
 			_isFileSaved = true;
 
-			preferences.LastFile = _currentFileName;
+			_preferences.LastFile = _currentFileName;
 		}
 
-		private void Save_Executed(object sender, ExecutedRoutedEventArgs e)
+		private void Save_OnExecuted(object sender, ExecutedRoutedEventArgs e)
 		{
 			SaveFile();
 		}
 
-		private void SaveAs_Executed(object sender, ExecutedRoutedEventArgs e)
+		private void SaveAs_OnExecuted(object sender, ExecutedRoutedEventArgs e)
 		{
 			SaveFileAs();
 		}
@@ -147,7 +151,7 @@ namespace PseudoEditor
 				ShowFileName();
 				_isFileSaved = true;
 
-				preferences.LastFile = _currentFileName;
+				_preferences.LastFile = _currentFileName;
 			}
 		}
 
@@ -169,11 +173,11 @@ namespace PseudoEditor
 				ShowFileName();
 				_isFileSaved = true;
 
-				preferences.LastFile = _currentFileName;
+				_preferences.LastFile = _currentFileName;
 			}
 		}
 
-		private void Close_Executed(object sender, ExecutedRoutedEventArgs e)
+		private void Close_OnExecuted(object sender, ExecutedRoutedEventArgs e)
 		{
 			CloseOtherWindows();
 			Close();
@@ -183,9 +187,10 @@ namespace PseudoEditor
 		{
 			_aboutWindow?.Close();
 			_manualWindow?.Close();
+			_preferencesWindow?.Close();
 		}
 
-		private void Editor_TextChanged(object sender, EventArgs e)
+		private void Editor_OnTextChanged(object sender, EventArgs e)
 		{
 			if (_currentFileName != null)
 			{
@@ -194,40 +199,7 @@ namespace PseudoEditor
 			}
 		}
 
-		private void ComboBoxFontName_SelectionChanged(object sender, SelectionChangedEventArgs e)
-		{
-			var fontName = ComboBoxFontName.SelectedItem.ToString();
-			Editor.FontFamily = new FontFamily(fontName);
-			preferences.FontName = fontName;
-		}
-
-		private void ComboBoxFontSize_SelectionChanged(object sender, SelectionChangedEventArgs e)
-		{
-			var fontSize = int.Parse(ComboBoxFontSize.SelectedItem.ToString());
-			Editor.FontSize = fontSize;
-			preferences.FontSize = fontSize;
-		}
-
-		private void ComboBoxFontSize_Loaded(object sender, RoutedEventArgs e)
-		{
-			ComboBoxFontSize.ItemsSource = Enumerable.Range(1, 100);
-			ComboBoxFontSize.SelectedIndex = preferences.FontSize - 1;
-		}
-
-		private void ComboBoxFontName_Loaded(object sender, RoutedEventArgs e)
-		{
-			List<string> fontNames = new List<string>
-			{
-				"Consolas",
-				"Courier",
-				"Courier New"
-			};
-
-			ComboBoxFontName.ItemsSource = fontNames;
-			ComboBoxFontName.SelectedItem = preferences.FontName;
-		}
-
-		private void Execute_Executed(object sender, ExecutedRoutedEventArgs e)
+		private void Execute_OnExecuted(object sender, ExecutedRoutedEventArgs e)
 		{
 			SaveFile();
 
@@ -237,7 +209,7 @@ namespace PseudoEditor
 			}
 		}
 
-		private void About_Executed(object sender, ExecutedRoutedEventArgs e)
+		private void About_OnExecuted(object sender, ExecutedRoutedEventArgs e)
 		{
 			if (_aboutWindow == null)
 			{
@@ -254,6 +226,25 @@ namespace PseudoEditor
 		private void MainWindow_Closed(object sender, EventArgs e)
 		{
 			CloseOtherWindows();
+		}
+
+		private void Preferences_OnExecuted(object sender, ExecutedRoutedEventArgs e)
+		{
+			if (_preferencesWindow == null)
+			{
+				_preferencesWindow = new PreferencesWindow(_preferences);
+				_preferencesWindow.Closed += (o, args) => { _preferencesWindow = null; };
+				_preferencesWindow.Show();
+			}
+			else
+			{
+				_preferencesWindow.Focus();
+			}
+		}
+
+		private void Help_OnExecuted(object sender, ExecutedRoutedEventArgs e)
+		{
+			
 		}
 	}
 }

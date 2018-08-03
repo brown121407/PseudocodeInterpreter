@@ -8,13 +8,31 @@ using Newtonsoft.Json;
 
 namespace PseudoEditor
 {
-	class Preferences
+	public class Preferences
 	{
 		private const string PrefsFilePath = "Preferences.json";
 
 		private string _lastFile = null;
 		private string _fontName = "Consolas";
 		private int _fontSize = 18;
+		private bool _openLastFile = false;
+
+		public event Action OnFontNameChanged;
+		public event Action OnFontSizeChanged;
+
+		public Preferences()
+		{
+			OnFontNameChanged += Save;
+			OnFontSizeChanged += Save;
+		}
+
+		[JsonIgnore]
+		public HashSet<string> FontNames { get; } = new HashSet<string>
+		{
+			"Consolas", "Courier", "Courier New"
+		};
+
+		[JsonIgnore] public IEnumerable<int> FontSizes { get; } = Enumerable.Range(1, 50);
 
 		[JsonProperty]
 		public string LastFile
@@ -33,7 +51,7 @@ namespace PseudoEditor
 			set
 			{
 				_fontName = value;
-				Save();
+				OnFontNameChanged?.Invoke();
 			}
 		}
 
@@ -43,6 +61,17 @@ namespace PseudoEditor
 			set
 			{
 				_fontSize = value;
+				OnFontSizeChanged?.Invoke();
+			}
+		}
+
+		[JsonProperty]
+		public bool OpenLastFile
+		{
+			get => _openLastFile;
+			set
+			{
+				_openLastFile = value;
 				Save();
 			}
 		}
@@ -64,9 +93,10 @@ namespace PseudoEditor
 				string fileContent = File.ReadAllText(PrefsFilePath);
 				Preferences loadedPrefs = JsonConvert.DeserializeObject<Preferences>(fileContent);
 
-				this.LastFile = loadedPrefs.LastFile;
-				this.FontName = loadedPrefs.FontName;
-				this.FontSize = loadedPrefs.FontSize;
+				_lastFile = loadedPrefs.LastFile;
+				_fontName = loadedPrefs.FontName;
+				_fontSize = loadedPrefs.FontSize;
+				_openLastFile = loadedPrefs.OpenLastFile;
 			}
 		}
 	}

@@ -21,5 +21,12 @@ namespace PseudoEditor
 			"About",
 			typeof(CustomCommands)
 		);
+
+		public static readonly RoutedUICommand Preferences = new RoutedUICommand
+		(
+			"Preferences",
+			"Preferences",
+			typeof(CustomCommands)
+		);
 	}
 }
