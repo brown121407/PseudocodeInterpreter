@@ -14,7 +14,8 @@
         TextOptions.TextFormattingMode="Ideal" 
         TextOptions.TextRenderingMode="Auto"        
         Background="{DynamicResource MaterialDesignPaper}"
-        FontFamily="{DynamicResource MaterialDesignFont}">
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        Closed="MainWindow_Closed">
 
 	<Window.CommandBindings>
 		<CommandBinding Command="Close" Executed="Close_Executed"/>
@@ -124,22 +125,22 @@
 				<Separator/>
 				<StackPanel Orientation="Horizontal">
 					<Label Content="Font:" VerticalAlignment="Center"/>
-					<ComboBox x:Name="ComboBoxFontName" SelectionChanged="ComboBoxFontName_OnSelectionChanged"
-					          Loaded="ComboBoxFontName_OnLoaded"/>
+					<ComboBox x:Name="ComboBoxFontName" SelectionChanged="ComboBoxFontName_SelectionChanged"
+					          Loaded="ComboBoxFontName_Loaded"/>
 				</StackPanel>
 				<StackPanel Orientation="Horizontal" Margin="8 0 0 0">
 					<Label Content="Mărime font:" VerticalAlignment="Center"/>
-					<ComboBox x:Name="ComboBoxFontSize" SelectionChanged="ComboBoxFontSize_OnSelectionChanged"
-					          Loaded="ComboBoxFontSize_OnLoaded"/>
+					<ComboBox x:Name="ComboBoxFontSize" SelectionChanged="ComboBoxFontSize_SelectionChanged"
+					          Loaded="ComboBoxFontSize_Loaded"/>
 				</StackPanel>
 			</ToolBar>
 		</ToolBarTray>
 		
 		<materialDesign:Card Grid.Row="2" Margin="8" materialDesign:ShadowAssist.ShadowDepth="Depth3">
-			<avalonEdit:TextEditor x:Name="Editor" Grid.Row="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+			<avalonEdit:TextEditor x:Name="Editor" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
 			                       HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto"
 			                       FontFamily="Consolas" ShowLineNumbers="True" FontSize="16"
-			                       TextChanged="Editor_OnTextChanged">
+			                       TextChanged="Editor_TextChanged">
 				<avalonEdit:TextEditor.ContextMenu>
 					<ContextMenu>
 						<MenuItem Header="{Binding Source={x:Static local:StringResources.Cut}}" Command="Cut">
