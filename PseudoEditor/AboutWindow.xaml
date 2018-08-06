@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:PseudoEditor"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Title="Despre" Height="375" Width="350" ResizeMode="NoResize"
+        Title="Despre" ResizeMode="NoResize" SizeToContent="WidthAndHeight"
 		Icon="Images/Icons/info-icon.png"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
@@ -32,7 +32,7 @@
 		
 		<Grid.ColumnDefinitions>
 			<ColumnDefinition Width="8"/>
-			<ColumnDefinition Width="*"/>
+			<ColumnDefinition Width="300"/>
 			<ColumnDefinition Width="8"/>
 		</Grid.ColumnDefinitions>
 
@@ -91,11 +91,13 @@
 				<TextBlock>
 					<Hyperlink NavigateUri="https://github.com/MaterialDesignInXAML/MaterialDesignInXamlToolkit">Material Design in XAML Toolkit</Hyperlink> - Interfata
 					<LineBreak/>
-					<Hyperlink NavigateUri="http://avalonedit.net/">AvalonEdit</Hyperlink> - Controlul de baza al editorului
+					<Hyperlink NavigateUri="http://avalonedit.net/" RequestNavigate="Hyperlink_OnRequestNavigate">AvalonEdit</Hyperlink> - Controlul de baza al editorului
 					<LineBreak/>
-					<Hyperlink NavigateUri="http://www.antlr.org/">ANTLR</Hyperlink> - Unealta cu care am creat interpretorul
+					<Hyperlink NavigateUri="http://www.antlr.org/" RequestNavigate="Hyperlink_OnRequestNavigate">ANTLR</Hyperlink> - Unealta cu care am creat interpretorul
 					<LineBreak/>
 					<Hyperlink NavigateUri="https://icons8.com/" RequestNavigate="Hyperlink_OnRequestNavigate">Icons8</Hyperlink> - Unele imagini
+					<LineBreak/>
+					<Hyperlink NavigateUri="https://www.jetbrains.com/resharper/" RequestNavigate="Hyperlink_OnRequestNavigate">ReSharper</Hyperlink> - Extensie pentru Visual Studio
 				</TextBlock>
 			</StackPanel>
 		</materialDesign:Card>
