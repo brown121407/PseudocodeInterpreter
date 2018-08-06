@@ -244,7 +244,16 @@ namespace PseudoEditor
 
 		private void Help_OnExecuted(object sender, ExecutedRoutedEventArgs e)
 		{
-			
+			if (_manualWindow == null)
+			{
+				_manualWindow = new ManualWindow();
+				_manualWindow.Closed += (o, args) => { _manualWindow = null; };
+				_manualWindow.Show();
+			}
+			else
+			{
+				_manualWindow.Focus();
+			}
 		}
 	}
 }
