@@ -248,5 +248,11 @@ namespace PseudoEditor
 				_manualWindow.Focus();
 			}
 		}
+
+		private void Editor_OnLoaded(object sender, RoutedEventArgs e)
+		{
+			Editor.FontSize = _preferences.FontSize;
+			Editor.FontFamily = new FontFamily(_preferences.FontName);
+		}
 	}
 }

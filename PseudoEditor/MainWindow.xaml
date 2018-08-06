@@ -148,7 +148,7 @@
 			<avalonEdit:TextEditor x:Name="Editor" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
 			                       HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto"
 			                       FontFamily="Consolas" ShowLineNumbers="True" FontSize="16"
-			                       TextChanged="Editor_OnTextChanged">
+			                       TextChanged="Editor_OnTextChanged" Loaded="Editor_OnLoaded">
 				<avalonEdit:TextEditor.ContextMenu>
 					<ContextMenu>
 						<MenuItem Header="{Binding Source={x:Static local:StringResources.Cut}}" Command="Cut">
