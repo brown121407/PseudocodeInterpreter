@@ -20,7 +20,7 @@ namespace PseudoEditor
 	/// </summary>
 	public partial class PreferencesWindow : Window
 	{
-		private Preferences _preferences;
+		private readonly Preferences _preferences;
 
 		public PreferencesWindow(Preferences preferences)
 		{

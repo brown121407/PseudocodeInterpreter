@@ -93,10 +93,18 @@ namespace PseudoEditor
 				string fileContent = File.ReadAllText(PrefsFilePath);
 				Preferences loadedPrefs = JsonConvert.DeserializeObject<Preferences>(fileContent);
 
-				_lastFile = loadedPrefs.LastFile;
 				_fontName = loadedPrefs.FontName;
 				_fontSize = loadedPrefs.FontSize;
 				_openLastFile = loadedPrefs.OpenLastFile;
+
+				if (!File.Exists(loadedPrefs.LastFile))
+				{
+					_lastFile = null;
+				}
+				else
+				{
+					_lastFile = loadedPrefs.LastFile;
+				}
 			}
 		}
 	}
