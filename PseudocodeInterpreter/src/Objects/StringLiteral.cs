@@ -1,4 +1,6 @@
-﻿namespace PseudocodeInterpreter.Objects
+﻿using System;
+
+namespace PseudocodeInterpreter.Objects
 {
     class StringLiteral : Literal
     {
@@ -7,7 +9,7 @@
 	    public StringLiteral(string value)
 	    {
 			// Handle escaped quotes
-		    _value = value.Replace("\\\"", "\"");
+		    _value = value.Replace("\\\"", "\"").Replace("\\n", Environment.NewLine);
 		    Type = TypeNames.StringType;
 	    }
 
