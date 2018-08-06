@@ -45,7 +45,7 @@ namespace PseudoEditor
 			{
 				foreach (var fileName in _fileNames)
 				{
-					string filePath = Path.Combine(_manualPagesPath, $"{fileName}.md");
+					var filePath = Path.Combine(_manualPagesPath, $"{fileName}{MarkdownExt}");
 					CreateButton(fileName, File.Exists(filePath) ? filePath : null);
 				}
 			}
@@ -59,8 +59,14 @@ namespace PseudoEditor
 				Margin = new Thickness(8)
 			};
 
-			var markdown = (fileToOpen != null) ? File.ReadAllText(fileToOpen) : PageMissingError;
-			button.Click += (sender, args) => { Viewer.Markdown = markdown; };
+			if (fileToOpen == null)
+			{
+				button.Click += (sender, args) => Viewer.Markdown = PageMissingError;
+			}
+			else
+			{
+				button.Click += async (sender, args) => Viewer.Markdown = await File.OpenText(fileToOpen).ReadToEndAsync();
+			}
 
 			PanelButtons.Children.Add(button);
 		}

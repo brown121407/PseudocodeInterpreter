@@ -1,14 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Xml;
-using ICSharpCode.AvalonEdit.CodeCompletion;
 using ICSharpCode.AvalonEdit.Highlighting;
 using ICSharpCode.AvalonEdit.Highlighting.Xshd;
 using Microsoft.Win32;
@@ -24,9 +20,6 @@ namespace PseudoEditor
 		private string _currentFileName;
 		private const string WindowTitle = "PseudoEditor";
 		private const string HighlightingFile = "PseudoHighlight.xshd";
-
-		private const int DefaultFontSizeIndex = 17;
-		private const int DefaultFontNameIndex = 0;
 
 		private bool _isFileSaved = false;
 
