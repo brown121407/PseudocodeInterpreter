@@ -14,6 +14,11 @@
         TextOptions.TextRenderingMode="Auto"
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}">
+
+	<FrameworkElement.CommandBindings>
+		<CommandBinding Command="{x:Static markdig:Commands.Hyperlink}" Executed="Hyperlink_Executed" />
+	</FrameworkElement.CommandBindings>
+
 	<Grid>
 		<Grid.ColumnDefinitions>
 			<ColumnDefinition Width="Auto" MinWidth="150"/>
