@@ -1,12 +1,12 @@
-<Project Sdk="Microsoft.NET.Sdk">
-
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp2.1</TargetFramework>
+    <Authors>brown121407</Authors>
+    <Version>0.4.0-alpha</Version>
   </PropertyGroup>
-
   <ItemGroup>
     <PackageReference Include="Antlr4.Runtime.Standard" Version="4.7.1.1" />
+    <PackageReference Include="CommandLineParser" Version="2.2.1" />
   </ItemGroup>
-
 </Project>

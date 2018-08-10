@@ -2,46 +2,66 @@
 using System.Diagnostics;
 using System.IO;
 using PseudocodeInterpreter.Exceptions;
+using CommandLine;
 
 namespace PseudocodeInterpreter
 {
 	static class Program
 	{
-		/// <param name="args">
-		/// Represents the command line args. Should be &lt;filename&gt;.
-		/// "diagnostics" is optional but should come after the &lt;filename&gt;
-		/// </param>
 		public static void Main(string[] args)
 		{
-			if (!File.Exists(args[0]))
+			ParseCommandLineArguments(args);
+		}
+
+		private static void ParseCommandLineArguments(string[] args)
+		{
+			var parser = new CommandLine.Parser(with =>
+			{
+				with.EnableDashDash = true;
+				with.HelpWriter = Console.Out;
+			});
+
+			var result = parser.ParseArguments<CommandLineOptions>(args);
+			if (result.Tag == ParserResultType.Parsed)
+			{
+				var options = ((Parsed<CommandLineOptions>) result).Value;
+				ProcessCommandLineArguments(options);
+			}
+		}
+
+		private static void ProcessCommandLineArguments(CommandLineOptions options)
+		{		
+			// if the selected language is known
+				// use it
+			// else throw error
+			
+			if (!File.Exists(options.File))
 			{
 				Interpreter.Output(ErrorMessages.FileDoesNotExist);
+				return;
 			}
 
-			if (args.Length > 1)
+			if (options.Stats)
 			{
-				if (args[1].Equals("diagnostics"))
-				{
-					Interpreter.Output($"> Se executa {args[0]}{Environment.NewLine}");
+				// TODO use the specified language for messages
+				Interpreter.Output($"Executing {options.File}.{Environment.NewLine}");
 
-					// Start to count execution time
-					Stopwatch stopwatch = Stopwatch.StartNew();
+				var stopWatch = Stopwatch.StartNew();
+				
+				Interpreter.ExecuteFile(options.File);
+				
+				stopWatch.Stop();
 
-					Interpreter.ExecuteFile(args[0]);
+				Interpreter.Output($"{Environment.NewLine}" +
+				                   $"Execution took {stopWatch.Elapsed}." +
+				                   $"{Environment.NewLine}" +
+				                   $"Press ENTER to quit...");
 
-					stopwatch.Stop();
-
-					Interpreter.Output(
-						$"{Environment.NewLine}> Executia a durat: {stopwatch.Elapsed}{Environment.NewLine}");
-					Interpreter.Output("> Apasati tasta ENTER pentru a inchide programul...");
-
-					// Ask for ENTER-ending input so the user can see the output of the program before quiting
-					Interpreter.Input();
-				}
+				Interpreter.Input();
 			}
 			else
 			{
-				Interpreter.ExecuteFile(args[0]);
+				Interpreter.ExecuteFile(options.File);
 			}
 		}
 	}
