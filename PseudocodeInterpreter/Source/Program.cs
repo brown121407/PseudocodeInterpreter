@@ -15,7 +15,7 @@ namespace PseudocodeInterpreter
 
 		private static void ParseCommandLineArguments(string[] args)
 		{
-			var parser = new CommandLine.Parser(with =>
+			var parser = new Parser(with =>
 			{
 				with.EnableDashDash = true;
 				with.HelpWriter = Console.Out;

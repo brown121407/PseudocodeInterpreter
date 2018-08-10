@@ -13,19 +13,19 @@ namespace PseudocodeInterpreter
 
 		public static void ExecuteFile(string fileName)
 		{
-			string source = File.ReadAllText(fileName);
+			var source = File.ReadAllText(fileName);
 
 			// Remove all empty lines
 			source = Regex.Replace(source, @"^\s*$\n|\r", string.Empty, RegexOptions.Multiline).TrimEnd();
 
-			ICharStream input = CharStreams.fromstring(source);
+			var input = CharStreams.fromstring(source);
 			
-			PseudoLexer lexer = new PseudoLexer(input);
-			CommonTokenStream tokens = new CommonTokenStream(lexer);
-			PseudoParser parser = new PseudoParser(tokens);
+			var lexer = new PseudoLexer(input);
+			var tokens = new CommonTokenStream(lexer);
+			var parser = new PseudoParser(tokens);
 			var tree = parser.file();
 
-			PseudoVisitorImpl calcVisitor = new PseudoVisitorImpl();
+			var calcVisitor = new PseudoVisitorImpl();
 
 			try
 			{
