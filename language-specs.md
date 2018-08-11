@@ -103,14 +103,22 @@
     ```ruby
     # Converts the parameter's value to text
     # Works on every basic data type 
-    toText(integer arg)
-    toText(real arg)
-    toText(text arg)
+    toText(integer arg) -> text
+    toText(real arg) -> text
+    toText(text arg) -> text
+
+    # Usage
+    integer num = 54321
+    text str = toText(num) # str is equal to "54321"
 
     # Returns the number of elemets in an array
-    arraySize(integer arrayName[])
-    arraySize(real arrayName[])
-    arraySize(text arrayName[])
+    arraySize(integer arrayName[]) -> integer
+    arraySize(real arrayName[]) -> integer
+    arraySize(text arrayName[]) -> integer
+
+    # Usage
+    integer arr[20]
+    integer size = arraySize(arr) # size is equal to 20
     ```
 
 ## Functions
