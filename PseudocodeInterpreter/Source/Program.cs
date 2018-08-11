@@ -22,11 +22,8 @@ namespace PseudocodeInterpreter
 			});
 
 			var result = parser.ParseArguments<CommandLineOptions>(args);
-			if (result.Tag == ParserResultType.Parsed)
-			{
-				var options = ((Parsed<CommandLineOptions>) result).Value;
-				ProcessCommandLineArguments(options);
-			}
+			
+			result.WithParsed(ProcessCommandLineArguments);
 		}
 
 		private static void ProcessCommandLineArguments(CommandLineOptions options)
