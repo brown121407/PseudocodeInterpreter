@@ -34,14 +34,14 @@ namespace PseudocodeInterpreter
 			
 			if (!File.Exists(options.File))
 			{
-				Interpreter.Output(ErrorMessages.FileDoesNotExist);
+				Console.WriteLine(ErrorMessages.FileDoesNotExist);
 				return;
 			}
 
 			if (options.Stats)
 			{
 				// TODO use the specified language for messages
-				Interpreter.Output($"Executing {options.File}.{Environment.NewLine}");
+				Console.WriteLine($"Executing {options.File}.{Environment.NewLine}");
 
 				var stopWatch = Stopwatch.StartNew();
 				
@@ -49,12 +49,12 @@ namespace PseudocodeInterpreter
 				
 				stopWatch.Stop();
 
-				Interpreter.Output($"{Environment.NewLine}" +
+				Console.WriteLine($"{Environment.NewLine}" +
 				                   $"Execution took {stopWatch.Elapsed}." +
 				                   $"{Environment.NewLine}" +
 				                   $"Press ENTER to quit...");
 
-				Interpreter.Input();
+				Console.ReadLine();
 			}
 			else
 			{

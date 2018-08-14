@@ -1,1 +1,0 @@
-java -jar antlr-4.7.1-complete.jar -Dlanguage=CSharp -o ./AntlrGenerated -package AntlrGenerated -visitor -no-listener -lib ./ Pseudo.g4
