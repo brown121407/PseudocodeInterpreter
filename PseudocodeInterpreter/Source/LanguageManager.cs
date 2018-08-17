@@ -10,7 +10,9 @@ namespace PseudocodeInterpreter
 	{
 		private const string LangFilePath = "Config/languages.json";
 		
-		public LanguageKeywords Keywords { get; private set; }
+		public Keywords Keywords { get; private set; }
+		public Builtins Builtins { get; private set; }
+		public Messages Messages { get; private set; }
 
 		public LanguageManager(string languageName)
 		{
@@ -25,14 +27,17 @@ namespace PseudocodeInterpreter
 			{
 				var lang = json.Children<JProperty>().Single(x => x.Name == languageName);
 
-				var keywordsObj = lang.Value.Children<JProperty>().Single(x => x.Name == "keywords").Value;
-				Keywords = new LanguageKeywords(keywordsObj);
+				var langComponents = lang.Value.Children<JProperty>();
+				Keywords = new Keywords(langComponents.Single(x => x.Name == "keywords"));
+				Builtins = new Builtins(langComponents.Single(x => x.Name == "builtins"));
+				Messages = new Messages(langComponents.Single(x => x.Name == "messages"));
 			}
 			catch (InvalidOperationException)
 			{
-				var message = "The selected language does not exist or is specified multiple times in the config file." +
-				              $"{Environment.NewLine}{Environment.NewLine}" +
-				              GetInstructions();
+				var message =
+					"The selected language does not exist or is specified multiple times in the config file." +
+					$"{Environment.NewLine}{Environment.NewLine}" +
+					GetInstructions();
 
 				throw new Exception(message);
 
@@ -42,8 +47,12 @@ namespace PseudocodeInterpreter
 				var message = $"There are no languages specified in the config file ({LangFilePath})" +
 				              $"{Environment.NewLine}{Environment.NewLine}" +
 				              GetInstructions();
-				
+
 				throw new Exception(message);
+			}
+			catch (Exception)
+			{
+				throw new Exception(message: GetInstructions());
 			}
 		}
 

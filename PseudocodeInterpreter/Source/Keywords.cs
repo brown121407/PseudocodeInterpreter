@@ -4,13 +4,13 @@ using Newtonsoft.Json.Linq;
 
 namespace PseudocodeInterpreter
 {
-	public class LanguageKeywords
+	public class Keywords
 	{
 		private Dictionary<string, string> _values = new Dictionary<string, string>();
 
-		public LanguageKeywords(JToken keywordsObj)
+		public Keywords(JToken keywordsToken)
 		{
-			foreach (var property in keywordsObj.Children<JProperty>())
+			foreach (var property in keywordsToken.Children<JProperty>())
 			{
 				_values.Add(property.Name, property.Value.ToString());
 			}
