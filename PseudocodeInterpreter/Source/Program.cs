@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
-using PseudocodeInterpreter.Exceptions;
 using CommandLine;
 
 namespace PseudocodeInterpreter
@@ -28,13 +27,11 @@ namespace PseudocodeInterpreter
 
 		private static void ProcessCommandLineArguments(CommandLineOptions options)
 		{		
-			// if the selected language is known
-				// use it
-			// else throw error
+			var languageManager = new LanguageManager(options.Language);
 			
 			if (!File.Exists(options.File))
 			{
-				Console.WriteLine(ErrorMessages.FileDoesNotExist);
+				Console.WriteLine($"{options.File} does not exist.");
 				return;
 			}
 
