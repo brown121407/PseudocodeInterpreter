@@ -1,50 +1,80 @@
 ﻿{
-  "en" : {
-    "integer" : "integer",
-    "real" : "real",
-    "text" : "text",
-    "if" : "if",
-    "else" : "else",
-    "else if" : "else if",
-    "then" : "then",
-    "while" : "while",
-    "until" : "until",
-    "times" : "times",
-    "do" : "do",
-    "end" : "end",
-    "function" : "function",
-    "return" : "return"
+  "en": {
+    "keywords": {
+      "integer" : "integer",
+      "real"    : "real",
+      "text"    : "text",
+      "if"      : "if",
+      "else"    : "else",
+      "elseIf"  : "else if",
+      "then"    : "then",
+      "while"   : "while",
+      "until"   : "until",
+      "times"   : "times",
+      "do"      : "do",
+      "end"     : "end",
+      "function": "function",
+      "return"  : "return"
+    },
+    "builtins" : {
+      "write"     : "write",
+      "writeLine" : "writeLine",
+      "read"      : "read"
+    },
+    "messages" : {
+
+    }
   },
   "short-en" : {
-    "integer" : "int",
-    "real" : "real",
-    "text" : "text",
-    "if" : "if",
-    "else" : "else",
-    "else if" : "elif",
-    "then" : "then",
-    "while" : "while",
-    "until" : "until",
-    "times" : "times",
-    "do" : "do",
-    "end" : "end",
-    "function" : "fun",
-    "return" : "ret"
+    "keywords" : {
+      "integer"  : "int",
+      "real"     : "real",
+      "text"     : "text",
+      "if"       : "if",
+      "else"     : "else",
+      "elseIf"   : "elif",
+      "then"     : "then",
+      "while"    : "while",
+      "until"    : "until",
+      "times"    : "times",
+      "do"       : "do",
+      "end"      : "end",
+      "function" : "fun",
+      "return"   : "ret"
+    },
+    "builtins" : {
+      "write"     : "write",
+      "writeLine" : "writeln",
+      "read"      : "read"
+    },
+    "messages" : {
+
+    }
   },
   "ro" : {
-    "integer" : "intreg",
-    "real" : "real",
-    "text" : "text",
-    "if" : "daca",
-    "else" : "altfel",
-    "else if" : "altfel daca",
-    "then" : "atunci",
-    "while" : "cat timp",
-    "until" : "pana cand",
-    "times" : "ori",
-    "do" : "executa",
-    "end" : "sfarsit",
-    "function" : "functie",
-    "return" : "returneaza"
+    "keywords" : {
+      "integer" : "intreg",
+      "real"    : "real",
+      "text"    : "text",
+      "if"      : "daca",
+      "else"    : "altfel",
+      "elseIf"  : "altfel daca",
+      "then"    : "atunci",
+      "while"   : "cat timp",
+      "until"   : "pana cand",
+      "times"   : "ori",
+      "do"      : "executa",
+      "end"     : "sfarsit",
+      "function": "functie",
+      "return"  : "returneaza"
+    },
+    "builtins" : {
+      "write"     : "scrie",
+      "writeLine" : "scrieln",
+      "read"      : "citeste"
+    },
+    "messages" : {
+
+    }
   }
 }
