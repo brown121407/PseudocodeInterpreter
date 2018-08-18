@@ -84,6 +84,57 @@
         ...
     end
     ```
+    
+## Numeric operations
+- Addition
+    ```ruby
+    integer a = 1 + 1   # a == 2
+    ```
+- Subtraction
+    ```ruby
+    integer b = 2 - 1   # b == 1
+    ```
+- Multiplication
+    ```ruby
+    integer c = 3 * 4   # c == 12
+    ```
+- Division
+    ```ruby
+    integer d = 10 / 2  # d == 5
+    real e = 11 / 2     # e == 5.5
+    ```
+- Integer division
+    ```ruby
+    integer f = 11 // 2 # f == 5
+    ```
+    
+## Boolean operators
+
+- Less than: <
+    ```ruby
+    1 < 2   # true
+    100 < 4 # false
+    ```
+- Less than or equal to: <=
+    ```ruby
+    1 <= 1      # true
+    31 <= 30    # false
+    ```
+- Equal to: ==
+    ```ruby
+    5 == 5  # true
+    4 == 6  # false
+    ```
+- Greater than or equal to: >=
+    ```ruby
+    4 >= 4  # true
+    4 >= 20 # false
+    ```
+- Greater than: >
+    ```ruby
+    7 > 4   # true
+    7 > 21  # false
+    ```
 
 ## Built-in functions
 
