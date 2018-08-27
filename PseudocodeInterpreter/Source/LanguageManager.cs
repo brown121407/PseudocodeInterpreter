@@ -31,9 +31,9 @@ namespace PseudocodeInterpreter
 				var lang = json.Children<JProperty>().Single(x => x.Name == languageName);
 
 				var langComponents = lang.Value.Children<JProperty>();
-				Keywords = new Keywords(langComponents.Single(x => x.Name == "keywords"));
-				Builtins = new Builtins(langComponents.Single(x => x.Name == "builtins"));
-				Messages = new Messages(langComponents.Single(x => x.Name == "messages"));
+				Keywords = new Keywords(langComponents.Single(x => x.Name == "keywords").First);
+				Builtins = new Builtins(langComponents.Single(x => x.Name == "builtins").First);
+				Messages = new Messages(langComponents.Single(x => x.Name == "messages").First);
 			}
 			catch (InvalidOperationException)
 			{

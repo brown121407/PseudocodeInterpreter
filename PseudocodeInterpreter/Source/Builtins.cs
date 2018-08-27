@@ -6,13 +6,13 @@ namespace PseudocodeInterpreter
 {
 	public class Builtins
 	{
-		private Dictionary<string, string> _values = new Dictionary<string, string>();
-		
+		public Dictionary<string, string> Values { get; } = new Dictionary<string, string>();
+
 		public Builtins(JToken builtinsToken)
 		{
 			foreach (var property in builtinsToken.Children<JProperty>())
 			{
-				_values.Add(property.Name, property.Value.ToString());
+				Values.Add(property.Name, property.Value.ToString());
 			}
 		}
 		
@@ -20,7 +20,7 @@ namespace PseudocodeInterpreter
 		{
 			try
 			{
-				return _values[builtinName];
+				return Values[builtinName];
 			}
 			catch (Exception)
 			{
@@ -31,5 +31,7 @@ namespace PseudocodeInterpreter
 		public string Write 	=> GetBuiltin("write");
 		public string WriteLine => GetBuiltin("writeLine");
 		public string Read		=> GetBuiltin("read");
+		public string ToText	=> GetBuiltin("toText");
+		public string Length	=> GetBuiltin("length");
 	}
 }

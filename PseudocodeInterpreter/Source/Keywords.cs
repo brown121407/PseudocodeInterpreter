@@ -11,8 +11,7 @@ namespace PseudocodeInterpreter
 
 		public Keywords(JToken keywordsToken)
 		{
-			var properties = keywordsToken.First.Children<JProperty>();
-			foreach (var property in properties)
+			foreach (var property in keywordsToken.Children<JProperty>())
 			{
 				Values.Add(property.Name, property.Value.ToString());
 			}

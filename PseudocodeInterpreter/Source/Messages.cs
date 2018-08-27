@@ -6,13 +6,13 @@ namespace PseudocodeInterpreter
 {
 	public class Messages
 	{
-		private Dictionary<string, string> _values = new Dictionary<string, string>();
-		
+		public Dictionary<string, string> Values { get; } = new Dictionary<string, string>();
+
 		public Messages(JToken messagesToken)
 		{
 			foreach (var property in messagesToken.Children<JProperty>())
 			{
-				_values.Add(property.Name, property.Value.ToString());
+				Values.Add(property.Name, property.Value.ToString());
 			}
 		}
 		
@@ -20,7 +20,7 @@ namespace PseudocodeInterpreter
 		{
 			try
 			{
-				return _values[messageName];
+				return Values[messageName];
 			}
 			catch (Exception)
 			{
