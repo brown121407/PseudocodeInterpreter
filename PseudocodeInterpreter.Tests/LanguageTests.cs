@@ -56,5 +56,59 @@ namespace PseudocodeInterpreter.Tests
 			
 			Assert.Equal(keywords, langManager.Keywords.Values);
 		}
+
+		[Fact]
+		public void Test_LanguageBuiltins_En()
+		{
+			var builtins = new Dictionary<string, string>
+			{
+				{"write", "write"},
+				{"writeLine", "writeLine"},
+				{"read", "read"},
+				{"toText", "toText"},
+				{"length", "length"}
+			};
+			
+			var langManager = new LanguageManager();
+			
+			Assert.Equal(builtins, langManager.Builtins.Values);
+		}
+		
+		[Fact]
+		public void Test_LanguageBuiltins_Ro()
+		{
+			var builtins = new Dictionary<string, string>
+			{
+				{"write", "scrie"},
+				{"writeLine", "scrieln"},
+				{"read", "citeste"},
+				{"toText", "inText"},
+				{"length", "lungime"}
+			};
+			
+			var langManager = new LanguageManager("ro");
+			
+			Assert.Equal(builtins, langManager.Builtins.Values);
+		}
+
+		[Fact]
+		public void Test_LanguageMessages_En()
+		{
+			var messages = new Dictionary<string, string> { };
+
+			var langManager = new LanguageManager();
+			
+			Assert.Equal(messages, langManager.Messages.Values);
+		}
+
+		[Fact]
+		public void Test_LanguageMessages_Ro()
+		{
+			var messages = new Dictionary<string, string> { };
+
+			var langManager = new LanguageManager("ro");
+			
+			Assert.Equal(messages, langManager.Messages.Values);
+		}
 	}
 }
