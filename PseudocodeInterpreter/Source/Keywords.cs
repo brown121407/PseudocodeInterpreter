@@ -1,18 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Newtonsoft.Json.Linq;
 
 namespace PseudocodeInterpreter
 {
 	public class Keywords
 	{
-		private Dictionary<string, string> _values = new Dictionary<string, string>();
+		public Dictionary<string, string> Values { get; } = new Dictionary<string, string>();
 
 		public Keywords(JToken keywordsToken)
 		{
-			foreach (var property in keywordsToken.Children<JProperty>())
+			var properties = keywordsToken.First.Children<JProperty>();
+			foreach (var property in properties)
 			{
-				_values.Add(property.Name, property.Value.ToString());
+				Values.Add(property.Name, property.Value.ToString());
 			}
 		}
 
@@ -20,7 +22,7 @@ namespace PseudocodeInterpreter
 		{
 			try
 			{
-				return _values[keywordName];
+				return Values[keywordName];
 			}
 			catch (Exception)
 			{

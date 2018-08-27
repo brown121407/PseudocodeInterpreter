@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using Newtonsoft.Json.Linq;
 
 namespace PseudocodeInterpreter
@@ -14,14 +15,16 @@ namespace PseudocodeInterpreter
 		public Builtins Builtins { get; private set; }
 		public Messages Messages { get; private set; }
 
-		public LanguageManager(string languageName)
+		public LanguageManager(string languageName = "en")
 		{
-			if (!File.Exists(LangFilePath))
+			var assemblyDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+			var langFileFullPath = Path.Combine(assemblyDir, LangFilePath);
+			if (!File.Exists(langFileFullPath))
 			{
 				throw new Exception(message: GetInstructions());
 			}
 
-			var json = JObject.Parse(File.ReadAllText(LangFilePath));
+			var json = JObject.Parse(File.ReadAllText(langFileFullPath));
 
 			try
 			{

@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.27703.2035
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PseudocodeInterpreter", "PseudocodeInterpreter\PseudocodeInterpreter.csproj", "{2AF84E96-F2F5-4215-8308-010B28ED8B14}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PseudocodeInterpreter.Tests", "PseudocodeInterpreter.Tests\PseudocodeInterpreter.Tests.csproj", "{DB0F7C67-3E15-4269-9341-BEBA1B4740DE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{2AF84E96-F2F5-4215-8308-010B28ED8B14}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2AF84E96-F2F5-4215-8308-010B28ED8B14}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2AF84E96-F2F5-4215-8308-010B28ED8B14}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DB0F7C67-3E15-4269-9341-BEBA1B4740DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DB0F7C67-3E15-4269-9341-BEBA1B4740DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DB0F7C67-3E15-4269-9341-BEBA1B4740DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DB0F7C67-3E15-4269-9341-BEBA1B4740DE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
