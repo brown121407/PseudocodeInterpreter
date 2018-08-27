@@ -84,35 +84,124 @@
         ...
     end
     ```
+    
+## Comments
+```ruby
+integer num = 3
+# anything after "#" is a comment
+# comments are ignored
+# num = 15
+# the line above will not be executed
+
+num = 16 # now num is equal to 16
+# To use the "#" character in strings it must be escaped with a backslash "\"
+text str1 = "bla bla #" << error because the string never closes
+text str2 = "bla bla \#"
+```
+    
+## Numeric operations
+- Addition
+    ```ruby
+    integer a = 1 + 1   # a == 2
+    ```
+- Subtraction
+    ```ruby
+    integer b = 2 - 1   # b == 1
+    ```
+- Multiplication
+    ```ruby
+    integer c = 3 * 4   # c == 12
+    ```
+- Division
+    ```ruby
+    integer d = 10 / 2  # d == 5
+    real e = 11 / 2     # e == 5.5
+    ```
+- Integer division
+    ```ruby
+    integer f = 11 // 2 # f == 5
+    ```
+    
+## Boolean operators
+
+- Less than: <
+    ```ruby
+    1 < 2   # true
+    100 < 4 # false
+    ```
+- Less than or equal to: <=
+    ```ruby
+    1 <= 1      # true
+    31 <= 30    # false
+    ```
+- Equal to: ==
+    ```ruby
+    5 == 5  # true
+    4 == 6  # false
+    ```
+- Greater than or equal to: >=
+    ```ruby
+    4 >= 4  # true
+    4 >= 20 # false
+    ```
+- Greater than: >
+    ```ruby
+    7 > 4   # true
+    7 > 21  # false
+    ```
 
 ## Built-in functions
 
 - Input/Output
     ```ruby
-    # Ask for input from the console and try to fit it into the
-    # given parameters
-    read(arg1, arg2, ...)
+    # read(arg1, arg2, ...)
+    # ---------------------
+    # Ask for input from the console and try to fit it into the given parameters
+    # Usage:
+    integer num
+    text message
+    read(num, message)
 
+
+    # write(arg1, arg2, ...)
+    # ----------------------
     # Write the parameters to the console
-    write(arg1, arg2, ...)
+    # Usage:
+    integer num = 43
+    text message = "num is equal to "
+    write(message, num) # Outputs "num is equal to 43"
 
+
+    # writeLine(arg1, arg2, ...)
+    # --------------------------
     # Write the parameters followed by a new line character to the console
-    writeLine(arg1, arg2, ...)
+    # Usage:
+    text firstLine = "first"
+    text secondLine "second"
+    writeLine(firstLine)
+    writeLine(secondLine) # This will output the strings on separate lines
     ```
 - General
     ```ruby
+    # power(base, exponent) -> integer
+    # --------------------------------
+    # Raise base to the exponent-th power
+    # Usage:
+    
+    
+    # value.toText -> text
+    # --------------------
     # Converts the parameter's value to text
     # Works on every basic data type 
-    varName.toText -> text
-
-    # Usage
+    # Usage:
     integer num = 54321
     text str = num.toText # str is equal to "54321"
 
-    # Returns the number of elemets in an array
-    arrayName.length -> integer
 
-    # Usage
+    # array.size -> integer
+    # ---------------------
+    # Returns the number of elemets in an array
+    # Usage:
     integer arr[20]
     integer size = arr.length # size is equal to 20
     ```
