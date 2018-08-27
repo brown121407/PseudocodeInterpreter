@@ -110,11 +110,11 @@
     text str = num.toText # str is equal to "54321"
 
     # Returns the number of elemets in an array
-    arrayName.size -> integer
+    arrayName.length -> integer
 
     # Usage
     integer arr[20]
-    integer size = arr.size # size is equal to 20
+    integer size = arr.length # size is equal to 20
     ```
 
 ## Functions

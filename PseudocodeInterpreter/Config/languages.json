@@ -19,7 +19,9 @@
     "builtins" : {
       "write"     : "write",
       "writeLine" : "writeLine",
-      "read"      : "read"
+      "read"      : "read",
+      "toText"    : "toText",
+      "length"    : "length"
     },
     "messages" : {
 
@@ -45,7 +47,9 @@
     "builtins" : {
       "write"     : "write",
       "writeLine" : "writeln",
-      "read"      : "read"
+      "read"      : "read",
+      "toText"    : "toText",
+      "length"    : "len"
     },
     "messages" : {
 
@@ -71,7 +75,9 @@
     "builtins" : {
       "write"     : "scrie",
       "writeLine" : "scrieln",
-      "read"      : "citeste"
+      "read"      : "citeste",
+      "toText"    : "inText",
+      "length"    : "lungime"
     },
     "messages" : {
 
