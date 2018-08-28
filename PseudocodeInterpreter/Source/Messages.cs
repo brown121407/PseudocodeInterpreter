@@ -27,5 +27,7 @@ namespace PseudocodeInterpreter
 				throw new Exception(message: LanguageManager.GetInstructions());
 			}
 		}
+
+		public string InvalidCharacter(char character) => string.Format(GetMessage("invalidChar"), character);
 	}
 }

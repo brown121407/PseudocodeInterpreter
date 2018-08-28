@@ -24,35 +24,7 @@
       "length"    : "length"
     },
     "messages" : {
-
-    }
-  },
-  "short-en" : {
-    "keywords" : {
-      "integer"  : "int",
-      "real"     : "real",
-      "text"     : "text",
-      "if"       : "if",
-      "else"     : "else",
-      "elseIf"   : "elif",
-      "then"     : "then",
-      "while"    : "while",
-      "until"    : "until",
-      "times"    : "times",
-      "do"       : "do",
-      "end"      : "end",
-      "function" : "fun",
-      "return"   : "ret"
-    },
-    "builtins" : {
-      "write"     : "write",
-      "writeLine" : "writeln",
-      "read"      : "read",
-      "toText"    : "toText",
-      "length"    : "len"
-    },
-    "messages" : {
-
+      "invalidChar" : "Invalid character: {0}"
     }
   },
   "ro" : {
@@ -80,7 +52,7 @@
       "length"    : "lungime"
     },
     "messages" : {
-
+      "invalidChar" : "Caracter invalid: {0}"
     }
   }
 }
