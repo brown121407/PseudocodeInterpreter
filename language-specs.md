@@ -121,6 +121,10 @@ text str2 = "bla bla \#"
     ```ruby
     integer f = 11 // 2 # f == 5
     ```
+- Power
+    ```ruby
+    integer g = 2 ** 5  # g == 32
+    ```
     
 ## Boolean operators
 
@@ -182,13 +186,7 @@ text str2 = "bla bla \#"
     writeLine(secondLine) # This will output the strings on separate lines
     ```
 - General
-    ```ruby
-    # power(base, exponent) -> integer
-    # --------------------------------
-    # Raise base to the exponent-th power
-    # Usage:
-    
-    
+    ```ruby    
     # value.toText -> text
     # --------------------
     # Converts the parameter's value to text
