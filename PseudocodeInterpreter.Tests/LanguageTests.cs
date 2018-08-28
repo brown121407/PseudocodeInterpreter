@@ -94,7 +94,10 @@ namespace PseudocodeInterpreter.Tests
 		[Fact]
 		public void Test_LanguageMessages_En()
 		{
-			var messages = new Dictionary<string, string> { };
+			var messages = new Dictionary<string, string>
+			{
+				{"invalidChar", "Invalid character: {0}"}
+			};
 
 			var langManager = new LanguageManager();
 			
@@ -104,7 +107,10 @@ namespace PseudocodeInterpreter.Tests
 		[Fact]
 		public void Test_LanguageMessages_Ro()
 		{
-			var messages = new Dictionary<string, string> { };
+			var messages = new Dictionary<string, string>
+			{
+				{"invalidChar", "Caracter invalid: {0}"}
+			};
 
 			var langManager = new LanguageManager("ro");
 			
