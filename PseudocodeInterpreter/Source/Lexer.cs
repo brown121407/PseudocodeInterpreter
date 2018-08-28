@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 
 namespace PseudocodeInterpreter
 {
@@ -6,8 +7,8 @@ namespace PseudocodeInterpreter
 	{
 		private int _pos;
 
-		private string _text;
-		private LanguageManager _languageManager;
+		private readonly string _text;
+		private readonly LanguageManager _languageManager;
 		private char? _currentChar;
 
 		public Lexer(string text, LanguageManager languageManager)
@@ -177,7 +178,62 @@ namespace PseudocodeInterpreter
 		
 		private Token Identifier()
 		{
-			throw new NotImplementedException();
+			var result = string.Empty;
+			while (_currentChar.HasValue && char.IsLetterOrDigit(_currentChar.Value))
+			{
+				result += _currentChar;
+				Advance();
+			}
+
+			var shouldSearchFurther = 
+				Peek(2) != null 
+				&& _languageManager.Keywords.Dict.Values
+					.Any(x => x.Length > result.Length && x.StartsWith(result + _currentChar + Peek()))
+				&& _currentChar.HasValue;
+			
+			if (shouldSearchFurther)
+			{
+				var howFar = 1;
+				var peeked = Peek(howFar);
+				var extendedResult = result + _currentChar + peeked;
+
+				while (peeked != null)
+				{
+					var possibleKeywords =
+						_languageManager.Keywords.Dict.Values.Where(x => x.StartsWith(extendedResult));
+
+					if (possibleKeywords.Contains(extendedResult))
+					{
+						for (var i = 0; i < peeked.Length + 1; i++)
+						{
+							Advance();
+						}
+
+						var enumName = _languageManager.Keywords.Dict.First(x => x.Value == extendedResult).Key
+							.ToUpper();
+						
+						return new Token(Enum.Parse<TokenType>(enumName), extendedResult);
+					}
+					
+					peeked = Peek(++howFar);
+					extendedResult = result + _currentChar + peeked;
+				}	
+			}
+
+			if (_languageManager.Keywords.Dict.Values.Contains(result)) // if the result is a keyword
+			{
+				var enumName = _languageManager.Keywords.Dict.First(x => x.Value == result).Key.ToUpper();
+				return new Token(Enum.Parse<TokenType>(enumName), result);
+			}
+			else if (_languageManager.Builtins.Dict.Values.Contains(result))
+			{
+				var enumName = _languageManager.Builtins.Dict.First(x => x.Value == result).Key.ToUpper();
+				return new Token(Enum.Parse<TokenType>(enumName), result);
+			}
+			else
+			{
+				return new Token(TokenType.Identifier, result);
+			}
 		}
 		
 		private void Error() => throw new Exception(_languageManager.Messages.InvalidCharacter(_currentChar.Value));

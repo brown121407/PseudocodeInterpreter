@@ -7,13 +7,13 @@ namespace PseudocodeInterpreter
 {
 	public class Keywords
 	{
-		public Dictionary<string, string> Values { get; } = new Dictionary<string, string>();
+		public Dictionary<string, string> Dict { get; } = new Dictionary<string, string>();
 
 		public Keywords(JToken keywordsToken)
 		{
 			foreach (var property in keywordsToken.Children<JProperty>())
 			{
-				Values.Add(property.Name, property.Value.ToString());
+				Dict.Add(property.Name, property.Value.ToString());
 			}
 		}
 
@@ -21,7 +21,7 @@ namespace PseudocodeInterpreter
 		{
 			try
 			{
-				return Values[keywordName];
+				return Dict[keywordName];
 			}
 			catch (Exception)
 			{

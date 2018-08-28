@@ -28,7 +28,7 @@ namespace PseudocodeInterpreter.Tests
 			
 			var langManager = new LanguageManager();
 			
-			Assert.Equal(keywords, langManager.Keywords.Values);
+			Assert.Equal(keywords, langManager.Keywords.Dict);
 		}
 		
 		[Fact]
@@ -54,7 +54,7 @@ namespace PseudocodeInterpreter.Tests
 			
 			var langManager = new LanguageManager("ro");
 			
-			Assert.Equal(keywords, langManager.Keywords.Values);
+			Assert.Equal(keywords, langManager.Keywords.Dict);
 		}
 
 		[Fact]
@@ -71,7 +71,7 @@ namespace PseudocodeInterpreter.Tests
 			
 			var langManager = new LanguageManager();
 			
-			Assert.Equal(builtins, langManager.Builtins.Values);
+			Assert.Equal(builtins, langManager.Builtins.Dict);
 		}
 		
 		[Fact]
@@ -88,7 +88,7 @@ namespace PseudocodeInterpreter.Tests
 			
 			var langManager = new LanguageManager("ro");
 			
-			Assert.Equal(builtins, langManager.Builtins.Values);
+			Assert.Equal(builtins, langManager.Builtins.Dict);
 		}
 
 		[Fact]

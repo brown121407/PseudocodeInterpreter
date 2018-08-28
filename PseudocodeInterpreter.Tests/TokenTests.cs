@@ -18,9 +18,9 @@ namespace PseudocodeInterpreter.Tests
 		{
 			var langManager = new LanguageManager("en");
 			
-			var token = new Token(TokenType.Integer, langManager.Keywords.Integer);
+			var token = new Token(TokenType.INTEGER, langManager.Keywords.Integer);
 			
-			Assert.Equal("Token(Integer, integer)", token.Representation());
+			Assert.Equal("Token(INTEGER, integer)", token.Representation());
 		}
 	}
 }
