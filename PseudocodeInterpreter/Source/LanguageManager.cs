@@ -38,7 +38,7 @@ namespace PseudocodeInterpreter
 			catch (InvalidOperationException)
 			{
 				var message =
-					"The selected language does not exist or is specified multiple times in the config file." +
+					"The selected language does not exist, is incomplete or is specified multiple times in the config file." +
 					$"{Environment.NewLine}{Environment.NewLine}" +
 					GetInstructions();
 

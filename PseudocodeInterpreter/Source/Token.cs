@@ -30,6 +30,15 @@ namespace PseudocodeInterpreter
 		RSquBra,
 		LCurBra,
 		RCurBra,
+		Dot,
+		NL,
+		EOF,
+		Plus,
+		Minus,
+		Mult,
+		Div,
+		DivInt,
+		Pow
 	}
 	
 	public class Token
@@ -46,6 +55,27 @@ namespace PseudocodeInterpreter
 		public string Representation()
 		{
 			return $"Token({Type.ToString()}, {Value})";
+		}
+		
+		public override bool Equals(object obj) 
+		{
+			if (ReferenceEquals(null, obj)) return false;
+			if (ReferenceEquals(this, obj)) return true;
+			if (obj.GetType() != this.GetType()) return false;
+			return Equals((Token) obj);
+		}
+
+		protected bool Equals(Token other)
+		{
+			return string.Equals(Value, other.Value) && Type == other.Type;
+		}
+
+		public override int GetHashCode()
+		{
+			unchecked
+			{
+				return ((Value != null ? Value.GetHashCode() : 0) * 397) ^ (int) Type;
+			}
 		}
 	}
 }
