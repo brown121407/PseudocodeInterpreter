@@ -25,11 +25,11 @@ namespace PseudocodeInterpreter
 			{
 				if (char.IsWhiteSpace(_currentChar.Value))
 				{
-					if (_currentChar.ToString() == Environment.NewLine)
+					var result = SkipWhitespace();
+					if (result != null)
 					{
-						return new Token(TokenType.NL, Environment.NewLine);
+						return result;
 					}
-					SkipWhitespace();
 					continue;
 				}
 
@@ -52,6 +52,17 @@ namespace PseudocodeInterpreter
 
 				switch (_currentChar)
 				{
+					case '=':
+					{
+						Advance();
+						if (_currentChar == '=')
+						{
+							Advance();
+							return new Token(TokenType.Equals, "==");
+						}
+
+						return new Token(TokenType.Attrib, "=");
+					}
 					case '+':
 						Advance();
 						return new Token(TokenType.Plus, "+");
@@ -66,6 +77,7 @@ namespace PseudocodeInterpreter
 							Advance();
 							return new Token(TokenType.Pow, "**");
 						}
+
 						return new Token(TokenType.Mult, "*");
 					}
 					case '/':
@@ -122,18 +134,31 @@ namespace PseudocodeInterpreter
 			}
 		}
 
-		private string Peek(int howFar = 1)
+		private string PeekStr(int howFar = 1)
 		{
 			var peekPos = _pos + howFar;
 			return peekPos > _text.Length - 1 ? null : _text.Substring(_pos + 1, peekPos - _pos);
 		}
 
-		private void SkipWhitespace()
+		private char? PeekChar(int howFar = 1)
+		{
+			var peekPos = _pos + howFar;
+			return peekPos > _text.Length - 1 ? (char?) null : _text[peekPos];
+		}
+
+		private Token SkipWhitespace()
 		{
 			while (_currentChar.HasValue && char.IsWhiteSpace(_currentChar.Value))
 			{
+				if (_currentChar.ToString() == Environment.NewLine)
+				{
+					Advance();
+					return new Token(TokenType.NL, Environment.NewLine);
+				}
 				Advance();
 			}
+
+			return null;
 		}
 		
 		private void SkipComment()
@@ -186,15 +211,15 @@ namespace PseudocodeInterpreter
 			}
 
 			var shouldSearchFurther = 
-				Peek(2) != null 
+				PeekStr() != null 
 				&& _languageManager.Keywords.Dict.Values
-					.Any(x => x.Length > result.Length && x.StartsWith(result + _currentChar + Peek()))
+					.Any(x => x.Length > result.Length && x.StartsWith(result + _currentChar + PeekStr()))
 				&& _currentChar.HasValue;
 			
 			if (shouldSearchFurther)
 			{
 				var howFar = 1;
-				var peeked = Peek(howFar);
+				var peeked = PeekStr(howFar);
 				var extendedResult = result + _currentChar + peeked;
 
 				while (peeked != null)
@@ -202,8 +227,19 @@ namespace PseudocodeInterpreter
 					var possibleKeywords =
 						_languageManager.Keywords.Dict.Values.Where(x => x.StartsWith(extendedResult));
 
+					if (!possibleKeywords.Any())
+					{
+						break;
+					}
+
 					if (possibleKeywords.Contains(extendedResult))
 					{
+						var nextChar = PeekChar(howFar + 1);
+						if (nextChar.HasValue && !char.IsWhiteSpace(nextChar.Value))
+						{
+							break;
+						}
+						
 						for (var i = 0; i < peeked.Length + 1; i++)
 						{
 							Advance();
@@ -215,7 +251,7 @@ namespace PseudocodeInterpreter
 						return new Token(Enum.Parse<TokenType>(enumName), extendedResult);
 					}
 					
-					peeked = Peek(++howFar);
+					peeked = PeekStr(++howFar);
 					extendedResult = result + _currentChar + peeked;
 				}	
 			}
@@ -236,6 +272,10 @@ namespace PseudocodeInterpreter
 			}
 		}
 		
+		/// <summary>
+		/// Throw an exception saying that the current character is invalid.
+		/// <para>The exception's message is <see cref="Messages.InvalidCharacter"/></para>
+		/// </summary>
 		private void Error() => throw new Exception(_languageManager.Messages.InvalidCharacter(_currentChar.Value));
 	}
 }

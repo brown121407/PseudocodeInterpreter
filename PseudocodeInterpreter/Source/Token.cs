@@ -39,6 +39,8 @@ namespace PseudocodeInterpreter
 		Div,
 		DivInt,
 		Pow,
+		Equals,
+		Attrib,
 		Identifier
 	}
 	
@@ -53,11 +55,11 @@ namespace PseudocodeInterpreter
 			Type = type;
 		}
 
-		public string Representation()
+		public override string ToString()
 		{
 			return $"Token({Type.ToString()}, {Value})";
 		}
-		
+
 		public override bool Equals(object obj) 
 		{
 			if (ReferenceEquals(null, obj)) return false;
