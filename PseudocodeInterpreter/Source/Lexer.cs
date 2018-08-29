@@ -121,6 +121,26 @@ namespace PseudocodeInterpreter
 					case '}':
 						Advance();
 						return new Token(TokenType.RCurBra, "}");
+					case '>':
+					{
+						Advance();
+						if (_currentChar == '=')
+						{
+							Advance();
+							return new Token(TokenType.GreaterEqual, ">=");
+						}
+						return new Token(TokenType.GreaterThan, ">");
+					}
+					case '<':
+					{
+						Advance();
+						if (_currentChar == '=')
+						{
+							Advance();
+							return new Token(TokenType.LessEqual, "<=");
+						}
+						return new Token(TokenType.LessThan, "<");
+					}
 				}
 
 				// if the current char does not match any token

@@ -40,6 +40,10 @@ namespace PseudocodeInterpreter
 		DivInt,
 		Pow,
 		Equals,
+		LessThan,
+		LessEqual,
+		GreaterThan,
+		GreaterEqual,
 		Attrib,
 		Identifier
 	}
