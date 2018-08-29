@@ -10,7 +10,7 @@ namespace PseudocodeInterpreter.Tests
 		{
 			var token = new Token(TokenType.IntegerLit, "123");
 			
-			Assert.Equal("Token(IntegerLit, 123)", token.Representation());
+			Assert.Equal("Token(IntegerLit, 123)", token.ToString());
 		}
 
 		[Fact]
@@ -20,7 +20,7 @@ namespace PseudocodeInterpreter.Tests
 			
 			var token = new Token(TokenType.INTEGER, langManager.Keywords.Integer);
 			
-			Assert.Equal("Token(INTEGER, integer)", token.Representation());
+			Assert.Equal("Token(INTEGER, integer)", token.ToString());
 		}
 	}
 }

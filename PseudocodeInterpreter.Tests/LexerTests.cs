@@ -14,7 +14,7 @@ namespace PseudocodeInterpreter.Tests
 			
 			var lexer = new Lexer("integer test text 432", langManager);
 			
-			Assert.Equal(expected.Representation(), lexer.GetNextToken().Representation());
+			Assert.Equal(expected.ToString(), lexer.GetNextToken().ToString());
 		}
 		
 		[Fact]
@@ -27,7 +27,7 @@ namespace PseudocodeInterpreter.Tests
 			
 			var lexer = new Lexer(input, langManager);
 			
-			Assert.Equal(expected.Representation(), lexer.GetNextToken().Representation());
+			Assert.Equal(expected.ToString(), lexer.GetNextToken().ToString());
 		}
 		
 		[Fact]
@@ -38,7 +38,7 @@ namespace PseudocodeInterpreter.Tests
 			
 			var lexer = new Lexer(" real test text 44.55", langManager);
 			
-			Assert.Equal(expected.Representation(), lexer.GetNextToken().Representation());
+			Assert.Equal(expected.ToString(), lexer.GetNextToken().ToString());
 		}
 		
 		[Fact]
@@ -51,7 +51,7 @@ namespace PseudocodeInterpreter.Tests
 			
 			var lexer = new Lexer(input, langManager);
 			
-			Assert.Equal(expected.Representation(), lexer.GetNextToken().Representation());
+			Assert.Equal(expected.ToString(), lexer.GetNextToken().ToString());
 		}
 		
 		[Fact]
@@ -62,7 +62,7 @@ namespace PseudocodeInterpreter.Tests
 			
 			var lexer = new Lexer(" text test \"text 44.55\"", langManager);
 			
-			Assert.Equal(expected.Representation(), lexer.GetNextToken().Representation());
+			Assert.Equal(expected.ToString(), lexer.GetNextToken().ToString());
 		}
 		
 		[Fact]
@@ -75,7 +75,7 @@ namespace PseudocodeInterpreter.Tests
 			
 			var lexer = new Lexer(input, langManager);
 			
-			Assert.Equal(expected.Representation(), lexer.GetNextToken().Representation());
+			Assert.Equal(expected.ToString(), lexer.GetNextToken().ToString());
 		}
 		
 		[Fact]
@@ -86,7 +86,7 @@ namespace PseudocodeInterpreter.Tests
 			
 			var lexer = new Lexer(" if test \"text 44.55\"", langManager);
 			
-			Assert.Equal(expected.Representation(), lexer.GetNextToken().Representation());
+			Assert.Equal(expected.ToString(), lexer.GetNextToken().ToString());
 		}
 		
 		[Fact]
@@ -97,7 +97,7 @@ namespace PseudocodeInterpreter.Tests
 			
 			var lexer = new Lexer("then test \"text 44.55\"", langManager);
 			
-			Assert.Equal(expected.Representation(), lexer.GetNextToken().Representation());
+			Assert.Equal(expected.ToString(), lexer.GetNextToken().ToString());
 		}
 		
 		[Fact]
@@ -108,7 +108,7 @@ namespace PseudocodeInterpreter.Tests
 			
 			var lexer = new Lexer("else test \"text 44.55\"", langManager);
 			
-			Assert.Equal(expected.Representation(), lexer.GetNextToken().Representation());
+			Assert.Equal(expected.ToString(), lexer.GetNextToken().ToString());
 		}
 		
 		[Fact]
@@ -119,7 +119,7 @@ namespace PseudocodeInterpreter.Tests
 			
 			var lexer = new Lexer("else if test \"text 44.55\"", langManager);
 			
-			Assert.Equal(expected.Representation(), lexer.GetNextToken().Representation());
+			Assert.Equal(expected.ToString(), lexer.GetNextToken().ToString());
 		}
 		
 		[Fact]
@@ -130,7 +130,7 @@ namespace PseudocodeInterpreter.Tests
 			
 			var lexer = new Lexer("while test \"text 44.55\"", langManager);
 			
-			Assert.Equal(expected.Representation(), lexer.GetNextToken().Representation());
+			Assert.Equal(expected.ToString(), lexer.GetNextToken().ToString());
 		}
 		
 		[Fact]
@@ -141,7 +141,7 @@ namespace PseudocodeInterpreter.Tests
 			
 			var lexer = new Lexer("until test \"text 44.55\"", langManager);
 			
-			Assert.Equal(expected.Representation(), lexer.GetNextToken().Representation());
+			Assert.Equal(expected.ToString(), lexer.GetNextToken().ToString());
 		}
 		
 		[Fact]
@@ -152,7 +152,7 @@ namespace PseudocodeInterpreter.Tests
 			
 			var lexer = new Lexer("times test \"text 44.55\"", langManager);
 			
-			Assert.Equal(expected.Representation(), lexer.GetNextToken().Representation());
+			Assert.Equal(expected.ToString(), lexer.GetNextToken().ToString());
 		}
 		
 		[Fact]
@@ -163,7 +163,7 @@ namespace PseudocodeInterpreter.Tests
 			
 			var lexer = new Lexer("do test \"text 44.55\"", langManager);
 			
-			Assert.Equal(expected.Representation(), lexer.GetNextToken().Representation());
+			Assert.Equal(expected.ToString(), lexer.GetNextToken().ToString());
 		}
 		
 		[Fact]
@@ -174,7 +174,7 @@ namespace PseudocodeInterpreter.Tests
 			
 			var lexer = new Lexer("end test \"text 44.55\"", langManager);
 			
-			Assert.Equal(expected.Representation(), lexer.GetNextToken().Representation());
+			Assert.Equal(expected.ToString(), lexer.GetNextToken().ToString());
 		}
 		
 		[Fact]
@@ -185,7 +185,7 @@ namespace PseudocodeInterpreter.Tests
 			
 			var lexer = new Lexer("function test \"text 44.55\"", langManager);
 			
-			Assert.Equal(expected.Representation(), lexer.GetNextToken().Representation());
+			Assert.Equal(expected.ToString(), lexer.GetNextToken().ToString());
 		}
 		
 		[Fact]
@@ -196,7 +196,7 @@ namespace PseudocodeInterpreter.Tests
 			
 			var lexer = new Lexer("return test \"text 44.55\"", langManager);
 			
-			Assert.Equal(expected.Representation(), lexer.GetNextToken().Representation());
+			Assert.Equal(expected.ToString(), lexer.GetNextToken().ToString());
 		}
 		
 		[Fact]
@@ -207,7 +207,7 @@ namespace PseudocodeInterpreter.Tests
 			
 			var lexer = new Lexer("write test \"text 44.55\"", langManager);
 			
-			Assert.Equal(expected.Representation(), lexer.GetNextToken().Representation());
+			Assert.Equal(expected.ToString(), lexer.GetNextToken().ToString());
 		}
 		
 		[Fact]
@@ -218,7 +218,7 @@ namespace PseudocodeInterpreter.Tests
 			
 			var lexer = new Lexer("writeLine test \"text 44.55\"", langManager);
 			
-			Assert.Equal(expected.Representation(), lexer.GetNextToken().Representation());
+			Assert.Equal(expected.ToString(), lexer.GetNextToken().ToString());
 		}
 		
 		[Fact]
@@ -229,7 +229,7 @@ namespace PseudocodeInterpreter.Tests
 			
 			var lexer = new Lexer("read test \"text 44.55\"", langManager);
 			
-			Assert.Equal(expected.Representation(), lexer.GetNextToken().Representation());
+			Assert.Equal(expected.ToString(), lexer.GetNextToken().ToString());
 		}
 		
 		[Fact]
@@ -240,7 +240,7 @@ namespace PseudocodeInterpreter.Tests
 			
 			var lexer = new Lexer("toText test \"text 44.55\"", langManager);
 			
-			Assert.Equal(expected.Representation(), lexer.GetNextToken().Representation());
+			Assert.Equal(expected.ToString(), lexer.GetNextToken().ToString());
 		}
 		
 		[Fact]
@@ -251,7 +251,7 @@ namespace PseudocodeInterpreter.Tests
 			
 			var lexer = new Lexer("length test \"text 44.55\"", langManager);
 			
-			Assert.Equal(expected.Representation(), lexer.GetNextToken().Representation());
+			Assert.Equal(expected.ToString(), lexer.GetNextToken().ToString());
 		}
 
 		[Fact]
@@ -280,10 +280,81 @@ namespace PseudocodeInterpreter.Tests
 			Assert.Equal(expectedTokens, tokenList);
 		}
 
-		// TODO
+		[Fact]
 		public void Test_Lexer_TokenStreamEn2()
 		{
+			var langManager = new LanguageManager();
+			var expectedTokens = new List<Token>
+			{
+				new Token(TokenType.INTEGER, "integer"),
+				new Token(TokenType.Identifier, "a"),
+				new Token(TokenType.NL, "\n"),
+				new Token(TokenType.NL, "\n"),
+				new Token(TokenType.IF, "if"),
+				new Token(TokenType.IntegerLit, "1"),
+				new Token(TokenType.Plus, "+"),
+				new Token(TokenType.IntegerLit, "2"),
+				new Token(TokenType.Equals, "=="),
+				new Token(TokenType.IntegerLit, "3"),
+				new Token(TokenType.THEN, "then"),
+				new Token(TokenType.NL, "\n"),
+				new Token(TokenType.Identifier, "a"),
+				new Token(TokenType.Attrib, "="),
+				new Token(TokenType.IntegerLit, "3"),
+				new Token(TokenType.NL, "\n"),
+				new Token(TokenType.ELSE, "else"),
+				new Token(TokenType.NL, "\n"),
+				new Token(TokenType.Identifier, "a"),
+				new Token(TokenType.Attrib, "="),
+				new Token(TokenType.IntegerLit, "0"),
+				new Token(TokenType.NL, "\n"),
+				new Token(TokenType.END, "end"),
+				new Token(TokenType.EOF, null)
+			};
+
+			const string text = "integer a  \n\n" +
+			                    "if 1 + 2 == 3 then\n" +
+			                    "	a = 3\n" +
+			                    "else\n" +
+			                    "	a = 0\n" +
+			                    "end";
+			var lexer = new Lexer(text, langManager);
 			
+			var tokenList = new List<Token>();
+			
+			do
+			{
+				tokenList.Add(lexer.GetNextToken());
+			} while (tokenList.Last().Type != TokenType.EOF);
+			
+			Assert.Equal(expectedTokens, tokenList);
+		}
+
+		[Fact]
+		public void Test_Lexer_TokenStreamEn3()
+		{
+			var langManager = new LanguageManager();
+			var expectedTokens = new List<Token>
+			{
+				new Token(TokenType.IF, "if"),
+				new Token(TokenType.ELSE, "else"),
+				new Token(TokenType.Identifier, "ifShouldBeId"),
+				new Token(TokenType.TIMES, "times"),
+				new Token(TokenType.UNTIL, "until"),
+				new Token(TokenType.EOF, null)
+			};
+
+			const string text = "if else ifShouldBeId times until";
+			var lexer = new Lexer(text, langManager);
+			
+			var tokenList = new List<Token>();
+			
+			do
+			{
+				tokenList.Add(lexer.GetNextToken());
+			} while (tokenList.Last().Type != TokenType.EOF);
+			
+			Assert.Equal(expectedTokens, tokenList);
 		}
 
 		[Fact]
@@ -301,8 +372,8 @@ namespace PseudocodeInterpreter.Tests
 				new Token(TokenType.UNTIL, "pana cand"),
 				new Token(TokenType.EOF, null)
 			};
-			
-			var lexer = new Lexer("intreg real daca altfel daca cat timp text pana cand", langManager);
+			const string text = "intreg real daca altfel daca cat timp text pana cand";
+			var lexer = new Lexer(text, langManager);
 			
 			var tokenList = new List<Token>();
 			
