@@ -19,6 +19,10 @@ namespace PseudocodeInterpreter
 			_languageManager = languageManager;
 		}
 		
+		/// <summary>
+		/// Advance through the text looking for the next token
+		/// </summary>
+		/// <returns>The next available token</returns>
 		public Token GetNextToken()
 		{
 			while (_currentChar.HasValue)
@@ -26,6 +30,8 @@ namespace PseudocodeInterpreter
 				if (char.IsWhiteSpace(_currentChar.Value))
 				{
 					var result = SkipWhitespace();
+					
+					// if found a new line char
 					if (result != null)
 					{
 						return result;
@@ -121,6 +127,9 @@ namespace PseudocodeInterpreter
 			return new Token(TokenType.EOF, null);
 		}
 
+		/// <summary>
+		/// Move the current character to the next one or assign <c>null</c> if the string ends.
+		/// </summary>
 		private void Advance()
 		{
 			_pos++;
@@ -134,18 +143,32 @@ namespace PseudocodeInterpreter
 			}
 		}
 
+		/// <summary>
+		/// Peek at the following string of characters
+		/// </summary>
+		/// <param name="howFar">How far front to look</param>
+		/// <returns>The substring from the current position to current position + howFar or null if the string ends</returns>
 		private string PeekStr(int howFar = 1)
 		{
 			var peekPos = _pos + howFar;
 			return peekPos > _text.Length - 1 ? null : _text.Substring(_pos + 1, peekPos - _pos);
 		}
 
+		/// <summary>
+		/// Peek at a farther character
+		/// </summary>
+		/// <param name="howFar">How far front to look</param>
+		/// <returns>The character at the <c>howFar</c> distance or null if the string ends</returns>
 		private char? PeekChar(int howFar = 1)
 		{
 			var peekPos = _pos + howFar;
 			return peekPos > _text.Length - 1 ? (char?) null : _text[peekPos];
 		}
 
+		/// <summary>
+		/// Skip whitespace characters, except for new lines
+		/// </summary>
+		/// <returns>A NewLine Token if it encounters new line character, else null</returns>
 		private Token SkipWhitespace()
 		{
 			while (_currentChar.HasValue && char.IsWhiteSpace(_currentChar.Value))
@@ -161,6 +184,9 @@ namespace PseudocodeInterpreter
 			return null;
 		}
 		
+		/// <summary>
+		/// Skip the whole line, used after a comment start ('#')
+		/// </summary>
 		private void SkipComment()
 		{
 			while (_currentChar.ToString() != Environment.NewLine)
@@ -169,6 +195,10 @@ namespace PseudocodeInterpreter
 			}
 		}
 
+		/// <summary>
+		/// Read text for an integer or real number
+		/// </summary>
+		/// <returns>A token of type IntegerLit or RealLit</returns>
 		private Token Number()
 		{
 			var result = string.Empty;
@@ -201,20 +231,30 @@ namespace PseudocodeInterpreter
 			return token;
 		}
 		
+		/// <summary>
+		/// Lexer rule for identifiers.
+		/// <para>Any identifier has the form: [a-zA-Z][a-zA-Z0-9]. The only exceptions are multi-word-keywords
+		/// which also include spaces.</para>
+		/// </summary>
+		/// <returns>A token which can have any of the Keyword types, Builtin types or a simple Identifier type</returns>
 		private Token Identifier()
 		{
 			var result = string.Empty;
+			
+			// read until while the current char is a letter or digit
 			while (_currentChar.HasValue && char.IsLetterOrDigit(_currentChar.Value))
 			{
 				result += _currentChar;
 				Advance();
 			}
 
-			var shouldSearchFurther = 
-				PeekStr() != null 
+			// if there are more characters and the current string plus the next two chars
+			// represents the start of a keyword it should search further
+			var shouldSearchFurther =
+				_currentChar.HasValue
+				&& PeekStr() != null
 				&& _languageManager.Keywords.Dict.Values
-					.Any(x => x.Length > result.Length && x.StartsWith(result + _currentChar + PeekStr()))
-				&& _currentChar.HasValue;
+					.Any(x => x.Length > result.Length && x.StartsWith(result + _currentChar + PeekStr()));
 			
 			if (shouldSearchFurther)
 			{
@@ -225,7 +265,7 @@ namespace PseudocodeInterpreter
 				while (peeked != null)
 				{
 					var possibleKeywords =
-						_languageManager.Keywords.Dict.Values.Where(x => x.StartsWith(extendedResult));
+						_languageManager.Keywords.Dict.Values.Where(x => x.StartsWith(extendedResult)).ToList();
 
 					if (!possibleKeywords.Any())
 					{
@@ -235,11 +275,15 @@ namespace PseudocodeInterpreter
 					if (possibleKeywords.Contains(extendedResult))
 					{
 						var nextChar = PeekChar(howFar + 1);
+						
+						// if the next character is not a space (is alphanum) break
+						// for example: else ifBreak
 						if (nextChar.HasValue && !char.IsWhiteSpace(nextChar.Value))
 						{
 							break;
 						}
 						
+						// Fast forward to after the whole keyword
 						for (var i = 0; i < peeked.Length + 1; i++)
 						{
 							Advance();
