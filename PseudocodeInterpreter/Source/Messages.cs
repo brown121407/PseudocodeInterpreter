@@ -28,6 +28,7 @@ namespace PseudocodeInterpreter
 			}
 		}
 
-		public string InvalidCharacter(char character) => string.Format(GetMessage("invalidChar"), character);
+		public string InvalidCharacter(uint line, char character) => string.Format(GetMessage("invalidChar"), line, character);
+		public string UnfinishedString(uint line, string str) => string.Format(GetMessage("unfinishedString"), line, str);
 	}
 }

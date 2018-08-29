@@ -90,31 +90,5 @@ namespace PseudocodeInterpreter.Tests
 			
 			Assert.Equal(builtins, langManager.Builtins.Dict);
 		}
-
-		[Fact]
-		public void Test_LanguageMessages_En()
-		{
-			var messages = new Dictionary<string, string>
-			{
-				{"invalidChar", "Invalid character: {0}"}
-			};
-
-			var langManager = new LanguageManager();
-			
-			Assert.Equal(messages, langManager.Messages.Values);
-		}
-
-		[Fact]
-		public void Test_LanguageMessages_Ro()
-		{
-			var messages = new Dictionary<string, string>
-			{
-				{"invalidChar", "Caracter invalid: {0}"}
-			};
-
-			var langManager = new LanguageManager("ro");
-			
-			Assert.Equal(messages, langManager.Messages.Values);
-		}
 	}
 }

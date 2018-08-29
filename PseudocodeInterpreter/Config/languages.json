@@ -24,7 +24,8 @@
       "length"    : "length"
     },
     "messages" : {
-      "invalidChar" : "Invalid character: {0}"
+      "invalidChar" : "Line: {0}:\n\tInvalid character: {1}",
+      "unfinishedString" : "Line: {0}:\n\tUnfinished string: \"{1}"
     }
   },
   "ro" : {
@@ -52,7 +53,8 @@
       "length"    : "lungime"
     },
     "messages" : {
-      "invalidChar" : "Caracter invalid: {0}"
+      "invalidChar" : "Linia: {0}\n\tCaracter invalid: {1}",
+      "unfinishedString" : "Linia: {0}:\n\tGhilimele neinchise pentru text: \"{1}"
     }
   }
 }

@@ -70,7 +70,7 @@ namespace PseudocodeInterpreter.Tests
 		{
 			var langManager = new LanguageManager();
 			const string textLit = "\"weeee\"";
-			var expected = new Token(TokenType.TextLit, textLit);
+			var expected = new Token(TokenType.TextLit, "weeee");
 			var input = $" {textLit} real test text  ";
 			
 			var lexer = new Lexer(input, langManager);
@@ -345,6 +345,32 @@ namespace PseudocodeInterpreter.Tests
 			};
 
 			const string text = "if else ifShouldBeId times until";
+			var lexer = new Lexer(text, langManager);
+			
+			var tokenList = new List<Token>();
+			
+			do
+			{
+				tokenList.Add(lexer.GetNextToken());
+			} while (tokenList.Last().Type != TokenType.EOF);
+			
+			Assert.Equal(expectedTokens, tokenList);
+		}
+		
+		[Fact]
+		public void Test_Lexer_TokenStreamEn4()
+		{
+			var langManager = new LanguageManager();
+			var expectedTokens = new List<Token>
+			{
+				new Token(TokenType.TEXT, "text"),
+				new Token(TokenType.Identifier, "str"),
+				new Token(TokenType.Attrib, "="),
+				new Token(TokenType.TextLit, "wooah\"stillInString\nnew line"),
+				new Token(TokenType.EOF, null)
+			};
+
+			const string text = "text str = \"wooah\\\"stillInString\\nnew line\"";
 			var lexer = new Lexer(text, langManager);
 			
 			var tokenList = new List<Token>();

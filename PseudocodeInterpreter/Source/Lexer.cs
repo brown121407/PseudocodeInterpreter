@@ -6,11 +6,12 @@ namespace PseudocodeInterpreter
 	public class Lexer
 	{
 		private int _pos;
+		private uint _line = 0;
 
 		private readonly string _text;
 		private readonly LanguageManager _languageManager;
-		private char? _currentChar;
-
+		private char? _currentChar;	
+		
 		public Lexer(string text, LanguageManager languageManager)
 		{
 			_text = text;
@@ -58,6 +59,9 @@ namespace PseudocodeInterpreter
 
 				switch (_currentChar)
 				{
+					case '"':
+						Advance();
+						return String();
 					case '=':
 					{
 						Advance();
@@ -121,7 +125,7 @@ namespace PseudocodeInterpreter
 
 				// if the current char does not match any token
 				// throw an error
-				Error();
+				InvalidCharError();
 			}
 			
 			return new Token(TokenType.EOF, null);
@@ -176,6 +180,7 @@ namespace PseudocodeInterpreter
 				if (_currentChar.ToString() == Environment.NewLine)
 				{
 					Advance();
+					_line++;
 					return new Token(TokenType.NL, Environment.NewLine);
 				}
 				Advance();
@@ -229,6 +234,34 @@ namespace PseudocodeInterpreter
 			}
 
 			return token;
+		}
+
+		private Token String()
+		{
+			var text = string.Empty;
+			
+			while (_currentChar.HasValue && _currentChar != '"')
+			{
+				if (_currentChar == '\\')
+				{
+					text += _currentChar;
+					Advance();
+					if (!_currentChar.HasValue)
+					{
+						UnfinishedStringError(text);
+					}
+				}
+				text += _currentChar;
+				Advance();
+			}
+
+			if (_currentChar != '"')
+			{
+				UnfinishedStringError(text);
+			}
+			
+			Advance();
+			return new Token(TokenType.TextLit, System.Text.RegularExpressions.Regex.Unescape(text));
 		}
 		
 		/// <summary>
@@ -315,11 +348,15 @@ namespace PseudocodeInterpreter
 				return new Token(TokenType.Identifier, result);
 			}
 		}
-		
+
 		/// <summary>
 		/// Throw an exception saying that the current character is invalid.
 		/// <para>The exception's message is <see cref="Messages.InvalidCharacter"/></para>
 		/// </summary>
-		private void Error() => throw new Exception(_languageManager.Messages.InvalidCharacter(_currentChar.Value));
+		private void InvalidCharError() =>
+			throw new Exception(_languageManager.Messages.InvalidCharacter(_line, _currentChar.Value));
+
+		private void UnfinishedStringError(string str) =>
+			throw new Exception(_languageManager.Messages.UnfinishedString(_line, str));
 	}
 }
