@@ -94,9 +94,6 @@ integer num = 3
 # the line above will not be executed
 
 num = 16 # now num is equal to 16
-# To use the "#" character in strings it must be escaped with a backslash "\"
-text str1 = "bla bla #" << error because the string never closes
-text str2 = "bla bla \#"
 ```
     
 ## Numeric operations
