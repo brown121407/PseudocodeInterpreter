@@ -2,10 +2,8 @@ namespace PseudocodeInterpreter
 {
 	public enum TokenType
 	{
-		INTEGER,
-		IntegerLit,
-		REAL,
-		RealLit,
+		NUMBER,
+		NumberLit,
 		TEXT,
 		TextLit,
 		IF,
@@ -44,7 +42,7 @@ namespace PseudocodeInterpreter
 		LessEqual,
 		GreaterThan,
 		GreaterEqual,
-		Attrib,
+		Assign,
 		Identifier
 	}
 	

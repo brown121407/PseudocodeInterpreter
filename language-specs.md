@@ -1,24 +1,17 @@
 # Language specification
 
 ## Keywords
-***integer***, ***real***, ***text***, ***if***, ***then***, ***else***, ***else if***, ***until***, ***while***, ***times***, ***do***, ***end***, ***function***, ***return***
+***number***, ***text***, ***if***, ***then***, ***else***, ***else if***, ***until***, ***while***, ***times***, ***do***, ***end***, ***function***, ***return***
 
 ## Types:
-- integers
+- numbers
     ```ruby
     # declaration
-    integer a
+    number a
 
     # initialization
-    integer a = 3
-    ```
-- floats
-    ```ruby
-    # declaration
-    real number
-
-    # initialization
-    real number = 3.14
+    number a = 3        # integer
+    number b = 3.1415   # real
     ```
 - text
     ```ruby
@@ -87,7 +80,7 @@
     
 ## Comments
 ```ruby
-integer num = 3
+number num = 3
 # anything after "#" is a comment
 # comments are ignored
 # num = 15
@@ -99,28 +92,28 @@ num = 16 # now num is equal to 16
 ## Numeric operations
 - Addition
     ```ruby
-    integer a = 1 + 1   # a == 2
+    number a = 1 + 1   # a == 2
     ```
 - Subtraction
     ```ruby
-    integer b = 2 - 1   # b == 1
+    number b = 2 - 1   # b == 1
     ```
 - Multiplication
     ```ruby
-    integer c = 3 * 4   # c == 12
+    number c = 3 * 4   # c == 12
     ```
 - Division
     ```ruby
-    integer d = 10 / 2  # d == 5
-    real e = 11 / 2     # e == 5.5
+    number d = 10 / 2  # d == 5
+    number e = 11 / 2     # e == 5.5
     ```
 - Integer division
     ```ruby
-    integer f = 11 // 2 # f == 5
+    number f = 11 // 2 # f == 5
     ```
 - Power
     ```ruby
-    integer g = 2 ** 5  # g == 32
+    number g = 2 ** 5  # g == 32
     ```
     
 ## Boolean operators
@@ -159,7 +152,7 @@ num = 16 # now num is equal to 16
     # ---------------------
     # Ask for input from the console and try to fit it into the given parameters
     # Usage:
-    integer num
+    number num
     text message
     read(num, message)
 
@@ -168,7 +161,7 @@ num = 16 # now num is equal to 16
     # ----------------------
     # Write the parameters to the console
     # Usage:
-    integer num = 43
+    number num = 43
     text message = "num is equal to "
     write(message, num) # Outputs "num is equal to 43"
 
@@ -189,23 +182,23 @@ num = 16 # now num is equal to 16
     # Converts the parameter's value to text
     # Works on every basic data type 
     # Usage:
-    integer num = 54321
+    number num = 54321
     text str = num.toText # str is equal to "54321"
 
 
-    # array.size -> integer
+    # array.size -> number
     # ---------------------
     # Returns the number of elemets in an array
     # Usage:
-    integer arr[20]
-    integer size = arr.length # size is equal to 20
+    number arr[20]
+    number size = arr.length # size is equal to 20
     ```
 
 ## Functions
 ```ruby
 # Declaration
 # Function that returns the sum of 2 integers
-function sum(integer num1, integer num2) -> integer
+function sum(number num1, number num2) -> number
     return num1 + num2
 end
 

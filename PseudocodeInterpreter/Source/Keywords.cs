@@ -29,8 +29,7 @@ namespace PseudocodeInterpreter
 			}
 		}
 			
-		public string Integer 	=> GetKeyword("integer");
-		public string Real		=> GetKeyword("real");
+		public string Number 	=> GetKeyword("number");
 		public string Text 		=> GetKeyword("text");
 		public string If 		=> GetKeyword("if");      
 		public string Else 		=> GetKeyword("else");    

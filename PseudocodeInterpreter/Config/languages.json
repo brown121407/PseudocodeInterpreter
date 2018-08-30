@@ -1,8 +1,7 @@
 ﻿{
   "en": {
     "keywords": {
-      "integer" : "integer",
-      "real"    : "real",
+      "number"  : "number",
       "text"    : "text",
       "if"      : "if",
       "else"    : "else",
@@ -30,8 +29,7 @@
   },
   "ro" : {
     "keywords" : {
-      "integer" : "intreg",
-      "real"    : "real",
+      "number"  : "numar",
       "text"    : "text",
       "if"      : "daca",
       "else"    : "altfel",

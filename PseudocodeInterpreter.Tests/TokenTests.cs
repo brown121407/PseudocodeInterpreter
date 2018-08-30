@@ -8,9 +8,9 @@ namespace PseudocodeInterpreter.Tests
 		[Fact]
 		public void Test_TokenRepresentation_IntegerLit()
 		{
-			var token = new Token(TokenType.IntegerLit, "123");
+			var token = new Token(TokenType.NumberLit, "123");
 			
-			Assert.Equal("Token(IntegerLit, 123)", token.ToString());
+			Assert.Equal("Token(NumberLit, 123)", token.ToString());
 		}
 
 		[Fact]
@@ -18,9 +18,9 @@ namespace PseudocodeInterpreter.Tests
 		{
 			var langManager = new LanguageManager("en");
 			
-			var token = new Token(TokenType.INTEGER, langManager.Keywords.Integer);
+			var token = new Token(TokenType.NUMBER, langManager.Keywords.Number);
 			
-			Assert.Equal("Token(INTEGER, integer)", token.ToString());
+			Assert.Equal("Token(NUMBER, number)", token.ToString());
 		}
 	}
 }

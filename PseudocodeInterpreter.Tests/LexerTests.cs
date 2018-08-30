@@ -10,9 +10,9 @@ namespace PseudocodeInterpreter.Tests
 		public void Test_Lexer_NextTokenInteger()
 		{
 			var langManager = new LanguageManager();
-			var expected = new Token(TokenType.INTEGER, langManager.Keywords.Integer);
+			var expected = new Token(TokenType.NUMBER, langManager.Keywords.Number);
 			
-			var lexer = new Lexer("integer test text 432", langManager);
+			var lexer = new Lexer("number test text 432", langManager);
 			
 			Assert.Equal(expected.ToString(), lexer.GetNextToken().ToString());
 		}
@@ -22,7 +22,7 @@ namespace PseudocodeInterpreter.Tests
 		{
 			var langManager = new LanguageManager();
 			const string integerLit = "343";
-			var expected = new Token(TokenType.IntegerLit, integerLit);
+			var expected = new Token(TokenType.NumberLit, integerLit);
 			var input = $"   {integerLit} integer test text";
 			
 			var lexer = new Lexer(input, langManager);
@@ -34,9 +34,9 @@ namespace PseudocodeInterpreter.Tests
 		public void Test_Lexer_NextTokenReal()
 		{
 			var langManager = new LanguageManager();
-			var expected = new Token(TokenType.REAL, langManager.Keywords.Real);
+			var expected = new Token(TokenType.NUMBER, langManager.Keywords.Number);
 			
-			var lexer = new Lexer(" real test text 44.55", langManager);
+			var lexer = new Lexer(" number test text 44.55", langManager);
 			
 			Assert.Equal(expected.ToString(), lexer.GetNextToken().ToString());
 		}
@@ -46,7 +46,7 @@ namespace PseudocodeInterpreter.Tests
 		{
 			var langManager = new LanguageManager();
 			const string realLit = "44.55";
-			var expected = new Token(TokenType.RealLit, realLit);
+			var expected = new Token(TokenType.NumberLit, realLit);
 			var input = $" {realLit} real test text";
 			
 			var lexer = new Lexer(input, langManager);
@@ -263,7 +263,7 @@ namespace PseudocodeInterpreter.Tests
 				new Token(TokenType.Dot, "."),
 				new Token(TokenType.Pow, "**"),
 				new Token(TokenType.Div, "/"),
-				new Token(TokenType.IntegerLit, "33"),
+				new Token(TokenType.NumberLit, "33"),
 				new Token(TokenType.DivInt, "//"),
 				new Token(TokenType.EOF, null)
 			};
@@ -286,33 +286,33 @@ namespace PseudocodeInterpreter.Tests
 			var langManager = new LanguageManager();
 			var expectedTokens = new List<Token>
 			{
-				new Token(TokenType.INTEGER, "integer"),
+				new Token(TokenType.NUMBER, "number"),
 				new Token(TokenType.Identifier, "a"),
 				new Token(TokenType.NL, "\n"),
 				new Token(TokenType.NL, "\n"),
 				new Token(TokenType.IF, "if"),
-				new Token(TokenType.IntegerLit, "1"),
+				new Token(TokenType.NumberLit, "1"),
 				new Token(TokenType.Plus, "+"),
-				new Token(TokenType.IntegerLit, "2"),
+				new Token(TokenType.NumberLit, "2"),
 				new Token(TokenType.Equals, "=="),
-				new Token(TokenType.IntegerLit, "3"),
+				new Token(TokenType.NumberLit, "3"),
 				new Token(TokenType.THEN, "then"),
 				new Token(TokenType.NL, "\n"),
 				new Token(TokenType.Identifier, "a"),
-				new Token(TokenType.Attrib, "="),
-				new Token(TokenType.IntegerLit, "3"),
+				new Token(TokenType.Assign, "="),
+				new Token(TokenType.NumberLit, "3"),
 				new Token(TokenType.NL, "\n"),
 				new Token(TokenType.ELSE, "else"),
 				new Token(TokenType.NL, "\n"),
 				new Token(TokenType.Identifier, "a"),
-				new Token(TokenType.Attrib, "="),
-				new Token(TokenType.IntegerLit, "0"),
+				new Token(TokenType.Assign, "="),
+				new Token(TokenType.NumberLit, "0"),
 				new Token(TokenType.NL, "\n"),
 				new Token(TokenType.END, "end"),
 				new Token(TokenType.EOF, null)
 			};
 
-			const string text = "integer a  \n\n" +
+			const string text = "number a  \n\n" +
 			                    "if 1 + 2 == 3 then\n" +
 			                    "	a = 3\n" +
 			                    "else\n" +
@@ -365,7 +365,7 @@ namespace PseudocodeInterpreter.Tests
 			{
 				new Token(TokenType.TEXT, "text"),
 				new Token(TokenType.Identifier, "str"),
-				new Token(TokenType.Attrib, "="),
+				new Token(TokenType.Assign, "="),
 				new Token(TokenType.TextLit, "wooah\"stillInString\nnew line"),
 				new Token(TokenType.EOF, null)
 			};
@@ -389,8 +389,8 @@ namespace PseudocodeInterpreter.Tests
 			var langManager = new LanguageManager("ro");
 			var expectedTokens = new List<Token>
 			{
-				new Token(TokenType.INTEGER, "intreg"),
-				new Token(TokenType.REAL, "real"),
+				new Token(TokenType.NUMBER, "numar"),
+				new Token(TokenType.Identifier, "real"),
 				new Token(TokenType.IF, "daca"),
 				new Token(TokenType.ELSEIF, "altfel daca"),
 				new Token(TokenType.WHILE, "cat timp"),
@@ -398,7 +398,7 @@ namespace PseudocodeInterpreter.Tests
 				new Token(TokenType.UNTIL, "pana cand"),
 				new Token(TokenType.EOF, null)
 			};
-			const string text = "intreg real daca altfel daca cat timp text pana cand";
+			const string text = "numar real daca altfel daca cat timp text pana cand";
 			var lexer = new Lexer(text, langManager);
 			
 			var tokenList = new List<Token>();

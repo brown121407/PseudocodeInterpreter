@@ -10,8 +10,7 @@ namespace PseudocodeInterpreter.Tests
 		{
 			var keywords = new Dictionary<string, string>
 			{
-				{"integer", 	"integer"},
-				{"real", 		"real"},
+				{"number", 		"number"},
 				{"text", 		"text"},
 				{"if", 			"if"},
 				{"then", 		"then"},
@@ -36,8 +35,7 @@ namespace PseudocodeInterpreter.Tests
 		{
 			var keywords = new Dictionary<string, string>
 			{
-				{"integer", 	"intreg"},
-				{"real", 		"real"},
+				{"number", 		"numar"},
 				{"text", 		"text"},
 				{"if", 			"daca"},
 				{"then", 		"atunci"},

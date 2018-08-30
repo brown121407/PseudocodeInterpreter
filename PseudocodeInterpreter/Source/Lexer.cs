@@ -71,7 +71,7 @@ namespace PseudocodeInterpreter
 							return new Token(TokenType.Equals, "==");
 						}
 
-						return new Token(TokenType.Attrib, "=");
+						return new Token(TokenType.Assign, "=");
 					}
 					case '+':
 						Advance();
@@ -223,7 +223,7 @@ namespace PseudocodeInterpreter
 		/// <summary>
 		/// Read text for an integer or real number
 		/// </summary>
-		/// <returns>A token of type IntegerLit or RealLit</returns>
+		/// <returns>A token of type NumberLit</returns>
 		private Token Number()
 		{
 			var result = string.Empty;
@@ -245,13 +245,8 @@ namespace PseudocodeInterpreter
 					result += _currentChar;
 					Advance();
 				}
-				
-				token = new Token(TokenType.RealLit, result);
 			}
-			else
-			{
-				token = new Token(TokenType.IntegerLit, result);
-			}
+			token = new Token(TokenType.NumberLit, result);
 
 			return token;
 		}
