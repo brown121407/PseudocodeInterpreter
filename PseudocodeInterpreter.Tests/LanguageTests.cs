@@ -20,6 +20,8 @@ namespace PseudocodeInterpreter.Tests
 				{"until", 		"until"},
 				{"times", 		"times"},
 				{"do", 			"do"},
+				{"break", 		"break"},
+				{"continue", 	"continue"},
 				{"end", 		"end"},
 				{"function", 	"function"},
 				{"return", 		"return"}
@@ -45,6 +47,8 @@ namespace PseudocodeInterpreter.Tests
 				{"until", 		"pana cand"},
 				{"times", 		"ori"},
 				{"do", 			"executa"},
+				{"break", 		"opreste"},
+				{"continue", 	"continua"},
 				{"end", 		"sfarsit"},
 				{"function", 	"functie"},
 				{"return", 		"returneaza"}

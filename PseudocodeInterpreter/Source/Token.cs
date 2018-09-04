@@ -22,6 +22,8 @@ namespace PseudocodeInterpreter
 		READ,
 		TOTEXT,
 		LENGTH,
+		CONTINUE,
+		BREAK,
 		LPar,
 		RPar,
 		LSquBra,

@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace PseudocodeInterpreter
 {
@@ -9,15 +10,17 @@ namespace PseudocodeInterpreter
 		private uint _line = 0;
 
 		private readonly string _text;
-		private readonly LanguageManager _languageManager;
+		public LanguageManager LanguageManager { get; }
 		private char? _currentChar;	
 		
 		public Lexer(string text, LanguageManager languageManager)
 		{
-			_text = text;
+			// string normalized = Regex.Replace(originalString, @"\r\n|\n\r|\n|\r", "\r\n");
+			_text = Regex.Replace(text, @"\r\n|\n", "\n");
 			_pos = 0;
 			_currentChar = _text[_pos];
-			_languageManager = languageManager;
+			LanguageManager = languageManager;
+			
 		}
 		
 		/// <summary>
@@ -197,11 +200,11 @@ namespace PseudocodeInterpreter
 		{
 			while (_currentChar.HasValue && char.IsWhiteSpace(_currentChar.Value))
 			{
-				if (_currentChar.ToString() == Environment.NewLine)
+				if (_currentChar == '\n')
 				{
 					Advance();
 					_line++;
-					return new Token(TokenType.NL, Environment.NewLine);
+					return new Token(TokenType.NL, "\n");
 				}
 				Advance();
 			}
@@ -301,7 +304,7 @@ namespace PseudocodeInterpreter
 			var shouldSearchFurther =
 				_currentChar.HasValue
 				&& PeekStr() != null
-				&& _languageManager.Keywords.Dict.Values
+				&& LanguageManager.Keywords.Dict.Values
 					.Any(x => x.Length > result.Length && x.StartsWith(result + _currentChar + PeekStr()));
 			
 			if (shouldSearchFurther)
@@ -313,7 +316,7 @@ namespace PseudocodeInterpreter
 				while (peeked != null)
 				{
 					var possibleKeywords =
-						_languageManager.Keywords.Dict.Values.Where(x => x.StartsWith(extendedResult)).ToList();
+						LanguageManager.Keywords.Dict.Values.Where(x => x.StartsWith(extendedResult)).ToList();
 
 					if (!possibleKeywords.Any())
 					{
@@ -337,7 +340,7 @@ namespace PseudocodeInterpreter
 							Advance();
 						}
 
-						var enumName = _languageManager.Keywords.Dict.First(x => x.Value == extendedResult).Key
+						var enumName = LanguageManager.Keywords.Dict.First(x => x.Value == extendedResult).Key
 							.ToUpper();
 						
 						return new Token(Enum.Parse<TokenType>(enumName), extendedResult);
@@ -348,14 +351,14 @@ namespace PseudocodeInterpreter
 				}	
 			}
 
-			if (_languageManager.Keywords.Dict.Values.Contains(result)) // if the result is a keyword
+			if (LanguageManager.Keywords.Dict.Values.Contains(result)) // if the result is a keyword
 			{
-				var enumName = _languageManager.Keywords.Dict.First(x => x.Value == result).Key.ToUpper();
+				var enumName = LanguageManager.Keywords.Dict.First(x => x.Value == result).Key.ToUpper();
 				return new Token(Enum.Parse<TokenType>(enumName), result);
 			}
-			else if (_languageManager.Builtins.Dict.Values.Contains(result))
+			else if (LanguageManager.Builtins.Dict.Values.Contains(result))
 			{
-				var enumName = _languageManager.Builtins.Dict.First(x => x.Value == result).Key.ToUpper();
+				var enumName = LanguageManager.Builtins.Dict.First(x => x.Value == result).Key.ToUpper();
 				return new Token(Enum.Parse<TokenType>(enumName), result);
 			}
 			else
@@ -369,9 +372,9 @@ namespace PseudocodeInterpreter
 		/// <para>The exception's message is <see cref="Messages.InvalidCharacter"/></para>
 		/// </summary>
 		private void InvalidCharError() =>
-			throw new Exception(_languageManager.Messages.InvalidCharacter(_line, _currentChar.Value));
+			throw new Exception(LanguageManager.Messages.InvalidCharacter(_line, _currentChar.Value));
 
 		private void UnfinishedStringError(string str) =>
-			throw new Exception(_languageManager.Messages.UnfinishedString(_line, str));
+			throw new Exception(LanguageManager.Messages.UnfinishedString(_line, str));
 	}
 }
