@@ -1,0 +1,29 @@
+image: microsoft/dotnet:latest
+
+stages:
+  - build
+  # - test
+
+variables:
+  project: "PseudocodeInterpreter"
+
+before_script:
+  - "dotnet restore"
+
+build:
+  stage: build
+  variables:
+    build_path: "$project"
+  script:
+    - "cd $build_path"
+    - "dotnet build"
+
+# Uncomment test related stuff after merging tests into master
+
+#test:
+#  stage: test
+#  variables:
+#    test_path: "$project.Tests"
+#  script:
+#    - "cd $test_path"
+#    - "dotnet test"
