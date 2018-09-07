@@ -36,21 +36,77 @@ power: atom_expr [POW factor]
 atom_expr: atom trailer*
 
 # 1. array literal 2. another test in parantheses ...
-atom: LSQUBRA [testlist] RSQUBRA | LPAR test RPAR | NAME | NUMBER | STRING | NULL | TRUE | FALSE
+atom: LSQUBRA [testlist] RSQUBRA | LPAR test RPAR | IDENTIFIER | NUMBERLIT | TEXTLIT | NULL | TRUE | FALSE
 testlist: test(COMMA test)* [COMMA]
 
 # function add (integer a, integer b) -> integer
 #   return a + b
 # end
-funcdef: FUNC NAME formal_params [RETURN_ARROW type] NL suite NL end NL
-formal_params: LPAR (type NAME)* RPAR
+funcdef: FUNC IDENTIFIER formal_params [RETURN_ARROW type] NL suite NL end NL
+formal_params: LPAR (type IDENTIFIER)* RPAR
 
 # 1. function parameters 2. array slicing 3. type member
-trailer: LPAR [testlist] RPAR | LSQUBRA subscript RSQUBRA | DOT NAME
+trailer: LPAR [testlist] RPAR | LSQUBRA subscript RSQUBRA | DOT IDENTIFIER
 
 subscript: test | [test] COLON [test] [sliceop]
 sliceop: COLON [test]
 
 expr_stmt: test | vardecl | varassign
-vardecl: type (NAME [ASSIGN test])+
-varassign: NAME ASSIGN test
+vardecl: type (IDENTIFIER [ASSIGN test])+
+varassign: IDENTIFIER ASSIGN test
+
+type: NUMBER | TEXT | BOOL
+
+###############################################################
+# Tokens (using other kind of regex notation dunno the names) #
+###############################################################
+
+NL: '\n'
+PLUS: '+'
+MINUS: '-'
+MULT: '*'
+DIV: '/'
+DIVINT: '//'
+MOD: '%'
+POW: '**'
+LPAR: '('
+RPAR: ')'
+LSQUBRA: '['
+RSQUBRA: ']'
+COLON: ':'
+DOT: '.'
+BITOR: '|'
+XOR: '^'
+BITAND: '&'
+BITNEG: '~'
+SHIFTL: '<<'
+SHIFTR: '>>'
+LESS: '<'
+LESSEQUAL: '<='
+GREATER: '>'
+GREATEREQUAL: '>=' 
+EQUAL: '=='
+NOTEQUAL: '!='
+ASSIGN: '='
+
+NUMBERLIT: /[0-9]+(?:\.[0-9]*)?/
+TEXTLIT: /"(?:[^"\\]|\\.)*"/
+IDENTIFIER: /[a-zA-Z][a-zA-Z0-9]+/ BUT SOMETIMES CAN BE /[a-zA-Z][a-zA-Z0-9]+ [a-zA-Z]/
+
+BREAK
+CONTINUE
+RETURN
+IF
+THEN
+ELSEIF
+ELSE
+WHILE
+UNTIL
+TIMES
+DO
+END
+FUNCTION
+AND
+OR
+TRUE
+FALSE
