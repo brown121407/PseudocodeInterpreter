@@ -8,7 +8,7 @@ namespace PseudocodeInterpreter.Tests
 		[Fact]
 		public void Test_TokenRepresentation_IntegerLit()
 		{
-			var token = new Token(TokenType.NumberLit, "123");
+			var token = new Token(TokenType.NUMBERLIT, "123");
 			
 			Assert.Equal("Token(NumberLit, 123)", token.ToString());
 		}

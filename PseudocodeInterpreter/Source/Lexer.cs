@@ -71,27 +71,27 @@ namespace PseudocodeInterpreter
 						if (_currentChar == '=')
 						{
 							Advance();
-							return new Token(TokenType.Equals, "==");
+							return new Token(TokenType.EQUAL, "==");
 						}
 
-						return new Token(TokenType.Assign, "=");
+						return new Token(TokenType.ASSIGN, "=");
 					}
 					case '+':
 						Advance();
-						return new Token(TokenType.Plus, "+");
+						return new Token(TokenType.PLUS, "+");
 					case '-':
 						Advance();
-						return new Token(TokenType.Minus, "-");
+						return new Token(TokenType.MINUS, "-");
 					case '*':
 					{
 						Advance();
 						if (_currentChar == '*')
 						{
 							Advance();
-							return new Token(TokenType.Pow, "**");
+							return new Token(TokenType.POW, "**");
 						}
 
-						return new Token(TokenType.Mult, "*");
+						return new Token(TokenType.MULT, "*");
 					}
 					case '/':
 					{
@@ -99,40 +99,63 @@ namespace PseudocodeInterpreter
 						if (_currentChar == '/')
 						{
 							Advance();
-							return new Token(TokenType.DivInt, "//");
+							return new Token(TokenType.DIVINT, "//");
 						}
-						return new Token(TokenType.Div, "/");
+						return new Token(TokenType.DIV, "/");
 					}
+					case '%':
+						Advance();
+						return new Token(TokenType.MOD, "%");
+					case '^':
+						Advance();
+						return new Token(TokenType.XOR, "^");
+					case '|':
+						Advance();
+						return new Token(TokenType.BITOR, "|");
+					case '&':
+						Advance();
+						return new Token(TokenType.BITAND, "&");
+					case '~':
+						Advance();
+						return new Token(TokenType.BITNEG, "~");
 					case '.':
 						Advance();
-						return new Token(TokenType.Dot, ".");
+						return new Token(TokenType.DOT, ".");
+					case ':':
+						Advance();
+						return new Token(TokenType.COLON, ":");
 					case '(':
 						Advance();
-						return new Token(TokenType.LPar, "(");
+						return new Token(TokenType.LPAR, "(");
 					case ')':
 						Advance();
-						return new Token(TokenType.RPar, ")");	
+						return new Token(TokenType.RPAR, ")");	
 					case '[':
 						Advance();
-						return new Token(TokenType.LSquBra, "[");
+						return new Token(TokenType.LSQUBRA, "[");
 					case ']':
 						Advance();
-						return new Token(TokenType.RSquBra, "]");
+						return new Token(TokenType.RSQUBRA, "]");
 					case '{':
 						Advance();
-						return new Token(TokenType.LCurBra, "{");
+						return new Token(TokenType.LCURBRA, "{");
 					case '}':
 						Advance();
-						return new Token(TokenType.RCurBra, "}");
+						return new Token(TokenType.RCURBRA, "}");
 					case '>':
 					{
 						Advance();
 						if (_currentChar == '=')
 						{
 							Advance();
-							return new Token(TokenType.GreaterEqual, ">=");
+							return new Token(TokenType.GREATEREQUAL, ">=");
 						}
-						return new Token(TokenType.GreaterThan, ">");
+						else if (_currentChar == '>')
+						{
+							Advance();
+							return new Token(TokenType.SHIFTR, ">>");
+						}
+						return new Token(TokenType.GREATER, ">");
 					}
 					case '<':
 					{
@@ -140,9 +163,24 @@ namespace PseudocodeInterpreter
 						if (_currentChar == '=')
 						{
 							Advance();
-							return new Token(TokenType.LessEqual, "<=");
+							return new Token(TokenType.LESSEQUAL, "<=");
 						}
-						return new Token(TokenType.LessThan, "<");
+						else if (_currentChar == '<')
+						{
+							Advance();
+							return new Token(TokenType.SHIFTR, "<<");
+						}
+						return new Token(TokenType.LESS, "<");
+					}
+					case '!':
+					{
+						if (PeekChar() == '=')
+						{
+							Advance(); Advance();
+							return new Token(TokenType.NOTEQUAL, "!=");
+						}
+						InvalidCharError();
+						break;
 					}
 				}
 
@@ -249,7 +287,7 @@ namespace PseudocodeInterpreter
 					Advance();
 				}
 			}
-			token = new Token(TokenType.NumberLit, result);
+			token = new Token(TokenType.NUMBERLIT, result);
 
 			return token;
 		}
@@ -279,7 +317,7 @@ namespace PseudocodeInterpreter
 			}
 			
 			Advance();
-			return new Token(TokenType.TextLit, System.Text.RegularExpressions.Regex.Unescape(text));
+			return new Token(TokenType.TEXTLIT, Regex.Unescape(text));
 		}
 		
 		/// <summary>
@@ -363,7 +401,7 @@ namespace PseudocodeInterpreter
 			}
 			else
 			{
-				return new Token(TokenType.Identifier, result);
+				return new Token(TokenType.IDENTIFIER, result);
 			}
 		}
 
@@ -371,8 +409,11 @@ namespace PseudocodeInterpreter
 		/// Throw an exception saying that the current character is invalid.
 		/// <para>The exception's message is <see cref="Messages.InvalidCharacter"/></para>
 		/// </summary>
-		private void InvalidCharError() =>
-			throw new Exception(LanguageManager.Messages.InvalidCharacter(_line, _currentChar.Value));
+		private void InvalidCharError()
+		{
+			if (_currentChar.HasValue)
+				throw new Exception(LanguageManager.Messages.InvalidCharacter(_line, _currentChar.Value));
+		}
 
 		private void UnfinishedStringError(string str) =>
 			throw new Exception(LanguageManager.Messages.UnfinishedString(_line, str));

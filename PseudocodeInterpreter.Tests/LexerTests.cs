@@ -22,7 +22,7 @@ namespace PseudocodeInterpreter.Tests
 		{
 			var langManager = new LanguageManager();
 			const string integerLit = "343";
-			var expected = new Token(TokenType.NumberLit, integerLit);
+			var expected = new Token(TokenType.NUMBERLIT, integerLit);
 			var input = $"   {integerLit} integer test text";
 			
 			var lexer = new Lexer(input, langManager);
@@ -46,7 +46,7 @@ namespace PseudocodeInterpreter.Tests
 		{
 			var langManager = new LanguageManager();
 			const string realLit = "44.55";
-			var expected = new Token(TokenType.NumberLit, realLit);
+			var expected = new Token(TokenType.NUMBERLIT, realLit);
 			var input = $" {realLit} real test text";
 			
 			var lexer = new Lexer(input, langManager);
@@ -70,7 +70,7 @@ namespace PseudocodeInterpreter.Tests
 		{
 			var langManager = new LanguageManager();
 			const string textLit = "\"weeee\"";
-			var expected = new Token(TokenType.TextLit, "weeee");
+			var expected = new Token(TokenType.TEXTLIT, "weeee");
 			var input = $" {textLit} real test text  ";
 			
 			var lexer = new Lexer(input, langManager);
@@ -260,11 +260,11 @@ namespace PseudocodeInterpreter.Tests
 			var langManager = new LanguageManager();
 			var expectedTokens = new List<Token>
 			{
-				new Token(TokenType.Dot, "."),
-				new Token(TokenType.Pow, "**"),
-				new Token(TokenType.Div, "/"),
-				new Token(TokenType.NumberLit, "33"),
-				new Token(TokenType.DivInt, "//"),
+				new Token(TokenType.DOT, "."),
+				new Token(TokenType.POW, "**"),
+				new Token(TokenType.DIV, "/"),
+				new Token(TokenType.NUMBERLIT, "33"),
+				new Token(TokenType.DIVINT, "//"),
 				new Token(TokenType.EOF, null)
 			};
 			
@@ -287,26 +287,26 @@ namespace PseudocodeInterpreter.Tests
 			var expectedTokens = new List<Token>
 			{
 				new Token(TokenType.NUMBER, "number"),
-				new Token(TokenType.Identifier, "a"),
+				new Token(TokenType.IDENTIFIER, "a"),
 				new Token(TokenType.NL, "\n"),
 				new Token(TokenType.NL, "\n"),
 				new Token(TokenType.IF, "if"),
-				new Token(TokenType.NumberLit, "1"),
-				new Token(TokenType.Plus, "+"),
-				new Token(TokenType.NumberLit, "2"),
-				new Token(TokenType.Equals, "=="),
-				new Token(TokenType.NumberLit, "3"),
+				new Token(TokenType.NUMBERLIT, "1"),
+				new Token(TokenType.PLUS, "+"),
+				new Token(TokenType.NUMBERLIT, "2"),
+				new Token(TokenType.EQUAL, "=="),
+				new Token(TokenType.NUMBERLIT, "3"),
 				new Token(TokenType.THEN, "then"),
 				new Token(TokenType.NL, "\n"),
-				new Token(TokenType.Identifier, "a"),
-				new Token(TokenType.Assign, "="),
-				new Token(TokenType.NumberLit, "3"),
+				new Token(TokenType.IDENTIFIER, "a"),
+				new Token(TokenType.ASSIGN, "="),
+				new Token(TokenType.NUMBERLIT, "3"),
 				new Token(TokenType.NL, "\n"),
 				new Token(TokenType.ELSE, "else"),
 				new Token(TokenType.NL, "\n"),
-				new Token(TokenType.Identifier, "a"),
-				new Token(TokenType.Assign, "="),
-				new Token(TokenType.NumberLit, "0"),
+				new Token(TokenType.IDENTIFIER, "a"),
+				new Token(TokenType.ASSIGN, "="),
+				new Token(TokenType.NUMBERLIT, "0"),
 				new Token(TokenType.NL, "\n"),
 				new Token(TokenType.END, "end"),
 				new Token(TokenType.EOF, null)
@@ -338,7 +338,7 @@ namespace PseudocodeInterpreter.Tests
 			{
 				new Token(TokenType.IF, "if"),
 				new Token(TokenType.ELSE, "else"),
-				new Token(TokenType.Identifier, "ifShouldBeId"),
+				new Token(TokenType.IDENTIFIER, "ifShouldBeId"),
 				new Token(TokenType.TIMES, "times"),
 				new Token(TokenType.UNTIL, "until"),
 				new Token(TokenType.EOF, null)
@@ -364,9 +364,9 @@ namespace PseudocodeInterpreter.Tests
 			var expectedTokens = new List<Token>
 			{
 				new Token(TokenType.TEXT, "text"),
-				new Token(TokenType.Identifier, "str"),
-				new Token(TokenType.Assign, "="),
-				new Token(TokenType.TextLit, "wooah\"stillInString\nnew line"),
+				new Token(TokenType.IDENTIFIER, "str"),
+				new Token(TokenType.ASSIGN, "="),
+				new Token(TokenType.TEXTLIT, "wooah\"stillInString\nnew line"),
 				new Token(TokenType.EOF, null)
 			};
 
@@ -390,7 +390,7 @@ namespace PseudocodeInterpreter.Tests
 			var expectedTokens = new List<Token>
 			{
 				new Token(TokenType.NUMBER, "numar"),
-				new Token(TokenType.Identifier, "real"),
+				new Token(TokenType.IDENTIFIER, "real"),
 				new Token(TokenType.IF, "daca"),
 				new Token(TokenType.ELSEIF, "altfel daca"),
 				new Token(TokenType.WHILE, "cat timp"),
